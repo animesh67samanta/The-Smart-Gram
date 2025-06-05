@@ -1,0 +1,342 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body{
+  font-family: sans-serif !important ;
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+.nav-item .active{
+ color: #0d6efd !important;
+}
+
+.nav-link:focus, .nav-link:hover {
+  color: #0d6efd !important;
+}
+.nav-item .nav-link{
+	font-weight: bold;
+	text-wrap: nowrap !important;
+  font-size: 18px !important;
+
+}
+
+.dropdown-item {
+	font-weight: bold !important;
+  font-size: 16px !important;
+}
+
+
+.gallery-carousel img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.owl-carousel .item .card {
+  height: 430px !important; /* Ensure it stretches to fill the container */
+}
+.owl-theme .owl-nav, .gallery-carousel .owl-nav{
+    margin-top: 250px !important;
+}
+.gallery-carousel .owl-nav{
+    margin-top: 170px !important;
+}
+.owl-nav {
+    display: flex !important;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    width: 6%;
+    transform: translateY(-50%);
+    z-index: 10;
+    font-size: 20px !important;
+    color: blue !important;
+}
+
+.owl-nav .owl-prev,
+.owl-nav .owl-next {
+  background: #333;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.owl-nav .owl-prev:hover,
+.owl-nav .owl-next:hover {
+  background: blue !important;
+  color: #fff !important;
+}
+
+.owl-carousel {
+  position: relative;
+  overflow: visible; /* Ensure arrows are not clipped */
+}
+
+.dropdown-item:hover {
+  color: #0d6efd !important;
+}
+
+.sub-item .nav-lik{
+	color: white !important;
+}
+.margin-top{
+	margin-top: 70px !important;
+}
+.search-bar {
+      position: relative;
+    }
+    .search-bar input {
+      padding-left: 2.5rem;
+    }
+    .search-bar .fa-search {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+    }
+
+.logo{
+	width: 16% !important;
+}
+.btn-outline-success {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+.btn-outline-success:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.form-control{
+	width: auto !important;
+}
+.main-section .col-9 ul li{
+ margin-top: 10px;
+}
+.card-body a{
+  text-decoration: none;
+  color: white !important;
+  font-size: 14px;
+}
+.card-link{
+  padding: 8px 45px;
+  background-color: #0d6efd;
+  border-radius: 13px;
+}
+
+.second-footer a{
+  text-decoration: none;
+  color: white;
+}
+.left-side-panel a:hover{
+  font-weight: bold
+}
+
+.left-side-panel .active{
+   font-weight: bold
+}
+footer .first-content img{
+   margin-left: 117px!important;
+}
+ .second-crousel .carousel-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .second-crousel .card-content-box {
+      border: none;
+    }
+    .second-crousel .carousel .carousel-control-prev-icon, .second-crousel .carousel .carousel-control-next-icon{
+   background-image: none !important;
+ }
+
+ ul li, a{
+  text-decoration: none !important;
+  list-style: none;
+ }
+
+.scroll-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: #0d6efd;
+            padding: 10px;
+        }
+
+        /* Scrolling text */
+        .scroll-text {
+            display: inline-block;
+            white-space: nowrap;
+            color: white;
+            font-size: 20px;
+            animation: scroll 50s linear infinite !important;
+        }
+
+        /* Keyframes for the scrolling animation */
+        @keyframes scroll {
+            0% {
+                transform: translateX(50%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #007bff;
+    }
+
+    textarea {
+      resize: none;
+      height: 150px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+   form button:hover {
+      background-color: #0056b3;
+    }
+    
+@media only screen and (max-width:768px){
+    .owl-theme .owl-nav, .gallery-carousel .owl-nav{
+        display: none !important;
+    }
+}
+
+
+@media only screen and (max-width: 576px){
+.left-side-panel a{
+  font-size: 16px !important;
+}
+.main-section .row .col-9 ul li{
+ font-size: 8px !important;
+  margin-top: 5px !important;
+}
+.second-crousel{
+  padding: 10px !important;
+}
+
+.nav-item .nav-link{
+  font-size: 14px !important;
+}
+.row .mt-md-2{
+  margin-top: 15px !important;
+}
+.margin-top{
+    margin-top: 30px !important;
+}
+h5{
+  margin-top: 10px !important;
+}
+p{
+  font-size: 12px !important;
+  margin-top: 5px !important;
+}
+
+.footer h5{
+  font-size: 16px !important;
+}
+
+.list-unstyled li{
+  font-size: 10px !important;
+}
+
+}
+
+@media only screen and (max-width: 390px){
+.margin-top{
+    margin-top: 20px !important;
+}
+.left-side-panel a{
+  font-size: 12px !important;
+}
+h2{
+  font-size: 16px !important;
+}
+h3{
+  font-size: 12px !important;
+  font-weight: bold;
+}
+h5{
+  font-size: 10px !important;
+  font-weight: bold;
+}
+p{
+  font-size: 10px;
+}
+.form-label{
+  font-size: 10px;
+}
+.form-control {
+  font-size: 10px;
+}
+.form-select{
+  font-size: 10px;
+}
+.btn{
+  font-size: 8px;
+}
+.card-body .card-link{
+  font-size: 8px;
+}
+.navbar-toggler-icon {
+  width: 18px !important;
+  height: 13px !important;
+  margin-bottom: 3px;
+}
+.navbar-toggler{
+  padding: 3px 7px !important;
+}
+.scroll-text p{
+   font-size: 10px;
+}
+.scroll-container{
+  padding: 0px !important;
+}
+.navbar-nav .nav-link{
+  font-size: 12px !important;
+}
+.navbar-nav .dropdown-item {
+  font-size: 12px !important;
+}
+}
+
+    

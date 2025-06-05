@@ -1,0 +1,378 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+h1,h2,h3,h4,h5,h6,p,span,body,a,img{
+margin:0 !important;
+padding:0 !important;
+}
+
+
+.bio_row{
+    display:flex;
+    justify-content:space-between
+   
+}
+.right_side_row{
+     position:relative;
+}
+
+.right_qr{
+    position:absolute;
+    right:70px;
+    bottom:160px;
+    width:130px !important;
+    height:130px !important;
+}
+.digital_sign{
+    position:absolute;
+    bottom:0;
+}
+.digital_signature{
+    /* width:150px !important;
+    height:150px !important; */
+    width:100% !important;
+    height:80px !important;
+    object-fit:cover;
+}
+.digital_sign{
+    font-size:13px !important;
+}
+
+p{
+	margin: 0px !important;
+	padding: 0px !important;
+	font-weight: bold;
+	font-size: 8.5px !important;
+	line-height:17px !important;
+	letter-spacing:.4px;
+}
+h1{
+	font-size:22px !important;
+	color:green;
+	margin-bottom:.4rem !important;
+	
+}
+
+h3{
+	font-size:20px !important;
+	color:blue;
+	margin-bottom:.4rem !important;
+	
+}
+
+h5{
+	font-size: 16px !important;
+	color:blue;
+	margin-bottom:.5rem !important;
+}
+.namee{
+    padding-left:65px !important;
+}
+.body{
+    margin-top:30px !important;
+   
+}
+
+
+.form-body {
+    border: 2px solid black !important;
+    width: 80% !important;
+    padding:20px !important;
+    margin:50px auto;
+    
+    
+}
+.death-form img{
+	width: 100px;
+}
+.scan_body{
+    /*background-color:aqua;*/
+    /*width:100%;*/
+    margin:30px !important;
+    border:2px solid #000;
+    padding:20px;
+}
+
+
+/*.form-body1{*/
+/*    border:2px solid #000;*/
+/*    padding:20px;*/
+/*    margin:50px auto;*/
+/*    width:80%;*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.font p{
+    font-size:5px !important;
+}
+.all_del{
+    display:flex !important;
+    justify-content:end !important;
+    padding-right:45px !important;
+}
+.right_side{
+    display:flex !important;
+    justify-content:space-between !important;
+}
+.certificate {
+  margin: 0px auto 0;
+  width: 100%;
+  background-color: #fff;
+}
+.certificate h3 {
+  text-align: center;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-label {
+  font-weight: bold;
+}
+
+.signature{
+    object-fit: cover;
+    height:50px !important;
+    width:150px !important;
+}
+.qrcode{
+    right:40px !important;
+}
+.qrcode svg{
+    width:80px;
+    height:80px;
+}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+    .form-body{
+        width:100% !important;
+        margin:50px auto;
+    }
+ 
+
+    p{
+        font-size:8px !important;
+        line-height:13px !important;
+       
+    }
+    h1{
+	font-size:18px !important;
+	color:green;
+}
+
+h3{
+	font-size: 15px !important;
+	color:blue;
+}
+
+h5{
+	font-size: 13px !important;
+	color:blue;
+}
+.namee{
+    padding-left:55px !important;
+}
+.all_del{
+    padding-right:25px !important;
+}
+
+.right_qr{
+    bottom:70px !important;
+   
+}
+.right_qr svg{
+     width:70px !important;
+    height:70px !important;
+}
+}
+
+@media(max-width:580px){
+    .form-body{
+        width:100% !important;
+        margin:50px auto;
+    }
+     p{
+         font-size:7px !important;
+         line-height:15px !important;
+         letter-spacing:.1px !important;
+     }
+ 
+     h1{
+	font-size:22px !important;
+	color:green;
+	margin-bottom:.2rem !important;
+}
+
+h3{
+	font-size: 18px !important;
+	color:blue;
+	margin-bottom:.2rem !important;
+}
+
+h5{
+	font-size: 14px !important;
+	color:blue;
+	margin-bottom:.2rem !important;
+}
+.qrcode{
+    right:40px !important;
+}
+.qrcode svg{
+    width:80px;
+    height:80px;
+}
+.time_date{
+    font-size:11px;
+}
+.signature{
+    object-fit: cover;
+    height:50px !important;
+    width:120px !important;
+}
+.namee{
+    padding-left:45px !important;
+}
+.all_del{
+    padding-right:-1px !important;
+}
+.body{
+    margin:15px !important;
+}
+
+/*---------------*/
+.right_qr{
+    bottom:70px !important;
+    right:0px !important;
+   
+}
+.digital_signature{
+    width:100px !important;
+    height:40px !important;
+}
+.digital_sign{
+    font-size:10px !important;
+}
+
+
+
+}
+@media(mx-width:490px){
+    .form-body{
+        width:100% !important;
+        margin:50px auto;
+    }
+    .form{
+        margin:0 !important;
+    }
+}
+
+@media(max-width:420px){
+    .body{
+    margin:0px !important;
+    padding:0 !important;
+    }
+     .form-body{
+         width:100% !important;
+         margin:0px !important;
+     }
+     
+     h1{
+	font-size:20px !important;
+	color:green;
+	margin-bottom:1rem !important;
+}
+
+h3{
+	font-size: 18px !important;
+	color:blue;
+	margin-bottom:1rem !important;
+}
+
+h5{
+	font-size: 15px !important;
+	color:blue;
+	margin-bottom:1rem !important;
+}
+ p{
+         font-size:6.5px !important;
+         line-height:13px !important;
+         /*letter-spacing:.2px;*/
+     }
+.qrcode{
+    right:20px !important;
+}
+.qrcode svg{
+    width:70px;
+    height:70px;
+}
+.time_date{
+    font-size:10px !important;
+}
+.signature{
+    object-fit: cover;
+    height:50px !important;
+    width:100px !important;
+}
+.namee{
+    padding-left:40px !important;
+}
+.all_del{
+    padding-right:0px !important;
+}
+
+.right_qr{
+    bottom:70px !important;
+    right:-10px !important;
+   
+}
+}
+
+
+/*@media only screen and (max-width: 576px){
+.form-body {
+border: 2px solid black !important;
+border-radius: 30px;
+padding: 0px 5px;
+margin: 30px 10px 30px 10px !important;
+   }
+
+h3{
+	font-size: 16px !important;
+}
+h5{
+	font-size: 13px !important;
+}
+
+h1{
+	font-size: 18px !important;
+}
+p{
+	font-size: 10px !important;
+}
+.form-label, .form-control, .form-select{
+	font-size: 10px !important;
+}
+.death-form img {
+	width: 100px !important;
+}
+}*/
