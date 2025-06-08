@@ -4,6 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\BirthCertificate;
+use App\Models\DeathCertificate;
+use App\Models\MarriageCertificate;
+use App\Models\Property;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -76,7 +82,19 @@ class AuthController extends Controller
     public function dashboard()
     {
         $panchayats = Admin::where('user_type','panchayat')->get();
-        return view('admin.pages.dashboard.dashboard',compact('panchayats'));
+        $userCount = [
+            'panchayat' => Admin::where('user_type', 'panchayat')->count(),
+            'officer'   => Admin::where('user_type', 'officer')->count(),
+        ];
+
+        $propertyCount = Property::count();
+
+        $certificateCount = BirthCertificate::count() 
+            + DeathCertificate::count() 
+            + MarriageCertificate::count();
+
+        $totalUserCount = array_sum($userCount);
+        return view('admin.pages.dashboard.dashboard',compact('panchayats', 'totalUserCount', 'propertyCount', 'certificateCount'));
     }
     public function profile()
     {

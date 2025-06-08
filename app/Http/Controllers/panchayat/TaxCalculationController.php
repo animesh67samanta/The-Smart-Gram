@@ -8,7 +8,8 @@ use App\Models\LampTax;
 use App\Models\Penalty;
 use App\Models\Property;
 use App\Models\PanchayatTaxes;
-
+// use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,109 +18,6 @@ use DB;
 
 class TaxCalculationController extends Controller
 {
-    // Index - List all home taxes
-    // public function hometaxList()
-    // {
-    //     // $homeTaxes = HomeTax::orderby('id', 'desc')->with(['property:id,property_name'])->get();
-    //     $details = HomeTax::with('property')
-    //         ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
-    //         ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
-    //         ->select(
-    //             'home_taxes.*',
-    //             'admins.name as panchayat_name',
-    //             'panchayat_taxes.rcc_open_plot_readireckoner_rate',
-    //             'panchayat_taxes.rcc_builtup_area_readireckoner_rate',
-    //             'panchayat_taxes.rcc_depreciation_rate',
-    //             'panchayat_taxes.rcc_usage_rate',
-    //             'panchayat_taxes.rcc_tax_rate',
-    //             'panchayat_taxes.flat_open_plot_readireckoner_rate',
-    //             'panchayat_taxes.flat_builtup_area_readireckoner_rate',
-    //             'panchayat_taxes.flat_depreciation_rate',
-    //             'panchayat_taxes.flat_usage_rate',
-    //             'panchayat_taxes.flat_tax_rate',
-    //             'panchayat_taxes.mud_brick_open_plot_readireckoner_rate',
-    //             'panchayat_taxes.mud_brick_builtup_area_readireckoner_rate',
-    //             'panchayat_taxes.mud_brick_depreciation_rate',
-    //             'panchayat_taxes.mud_brick_usage_rate',
-    //             'panchayat_taxes.mud_brick_tax_rate',
-    //             'panchayat_taxes.sticks_open_plot_readireckoner_rate',
-    //             'panchayat_taxes.sticks_builtup_area_readireckoner_rate',
-    //             'panchayat_taxes.sticks_depreciation_rate',
-    //             'panchayat_taxes.sticks_usage_rate',
-    //             'panchayat_taxes.sticks_tax_rate',
-    //             'panchayat_taxes.commercial_open_plot_readireckoner_rate',
-    //             'panchayat_taxes.commercial_builtup_area_readireckoner_rate',
-    //             'panchayat_taxes.commercial_depreciation_rate',
-    //             'panchayat_taxes.commercial_usage_rate',
-    //             'panchayat_taxes.commercial_tax_rate',
-    //             'panchayat_taxes.midc_open_plot_readireckoner_rate',
-    //             'panchayat_taxes.midc_builtup_area_readireckoner_rate',
-    //             'panchayat_taxes.midc_depreciation_rate',
-    //             'panchayat_taxes.midc_usage_rate',
-    //             'panchayat_taxes.midc_tax_rate',
-    //             'panchayat_taxes.health_tax',
-    //             'panchayat_taxes.lamp_tax',
-    //             'panchayat_taxes.water_tax',
-    //             'panchayat_taxes.special_tax',
-    //             'panchayat_taxes.special_tax_mr',
-    //             'panchayat_taxes.special_tax_rate'
-    //         )
-    //         ->first();
-
-    //         $property = $details->property;
-    //         $panchayatTaxes = $details; // because you selected all taxes in the join
-            
-    //         $open_plot_readireckoner_rate = null;
-    //         $builtup_area_readireckoner_rate = null;
-    //         $depreciation = null;
-    //         $usage_rate = null;
-    //         $home_tax_rate = null;
-            
-    //         if ($property->description == 'House' && $property->house_type == 'RCC') {
-    //             $open_plot_readireckoner_rate = $panchayatTaxes->rcc_open_plot_readireckoner_rate;
-    //             $builtup_area_readireckoner_rate = $panchayatTaxes->rcc_builtup_area_readireckoner_rate;
-    //             $depreciation = $panchayatTaxes->rcc_depreciation_rate;
-    //             $usage_rate = $panchayatTaxes->rcc_usage_rate;
-    //             $home_tax_rate = $panchayatTaxes->rcc_tax_rate;
-    //         }
-    //         elseif ($property->description == 'House' && $property->house_type == 'Flat') {
-    //             $open_plot_readireckoner_rate = $panchayatTaxes->flat_open_plot_readireckoner_rate;
-    //             $builtup_area_readireckoner_rate = $panchayatTaxes->flat_builtup_area_readireckoner_rate;
-    //             $depreciation = $panchayatTaxes->flat_depreciation_rate;
-    //             $usage_rate = $panchayatTaxes->flat_usage_rate;
-    //             $home_tax_rate = $panchayatTaxes->flat_tax_rate;
-    //         }
-    //         elseif ($property->description == 'House' && $property->house_type == 'Mud brick house') {
-    //             $open_plot_readireckoner_rate = $panchayatTaxes->mud_brick_open_plot_readireckoner_rate;
-    //             $builtup_area_readireckoner_rate = $panchayatTaxes->mud_brick_builtup_area_readireckoner_rate;
-    //             $depreciation = $panchayatTaxes->mud_brick_depreciation_rate;
-    //             $usage_rate = $panchayatTaxes->mud_brick_usage_rate;
-    //             $home_tax_rate = $panchayatTaxes->mud_brick_tax_rate;
-    //         }
-    //         elseif ($property->description == 'House' && $property->house_type == 'House of sticks') {
-    //             $open_plot_readireckoner_rate = $panchayatTaxes->sticks_open_plot_readireckoner_rate;
-    //             $builtup_area_readireckoner_rate = $panchayatTaxes->sticks_builtup_area_readireckoner_rate;
-    //             $depreciation = $panchayatTaxes->sticks_depreciation_rate;
-    //             $usage_rate = $panchayatTaxes->sticks_usage_rate;
-    //             $home_tax_rate = $panchayatTaxes->sticks_tax_rate;
-    //         }
-    //         elseif ($property->description == 'MIDC') {
-    //             $open_plot_readireckoner_rate = $panchayatTaxes->midc_open_plot_readireckoner_rate;
-    //             $builtup_area_readireckoner_rate = $panchayatTaxes->midc_builtup_area_readireckoner_rate;
-    //             $depreciation = $panchayatTaxes->midc_depreciation_rate;
-    //             $usage_rate = $panchayatTaxes->midc_usage_rate;
-    //             $home_tax_rate = $panchayatTaxes->midc_tax_rate;
-    //         }
-    //         elseif ($property->description == 'Commercial') {
-    //             $open_plot_readireckoner_rate = $panchayatTaxes->commercial_open_plot_readireckoner_rate;
-    //             $builtup_area_readireckoner_rate = $panchayatTaxes->commercial_builtup_area_readireckoner_rate;
-    //             $depreciation = $panchayatTaxes->commercial_depreciation_rate;
-    //             $usage_rate = $panchayatTaxes->commercial_usage_rate;
-    //             $home_tax_rate = $panchayatTaxes->commercial_tax_rate;
-    //         }
-
-    //     return view('panchayat.pages.hometax.index', compact('homeTaxes'));
-    // }
 
     public function hometaxList()
     {
@@ -128,6 +26,7 @@ class TaxCalculationController extends Controller
             ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
             ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
             ->where('home_taxes.panchayat_id', $adminId)
+            ->where('home_taxes.year', '>', 2024)
              ->select(
                 'panchayat_taxes.*',
                 'home_taxes.*',
@@ -203,6 +102,13 @@ class TaxCalculationController extends Controller
                         $health_tax_rate = $details->commercial_health_tax;
                         $lamp_tax_rate = $details->commercial_lamp_tax;
                         $water_tax_rate = $details->commercial_water_tax;
+                    } 
+                    elseif ($property->description == "Open plot") {
+                        $open_plot_readireckoner_rate = $details->open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->open_plot_builtup_area_readireckoner_rate;
+                        $depreciation = $details->open_plot_depreciation_rate;
+                        $usage_rate = $details->open_plot_usage_rate;
+                        $home_tax_rate = $details->open_plot_tax_rate;
                     }
                 }
 
@@ -254,7 +160,7 @@ class TaxCalculationController extends Controller
          
         $squareMeter = $property->area_in_sqmt;
         $panchayatTaxes = DB::table('panchayat_taxes')->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-        // dd($property);
+       
         if ($property->description == "House" && $property->house_type == "RCC") {
             $open_plot_readireckoner_rate = $panchayatTaxes->rcc_open_plot_readireckoner_rate;
             $builtup_area_readireckoner_rate = $panchayatTaxes->rcc_builtup_area_readireckoner_rate;
@@ -316,6 +222,13 @@ class TaxCalculationController extends Controller
             $lamp_tax_rate = $panchayatTaxes->commercial_lamp_tax;
             $water_tax_rate = $panchayatTaxes->commercial_water_tax;
         }
+        elseif ($property->description == "Open plot") {
+            $open_plot_readireckoner_rate = $panchayatTaxes->open_plot_readireckoner_rate;
+            $builtup_area_readireckoner_rate = $panchayatTaxes->open_plot_builtup_area_readireckoner_rate;
+            $depreciation = $panchayatTaxes->open_plot_depreciation_rate;
+            $usage_rate = $panchayatTaxes->open_plot_usage_rate;
+            $home_tax_rate = $panchayatTaxes->open_plot_tax_rate;
+        }
         else {
             return back()->with('error', 'Unsupported property description or house type. Please check the property details.');
         }
@@ -328,12 +241,17 @@ class TaxCalculationController extends Controller
         $homeTax = (($capitalValue / 1000) * $home_tax_rate);
 
         // Get Total Tax including additional fixed taxes
-        $getTotalTax = $homeTax +
-        ($health_tax_rate ?? 0) +
-        ($lamp_tax_rate ?? 0) +
-        ($water_tax_rate ?? 0) +
-        ($panchayatTaxes->special_tax_rate ?? 0);
+        if ($property->description == "Open plot") {
+            $getTotalTax = $homeTax;
+        }else{
+            $getTotalTax = $homeTax +
+            ($health_tax_rate ?? 0) +
+            ($lamp_tax_rate ?? 0) +
+            ($water_tax_rate ?? 0) +
+            ($panchayatTaxes->special_tax_rate ?? 0);
+        }
         $TotalTax = round($getTotalTax);
+        
        
         // Insert data into the database including the calculated home tax
         $homeTax = HomeTax::create([
@@ -434,6 +352,16 @@ class TaxCalculationController extends Controller
                 $lamp_tax_rate = $panchayatTaxes->commercial_lamp_tax;
                 $water_tax_rate = $panchayatTaxes->commercial_water_tax;
             }
+            elseif ($property->description == "Open plot") {
+                $open_plot_readireckoner_rate = $panchayatTaxes->open_plot_readireckoner_rate;
+                $builtup_area_readireckoner_rate = $panchayatTaxes->open_plot_builtup_area_readireckoner_rate;
+                $depreciation = $panchayatTaxes->open_plot_depreciation_rate;
+                $usage_rate = $panchayatTaxes->open_plot_usage_rate;
+                $home_tax_rate = $panchayatTaxes->open_plot_tax_rate;
+            }
+            else {
+                return back()->with('error', 'Unsupported property description or house type. Please check the property details.');
+            }
 
         $capitalValue = ($details->property->area_in_sqmt * $open_plot_readireckoner_rate) +
         (($details->property->area_in_sqmt * $builtup_area_readireckoner_rate * $depreciation) * $usage_rate);
@@ -442,11 +370,15 @@ class TaxCalculationController extends Controller
         $homeTax = (($capitalValue / 1000) * $home_tax_rate);
         $homeTax = round($homeTax);
         // Get Total Tax including additional fixed taxes
-        $TotalTax = $homeTax +
-        ($health_tax_rate ?? 0) +
-        ($lamp_tax_rate ?? 0) +
-        ($water_tax_rate ?? 0) +
-        ($panchayatTaxes->special_tax_rate ?? 0);
+        if ($property->description == "Open plot") {
+            $TotalTax = $homeTax;
+        }else{
+            $TotalTax = $homeTax +
+            ($health_tax_rate ?? 0) +
+            ($lamp_tax_rate ?? 0) +
+            ($water_tax_rate ?? 0) +
+            ($panchayatTaxes->special_tax_rate ?? 0);
+        }
         $getTotalTax = round($TotalTax);
             // Pass values to view
             return view('panchayat.pages.hometax.details', compact(
@@ -521,25 +453,7 @@ class TaxCalculationController extends Controller
         return view('panchayat.pages.hometax.hometax_payment_create', compact('homeTax'));
     }
 
-    // public function homeTaxPaymentStore(Request $request, $id)
-    // {
-
-    //     $request->validate([
-    //         'home_pay_tax_amount' => 'required',
-    //     ]);
-
-    //     $homeTax = HomeTax::with('property')->where('id', $id)->first();
-    //     dd($request->all());
-    //     $property_id = $homeTax->property_id;
-    //     $tax_payment = HomeTax::where('property_id', $property_id)->where('panchayat_id', Auth::guard('admin')->user()->id)->where('year', $homeTax->year)->first();
-    //     $taxPayment  = HomeTax::where('property_id', $property_id)->where('panchayat_id', Auth::guard('admin')->user()->id)->where('year', $homeTax->year)->update([
-    //         'home_pay_tax_amount' => $request->home_pay_tax_amount,
-    //         'home_due_tax_amount' => ($tax_payment->calculated_home_tax - $request->home_pay_tax_amount),
-    //     ]);
-
-    //     // return redirect()->back()->with('success', 'Tax Payment created successfully.');
-    //     return redirect()->route('panchayat.hometaxes.index')->with('success', 'Home tax record updated successfully.', compact('homeTax'));
-    // }
+    
 
     public function homeTaxPaymentStore(Request $request, $id)
     {
@@ -790,6 +704,13 @@ class TaxCalculationController extends Controller
 
     }
 
+    public function namunaNineBulk(){
+        $panchayatId = Auth::guard('admin')->user()->id;
+        $properties  = Property::whereHas('hometax')->where('panchayat_id', $panchayatId)->orderby('id', 'desc')->get();
+       
+        return view('panchayat.pages.namuna_eight_nine.namuna_nine_bulk', compact('properties'));
+    }
+
     public function namunaNineSelect()
     {
         // $panchayatId = Auth::guard('admin')->user()->id;
@@ -800,129 +721,294 @@ class TaxCalculationController extends Controller
         return view('panchayat.pages.namuna_eight_nine.namuna_nine', compact('properties'));
     }
 
-    // public function namunaNineDetails(Request $request)
-    // {
-    //     // Validate the form input
-    //     $request->validate([
-    //         'property_id' => 'required',
-    //         'year'        => 'required',
-    //     ]);
+    public function namunaNineBulkDownload(Request $request)
+    {
+        
+        $request->validate([
+            'property_id' => 'required|array',
+            'property_id.*' => 'exists:properties,id',
+            'year' => 'required|integer|min:2000|max:' . (date('Y') + 1),
+        ]);
 
-    //     $propertyDetails = Property::where('id', $request->property_id)
-    //         ->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-    //     // dd($propertyDetails);
-    //     $homeTaxDetails = HomeTax::where('property_id', $request->property_id)
-    //         ->where('year', $request->year)
-    //         ->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-    //     // dd($homeTaxDetails);
-    //     $healthTaxDetails = HealthTax::where('property_id', $request->property_id)
-    //         ->where('year', $request->year)
-    //         ->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-    //     // dd($healthTaxDetails);
-    //     $lampTaxDetails = LampTax::where('property_id', $request->property_id)
-    //         ->where('year', $request->year)
-    //         ->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-    //     // dd($lampTaxDetails);
-    //     $penaltyDetails = penalty::where('property_id', $request->property_id)
-    //         ->where('year', $request->year)
-    //         ->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-    //     // dd($penaltyDetails);
+        $responseData = [];
+        $previousYear = $request->year - 1;
+        
+        foreach ($request->property_id as $propertyId) {
+            // Get current year data
+            $currentYearTax = HomeTax::with('property')
+                ->where('property_id', $propertyId)
+                ->where('year', $request->year)
+                ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
+                ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
+                ->select(
+                    'home_taxes.*',
+                    'admins.name as panchayat_name',
+                    'admins.name_mr as panchayat_name_mr',
+                    'admins.address as panchayat_address',
+                    'admins.address_mr as panchayat_address_mr',
+                    'panchayat_taxes.*'
+                )
+                ->orderBy('home_taxes.id', 'desc')
+                ->first();
 
-    //     if (! $homeTaxDetails || ! $healthTaxDetails || ! $lampTaxDetails || ! $penaltyDetails) {
-    //         // Redirect back with an error message
-    //         return redirect()->back()->with('error', 'Some tax details are missing for the selected property and year. Please ensure all tax data is available.');
-    //     }
-    //     $totalValue = $homeTaxDetails->calculated_home_tax + $healthTaxDetails->total_health_tax + $lampTaxDetails->total_lamp_tax;
-    //     return view('panchayat.pages.namuna_eight_nine.namuna_nine_details', compact('homeTaxDetails', 'healthTaxDetails', 'lampTaxDetails', 'penaltyDetails', 'propertyDetails', 'totalValue'));
-    // }
+            // Get previous year data
+            $previousYearTax = HomeTax::with('property')
+                ->where('property_id', $propertyId)
+                ->where('year', $previousYear)
+                ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
+                ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
+                ->select(
+                    'home_taxes.*',
+                    'admins.name as panchayat_name',
+                    'admins.name_mr as panchayat_name_mr',
+                    'admins.address as panchayat_address',
+                    'admins.address_mr as panchayat_address_mr',
+                    'panchayat_taxes.*'
+                )
+                ->orderBy('home_taxes.id', 'desc')
+                ->first();
 
+            if ($currentYearTax || $previousYearTax) {
+                $propertyData = [
+                    'property_id' => $propertyId,
+                    'property_no' => $currentYearTax->property->property_no ?? $previousYearTax->property->property_no,
+                    'owner_name' => $currentYearTax->property->owner_name ?? $previousYearTax->property->owner_name,
+                    'owner_name_mr' => $currentYearTax->property->owner_name_mr ?? $previousYearTax->property->owner_name_mr,
+                    'current_year' => $request->year,
+                    'previous_year' => $previousYear,
+                    'current_year_data' => null,
+                    'previous_year_data' => null,
+                    'comparison' => []
+                ];
+
+                // Process current year data
+                if ($currentYearTax) {
+                    $currentTax = $this->calculateTaxDetails($currentYearTax);
+                    $propertyData['current_year_data'] = $currentTax;
+                }
+
+                // Process previous year data
+                if ($previousYearTax) {
+                    $previousTax = $this->calculateTaxDetails($previousYearTax);
+                    $propertyData['previous_year_data'] = $previousTax;
+                }
+
+                // Calculate comparison metrics if both years exist
+                if ($currentYearTax && $previousYearTax) {
+                    $propertyData['comparison'] = [
+                        'home_tax_diff' => $currentTax['total_tax'] - $previousTax['total_tax'],
+                        'home_tax_percentage_diff' => $previousTax['total_tax'] > 0 ? 
+                            (($currentTax['total_tax'] - $previousTax['total_tax'])) / $previousTax['total_tax'] * 100 : 0,
+                        'capital_value_diff' => $currentTax['capital_value'] - $previousTax['capital_value'],
+                        'capital_value_percentage_diff' => $previousTax['capital_value'] > 0 ? 
+                            (($currentTax['capital_value'] - $previousTax['capital_value']) / $previousTax['capital_value'] * 100) : 0,
+                    ];
+                }
+
+                $responseData[] = $propertyData;
+            }
+        }
+        
+        if (empty($responseData)) {
+            return redirect()
+                ->back()
+                ->with(['message' => 'No data found for selected properties and years'])
+                ->withInput();
+        }
+
+        // if ($request->has('download')) {
+            return $this->generateComparisonPdf($responseData);
+        // }
+    }
+
+    
+    private function calculateTaxDetails($homeTax)
+    {
+        $squareMeter = $homeTax->property->area_in_sqmt;
+        $openPlotRate = $homeTax->open_plot_readireckoner_rate;
+        $builtupAreaRate = $homeTax->builtup_area_readireckoner_rate;
+        $depreciation = $homeTax->depreciation;
+        $usageRate = $homeTax->usage_rate;
+        $homeTaxRate = $homeTax->home_tax_rate;
+
+        // Calculate Capital Value
+        $capitalValue = ($squareMeter * $openPlotRate) +
+            (($squareMeter * $builtupAreaRate * $depreciation) * $usageRate);
+
+        // Calculate home tax
+        $homeTaxAmount = (($capitalValue / 1000) * $homeTaxRate);
+
+        // Calculate total tax
+        if ($homeTax->property->description == "Open plot") {
+            $totalTax = $homeTaxAmount;
+        } else {
+            $totalTax = $homeTaxAmount +
+                ($homeTax->health_tax_rate ?? 0) +
+                ($homeTax->lamp_tax_rate ?? 0) +
+                ($homeTax->water_tax_rate ?? 0) +
+                ($homeTax->special_tax_rate ?? 0);
+        }
+
+        return [
+            'id' => $homeTax->id,
+            'year' => $homeTax->year,
+            'capital_value' => $capitalValue,
+            'home_tax_amount' => $homeTaxAmount,
+            'health_tax' => $homeTax->health_tax_rate ?? 0,
+            'lamp_tax' => $homeTax->lamp_tax_rate ?? 0,
+            'water_tax' => $homeTax->water_tax_rate ?? 0,
+            'special_tax' => $homeTax->special_tax_rate ?? 0,
+            'total_tax' => $totalTax,
+            'panchayat_name' => $homeTax->panchayat_name,
+            'panchayat_name_mr' => $homeTax->panchayat_name_mr,
+            'panchayat_address' => $homeTax->panchayat_address,
+            'panchayat_address_mr' => $homeTax->panchayat_address_mr,
+        ];
+    }
+
+    private function generateComparisonPdf($properties)
+    {
+        // dd($properties);
+        $pdf = Pdf::loadView('panchayat.pages.namuna_eight_nine.bulk_pdf', [
+            'properties' => $properties,
+            'currentDate' => now()->format('d-m-Y')
+        ]);
+        
+        return $pdf->download('tax_comparison_report_'.date('YmdHis').'.pdf');
+    }
     public function namunaNineDetails(Request $request)
     {
+        //  dd($request->all());
         $request->validate([
             'property_id' => 'required',
             'year'        => 'required',
         ]);
-         
+
+        // Check if previous year data exists
+        $previousYear = $request->year - 1;
+        $hasPreviousYearData = HomeTax::where('property_id', $request->property_id)
+                                    ->where('year', $previousYear)
+                                    ->exists();
+
+        if (!$hasPreviousYearData) {
+            // Return a form to insert previous year data
+            return view('panchayat.pages.namuna_eight_nine.previous_year_form', [
+                'property_id' => $request->property_id,
+                'year' => $request->year,
+                'previous_year' => $previousYear
+            ])->with('success', 'Lamp tax record updated successfully.');
+        }
+
         $homeTaxes = HomeTax::with('property')
-        ->where('property_id', $request->property_id)
-        ->where('year', $request->year)
-        ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
-        ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
-        ->select(
-            'home_taxes.*',
-            'admins.name as panchayat_name',
-            'admins.name_mr as panchayat_name_mr',
-            'admins.address as panchayat_address',
-            'admins.address_mr as panchayat_address_mr',
-            'panchayat_taxes.*'
-        )
-        ->orderBy('home_taxes.id', 'desc')
-        ->get()
-        ->map(function ($details) {
-            $property = $details->property;
+            ->where('property_id', $request->property_id)
+            ->where('year', $request->year)
+            ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
+            ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
+            ->select(
+                'home_taxes.*',
+                'admins.name as panchayat_name',
+                'admins.name_mr as panchayat_name_mr',
+                'admins.address as panchayat_address',
+                'admins.address_mr as panchayat_address_mr',
+                'panchayat_taxes.*'
+            )
+            ->orderBy('home_taxes.id', 'desc')
+            ->get()
+            ->map(function ($details) {
+                $property = $details->property;
 
-            $open_plot_readireckoner_rate = null;
-            $builtup_area_readireckoner_rate = null;
-            $depreciation = null;
-            $usage_rate = null;
-            $home_tax_rate = null;
+                $open_plot_readireckoner_rate = null;
+                $builtup_area_readireckoner_rate = null;
+                $depreciation = null;
+                $usage_rate = null;
+                $home_tax_rate = null;
+                $health_tax_rate = null;
+                $lamp_tax_rate = null;
+                $water_tax_rate = null;
 
-            if ($property) {
-                if ($property->description === 'House' && $property->house_type === 'RCC') {
-                    $open_plot_readireckoner_rate = $details->rcc_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->rcc_builtup_area_readireckoner_rate;
-                    $depreciation = $details->rcc_depreciation_rate;
-                    $usage_rate = $details->rcc_usage_rate;
-                    $home_tax_rate = $details->rcc_tax_rate;
-                } elseif ($property->description === 'House' && $property->house_type === 'Flat') {
-                    $open_plot_readireckoner_rate = $details->flat_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->flat_builtup_area_readireckoner_rate;
-                    $depreciation = $details->flat_depreciation_rate;
-                    $usage_rate = $details->flat_usage_rate;
-                    $home_tax_rate = $details->flat_tax_rate;
-                } elseif ($property->description === 'House' && $property->house_type === 'Mud brick house') {
-                    $open_plot_readireckoner_rate = $details->mud_brick_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->mud_brick_builtup_area_readireckoner_rate;
-                    $depreciation = $details->mud_brick_depreciation_rate;
-                    $usage_rate = $details->mud_brick_usage_rate;
-                    $home_tax_rate = $details->mud_brick_tax_rate;
-                } elseif ($property->description === 'House' && $property->house_type === 'House of sticks') {
-                    $open_plot_readireckoner_rate = $details->sticks_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->sticks_builtup_area_readireckoner_rate;
-                    $depreciation = $details->sticks_depreciation_rate;
-                    $usage_rate = $details->sticks_usage_rate;
-                    $home_tax_rate = $details->sticks_tax_rate;
-                } elseif ($property->description === 'MIDC') {
-                    $open_plot_readireckoner_rate = $details->midc_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->midc_builtup_area_readireckoner_rate;
-                    $depreciation = $details->midc_depreciation_rate;
-                    $usage_rate = $details->midc_usage_rate;
-                    $home_tax_rate = $details->midc_tax_rate;
-                } elseif ($property->description === 'Commercial') {
-                    $open_plot_readireckoner_rate = $details->commercial_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->commercial_builtup_area_readireckoner_rate;
-                    $depreciation = $details->commercial_depreciation_rate;
-                    $usage_rate = $details->commercial_usage_rate;
-                    $home_tax_rate = $details->commercial_tax_rate;
+                if ($property) {
+                    if ($property->description === 'House' && $property->house_type === 'RCC') {
+                        $open_plot_readireckoner_rate = $details->rcc_open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->rcc_builtup_area_readireckoner_rate;
+                        $depreciation = $details->rcc_depreciation_rate;
+                        $usage_rate = $details->rcc_usage_rate;
+                        $home_tax_rate = $details->rcc_tax_rate;
+                        $health_tax_rate = $details->rcc_health_tax;
+                        $lamp_tax_rate = $details->rcc_lamp_tax;
+                        $water_tax_rate = $details->rcc_water_tax;
+                    } elseif ($property->description === 'House' && $property->house_type === 'Flat') {
+                        $open_plot_readireckoner_rate = $details->flat_open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->flat_builtup_area_readireckoner_rate;
+                        $depreciation = $details->flat_depreciation_rate;
+                        $usage_rate = $details->flat_usage_rate;
+                        $home_tax_rate = $details->flat_tax_rate;
+                        $health_tax_rate = $details->flat_health_tax;
+                        $lamp_tax_rate = $details->flat_lamp_tax;
+                        $water_tax_rate = $details->flat_water_tax;
+                    } elseif ($property->description === 'House' && $property->house_type === 'Mud brick house') {
+                        $open_plot_readireckoner_rate = $details->mud_brick_open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->mud_brick_builtup_area_readireckoner_rate;
+                        $depreciation = $details->mud_brick_depreciation_rate;
+                        $usage_rate = $details->mud_brick_usage_rate;
+                        $home_tax_rate = $details->mud_brick_tax_rate;
+                        $health_tax_rate = $details->mud_brick_health_tax;
+                        $lamp_tax_rate = $details->mud_brick_lamp_tax;
+                        $water_tax_rate = $details->mud_brick_water_tax;
+                    } elseif ($property->description === 'House' && $property->house_type === 'House of sticks') {
+                        $open_plot_readireckoner_rate = $details->sticks_open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->sticks_builtup_area_readireckoner_rate;
+                        $depreciation = $details->sticks_depreciation_rate;
+                        $usage_rate = $details->sticks_usage_rate;
+                        $home_tax_rate = $details->sticks_tax_rate;
+                        $health_tax_rate = $details->sticks_health_tax;
+                        $lamp_tax_rate = $details->sticks_lamp_tax;
+                        $water_tax_rate = $details->sticks_water_tax;
+                    } elseif ($property->description === 'MIDC') {
+                        $open_plot_readireckoner_rate = $details->midc_open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->midc_builtup_area_readireckoner_rate;
+                        $depreciation = $details->midc_depreciation_rate;
+                        $usage_rate = $details->midc_usage_rate;
+                        $home_tax_rate = $details->midc_tax_rate;
+                        $health_tax_rate = $details->midc_health_tax;
+                        $lamp_tax_rate = $details->midc_lamp_tax;
+                        $water_tax_rate = $details->midc_water_tax;
+                    } elseif ($property->description === 'Commercial') {
+                        $open_plot_readireckoner_rate = $details->commercial_open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->commercial_builtup_area_readireckoner_rate;
+                        $depreciation = $details->commercial_depreciation_rate;
+                        $usage_rate = $details->commercial_usage_rate;
+                        $home_tax_rate = $details->commercial_tax_rate;
+                        $health_tax_rate = $details->commercial_health_tax;
+                        $lamp_tax_rate = $details->commercial_lamp_tax;
+                        $water_tax_rate = $details->commercial_water_tax;
+                    }
+                    elseif ($property->description == "Open plot") {
+                        $open_plot_readireckoner_rate = $details->open_plot_readireckoner_rate;
+                        $builtup_area_readireckoner_rate = $details->open_plot_builtup_area_readireckoner_rate;
+                        $depreciation = $details->open_plot_depreciation_rate;
+                        $usage_rate = $details->open_plot_usage_rate;
+                        $home_tax_rate = $details->open_plot_tax_rate;
+                    }
                 }
-            }
 
-            $details->open_plot_readireckoner_rate = $open_plot_readireckoner_rate;
-            $details->builtup_area_readireckoner_rate = $builtup_area_readireckoner_rate;
-            $details->depreciation = $depreciation;
-            $details->usage_rate = $usage_rate;
-            $details->home_tax_rate = $home_tax_rate;
+                $details->open_plot_readireckoner_rate = $open_plot_readireckoner_rate;
+                $details->builtup_area_readireckoner_rate = $builtup_area_readireckoner_rate;
+                $details->depreciation = $depreciation;
+                $details->usage_rate = $usage_rate;
+                $details->home_tax_rate = $home_tax_rate;
+                $details->health_tax_rate = $health_tax_rate;
+                $details->lamp_tax_rate = $lamp_tax_rate;
+                $details->water_tax_rate = $water_tax_rate;
 
-            return $details;
-        });
+                return $details;
+            });
 
         $homeTaxes = $homeTaxes->first();
-
-        // dd(  $homeTaxes);
+            //  dd($homeTaxes);
         if(empty($homeTaxes)){
             return redirect()->back()->with(['message'=>'selected year data not found'])->withInput();
         }
-      
+    
         $squareMeter = $homeTaxes->property->area_in_sqmt;
         $open_plot_readireckoner_rate = $homeTaxes->open_plot_readireckoner_rate;
         $builtup_area_readireckoner_rate = $homeTaxes->builtup_area_readireckoner_rate;
@@ -930,27 +1016,105 @@ class TaxCalculationController extends Controller
         $usage_rate = $homeTaxes->usage_rate;
         $home_tax_rate = $homeTaxes->home_tax_rate;
 
-        // // Calculate Capital Value
-         $capitalValue = ($squareMeter * $open_plot_readireckoner_rate) +
+        // Calculate Capital Value
+        $capitalValue = ($squareMeter * $open_plot_readireckoner_rate) +
         (($squareMeter * $builtup_area_readireckoner_rate * $depreciation) * $usage_rate);
 
-        // // // Calculate home tax
+        // Calculate home tax
         $homeTax = (($capitalValue / 1000) * $home_tax_rate);
 
-        // // // Get Total Tax including additional fixed taxes
-        $getTotalTax = $homeTax +
-        ($homeTaxes->health_tax ?? 0) +
-        ($homeTaxes->lamp_tax ?? 0) +
-        ($homeTaxes->water_tax ?? 0) +
-        ($homeTaxes->special_tax_rate ?? 0);
+        // Get Total Tax including additional fixed taxes
+        if ($homeTaxes->property->description == "Open plot") {
+            $getTotalTax = $homeTax;
+        }else{
+            $getTotalTax = $homeTax +
+            ($homeTaxes->health_tax_rate ?? 0) +
+            ($homeTaxes->lamp_tax_rate ?? 0) +
+            ($homeTaxes->water_tax_rate ?? 0) +
+            ($homeTaxes->special_tax_rate ?? 0);
+        }
 
-        $homeTaxes->capital_value =  $capitalValue;
-         $homeTaxes->home_tax = round($homeTax);
+        $responseData = [
+            'property_no' => $homeTaxes->property->property_no,
+            'owner_name_mr' => $homeTaxes->property->owner_name_mr,
+            'owner_name' => $homeTaxes->property->owner_name,
+            'id' => $homeTaxes->id,
+            'year' => $homeTaxes->year,
+            'calculated_home_tax' => $homeTaxes->calculated_home_tax ?? 0.00,
+            'home_pay_tax_amount' => $homeTaxes->home_pay_tax_amount ?? 0.00,
+            'home_due_tax_amount' => $homeTaxes->home_due_tax_amount ?? 0.00,
+            'tax_discount' => $homeTaxes->tax_discount ?? 0.00,
+            'tax_penalty' => $homeTaxes->tax_penalty ?? 0.00,
+            'property_id' => $homeTaxes->property_id,
+            'panchayat_id' => $homeTaxes->panchayat_id,
+            'panchayat_name' => $homeTaxes->panchayat_name,
+            'panchayat_name_mr' => $homeTaxes->panchayat_name_mr,
+            'panchayat_address' => $homeTaxes->panchayat_address,
+            'panchayat_address_mr' => $homeTaxes->panchayat_address_mr,
+            'special_tax' => $homeTaxes->special_tax ?? 0.00,
+            'special_tax_mr' => $homeTaxes->special_tax_mr ?? 0.00,
+            'special_tax_rate' => $homeTaxes->special_tax_rate ?? 0.00,
+            'open_plot_readireckoner_rate' => $homeTaxes->open_plot_readireckoner_rate ?? 0.00,
+            'builtup_area_readireckoner_rate' => $homeTaxes->builtup_area_readireckoner_rate ?? 0.00,
+            'depreciation' => $homeTaxes->depreciation ?? 0.00,
+            'usage_rate' => $homeTaxes->usage_rate ?? 0.00,
+            'home_tax_rate' => $homeTaxes->home_tax_rate ?? 0.00,
+            'health_tax_rate' => $homeTaxes->health_tax_rate ?? 0.00,
+            'lamp_tax_rate' => $homeTaxes->lamp_tax_rate ?? 0.00,
+            'water_tax_rate' => $homeTaxes->water_tax_rate ?? 0.00,
+            'capital_value' => round($capitalValue, 0, 2) ?? 0.00,
+            'home_tax' => round($homeTax, 0, 2) ?? 0.00,
+            'total_tax_amount' => round($getTotalTax, 0, 2) ?? 0.00 ,
+            'previous_home_tax_amount' => round($request->calculated_home_tax ?? 0, 2) ?? 0.00,
+            'previous_health_tax_amount' => round($request->calculated_health_tax ?? 0, 2) ?? 0.00,
+            'previous_lamp_tax_amount' => round($request->calculated_lamp_tax ?? 0, 2) ?? 0.00,
+            'previous_total_tax_amount' => round($request->total_tax ?? 0, 2) ?? 0.00
+        ];
+
+
+        //  dd($responseData);
+
+
+        return view('panchayat.pages.namuna_eight_nine.namuna_nine_details', compact('responseData'));
+    }
+
+
+    public function storePreviousYearData(Request $request)
+    {
+            // dd($request->all());
+        $request->validate([
+            'property_id' => 'required',
+            'year' => 'required',
+            'calculated_home_tax' => 'required|numeric',
+            'home_pay_tax_amount' => 'nullable|numeric',
+            'home_due_tax_amount' => 'nullable|numeric',
+            'total_tax' => 'required|numeric',
+
+            
+        ]);
+
+        // Create previous year record
+        HomeTax::create([
+            'property_id' => $request->property_id,
+            'year' => $request->year - 1, // Store as previous year
+            'calculated_home_tax' => $request->total_tax,
+            'home_pay_tax_amount' => $request->home_pay_tax_amount,
+            'home_due_tax_amount' => $request->home_due_tax_amount,
+            'panchayat_id' => Auth::guard('admin')->user()->id
         
-        //  echo '<pre>';
-        //  print_r(json_decode($homeTaxes));die;
-        //  dd($homeTaxes); 
-        return view('panchayat.pages.namuna_eight_nine.namuna_nine_details', compact('homeTaxes'));
+        ]);
+
+        // Redirect back to the original request with the original year
+        return redirect()->route('panchayat.namuna.nine.details.get', [
+            'property_id' => $request->property_id,
+            'year' => $request->year,
+            'calculated_home_tax' => $request->calculated_home_tax ?? '',
+            'calculated_health_tax' => $request->calculated_health_tax ?? '',
+            'calculated_lamp_tax' => $request->calculated_lamp_tax ?? '',
+            'total_tax' => $request->total_tax ?? '',
+            'home_pay_tax_amount' => $request->home_pay_tax_amount ?? '',
+            'home_due_tax_amount' => $request->home_due_tax_amount ?? ''
+        ]);
     }
 
     public function namunaEightSelect()
@@ -1051,6 +1215,12 @@ class TaxCalculationController extends Controller
                     $health_tax_rate = $details->commercial_health_tax;
                     $lamp_tax_rate = $details->commercial_lamp_tax;
                     $water_tax_rate = $details->commercial_water_tax;
+                } elseif ($property->description == "Open plot") {
+                    $open_plot_readireckoner_rate = $details->open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->open_plot_builtup_area_readireckoner_rate;
+                    $depreciation = $details->open_plot_depreciation_rate;
+                    $usage_rate = $details->open_plot_usage_rate;
+                    $home_tax_rate = $details->open_plot_tax_rate;
                 }
             }
 
@@ -1065,9 +1235,8 @@ class TaxCalculationController extends Controller
             return $details;
         });
 
-    //   dd($homeTaxes->first());
+        //   dd($homeTaxes->first());
         $homeTaxes = $homeTaxes->first();
-        // dd($taxData->property->area_in_sqmt);
         $squareMeter = $homeTaxes->property->area_in_sqmt;
         $open_plot_readireckoner_rate = $homeTaxes->open_plot_readireckoner_rate;
         $builtup_area_readireckoner_rate = $homeTaxes->builtup_area_readireckoner_rate;
@@ -1083,132 +1252,23 @@ class TaxCalculationController extends Controller
         $homeTax = (($capitalValue / 1000) * $home_tax_rate);
 
         // // // Get Total Tax including additional fixed taxes
-        $getTotalTax = $homeTax +
-        ($homeTaxes->health_tax_rate ?? 0) +
-        ($homeTaxes->lamp_tax_rate ?? 0) +
-        ($homeTaxes->water_tax_rate ?? 0) +
-        ($homeTaxes->special_tax_rate ?? 0);
-
+        if ($homeTaxes->property->description == "Open plot") {
+            $getTotalTax = $homeTax;
+        }else{
+            $getTotalTax = $homeTax +
+            ($homeTaxes->health_tax_rate ?? 0) +
+            ($homeTaxes->lamp_tax_rate ?? 0) +
+            ($homeTaxes->water_tax_rate ?? 0) +
+            ($homeTaxes->special_tax_rate ?? 0);
+        }
         $homeTaxes->capital_value =  $capitalValue;
          $homeTaxes->total_home_tax =  round($homeTax);
         $homeTaxes->total_tax_amount = round($getTotalTax);
         
         return view('panchayat.pages.namuna_eight_nine.namuna_eight_details', compact('homeTaxes'));
 
-        // $propertyDetails = Property::where('id', $request->property_id)->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-        // $homeTaxDetails  = HomeTax::where('property_id', $request->property_id)->where('year', $request->year)->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-        // //dd($homeTaxDetails);
-        // $healthTaxDetails = HealthTax::where('property_id', $request->property_id)->where('year', $request->year)->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-        // // dd($healthTaxDetails);
-        // $lampTaxDetails = LampTax::where('property_id', $request->property_id)->where('year', $request->year)->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
-        // // dd($propertyDetails);
-        // if (! $homeTaxDetails && ! $healthTaxDetails && ! $lampTaxDetails) {
-
-        //     return redirect()->back()->with('error', 'Some tax details are missing for the selected property and year. Please ensure all tax data is available.');
-        // }
-        // $totalTax = $homeTaxDetails->calculated_home_tax + $lampTaxDetails->total_lamp_tax + $healthTaxDetails->total_health_tax;
-        
-        // return view('panchayat.pages.namuna_eight_nine.namuna_eight_details')->with('taxData', $taxData);
-
     }
-    // public function namunaEightDetails(Request $request)
-    // {
-    //     $request->validate([
-    //         'property_id' => 'required',
-    //         'year'        => 'required',
-    //     ]);
-
-    //     $homeTaxes = HomeTax::with('property')
-    //         ->where('property_id', $request->property_id)
-    //         ->where('year', $request->year)
-    //         ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
-    //         ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
-    //         ->select(
-    //             'home_taxes.*',
-    //             'admins.name as panchayat_name',
-    //             'panchayat_taxes.health_tax',
-    //             'panchayat_taxes.lamp_tax',
-    //             'panchayat_taxes.water_tax',
-    //             'panchayat_taxes.special_tax_rate'
-    //         )
-    //         ->orderBy('home_taxes.id', 'desc')
-    //         ->get()
-    //         ->map(function ($details) {
-    //             $property = $details->property;
-
-    //             $details->open_plot_readireckoner_rate = null;
-    //             $details->builtup_area_readireckoner_rate = null;
-    //             $details->depreciation = null;
-    //             $details->usage_rate = null;
-    //             $details->home_tax_rate = null;
-
-    //             if ($property) {
-    //                 if ($property->description === 'House') {
-    //                     switch ($property->house_type) {
-    //                         case 'RCC':
-    //                             $prefix = 'rcc';
-    //                             break;
-    //                         case 'Flat':
-    //                             $prefix = 'flat';
-    //                             break;
-    //                         case 'Mud brick house':
-    //                             $prefix = 'mud_brick';
-    //                             break;
-    //                         case 'House of sticks':
-    //                             $prefix = 'sticks';
-    //                             break;
-    //                     }
-    //                 } elseif ($property->description === 'MIDC') {
-    //                     $prefix = 'midc';
-    //                 } elseif ($property->description === 'Commercial') {
-    //                     $prefix = 'commercial';
-    //                 }
-
-    //                 if (isset($prefix)) {
-    //                     $details->open_plot_readireckoner_rate   = $details->{$prefix . '_open_plot_readireckoner_rate'};
-    //                     $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
-    //                     $details->depreciation                    = $details->{$prefix . '_depreciation_rate'};
-    //                     $details->usage_rate                      = $details->{$prefix . '_usage_rate'};
-    //                     $details->home_tax_rate                   = $details->{$prefix . '_tax_rate'};
-    //                 }
-    //             }
-
-    //             return $details;
-    //         });
-
-    //     // If you want to calculate totals for only the first record
-    //     $firstTax = $homeTaxes->first();
-
-    //     if ($firstTax && $firstTax->property) {
-    //         $squareMeter = $firstTax->property->area_in_sqmt;
-    //         $open_plot_rate = $firstTax->open_plot_readireckoner_rate;
-    //         $builtup_area_rate = $firstTax->builtup_area_readireckoner_rate;
-    //         $depreciation = $firstTax->depreciation;
-    //         $usage_rate = $firstTax->usage_rate;
-    //         $home_tax_rate = $firstTax->home_tax_rate;
-
-    //         // Capital Value Calculation
-    //         $capitalValue = ($squareMeter * $open_plot_rate) +
-    //             (($squareMeter * $builtup_area_rate * $depreciation) * $usage_rate);
-
-    //         // Home Tax Calculation
-    //         $homeTax = (($capitalValue / 1000) * ($home_tax_rate / 100));
-
-    //         // Total Tax with additional fixed taxes
-    //         $getTotalTax = $homeTax +
-    //             ($firstTax->health_tax ?? 0) +
-    //             ($firstTax->lamp_tax ?? 0) +
-    //             ($firstTax->water_tax ?? 0) +
-    //             ($firstTax->special_tax_rate ?? 0);
-
-    //         // Append values to firstTax
-    //         $firstTax->capital_value = $capitalValue;
-    //         $firstTax->home_tax = $homeTax;
-    //         $firstTax->total_tax_amount = $getTotalTax;
-    //     }
-    //     dd($homeTaxes);
-    //     return view('panchayat.pages.namuna_eight_nine.namuna_eight_details', compact('homeTaxes'));
-    // }
+   
 
 
     public function homeTaxDemandBill($id){
@@ -1238,17 +1298,28 @@ class TaxCalculationController extends Controller
                         'House of sticks' => 'sticks',
                     ];
 
-                    $prefix = $property->description === 'MIDC' ? 'midc' : ($property->description === 'Commercial' ? 'commercial' : ($typeMap[$property->house_type] ?? null));
-
-                    if ($prefix) {
-                        $details->open_plot_readireckoner_rate = $details->{$prefix . '_open_plot_readireckoner_rate'};
-                        $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
-                        $details->depreciation = $details->{$prefix . '_depreciation_rate'};
-                        $details->usage_rate = $details->{$prefix . '_usage_rate'};
-                        $details->home_tax_rate = $details->{$prefix . '_tax_rate'};
-                        $details->health_tax_rate = $details->{$prefix . '_health_tax'};
-                        $details->lamp_tax_rate = $details->{$prefix . '_lamp_tax'};
-                        $details->water_tax_rate = $details->{$prefix . '_water_tax'};
+                    $prefix = $property->description === 'MIDC' ? 'midc' : ($property->description === 'Open plot' ? 'open_plot' : 
+                    ($property->description === 'Commercial' ? 'commercial' :
+                    ($typeMap[$property->house_type] ?? null)));
+                    if ($property->description === 'Open plot') {
+                        if ($prefix) {
+                            $details->open_plot_readireckoner_rate = $details->{$prefix . '_readireckoner_rate'};
+                            $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
+                            $details->depreciation = $details->{$prefix . '_depreciation_rate'};
+                            $details->usage_rate = $details->{$prefix . '_usage_rate'};
+                            $details->home_tax_rate = $details->{$prefix . '_tax_rate'};
+                        }
+                    }else{
+                        if ($prefix) {
+                            $details->open_plot_readireckoner_rate = $details->{$prefix . '_open_plot_readireckoner_rate'};
+                            $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
+                            $details->depreciation = $details->{$prefix . '_depreciation_rate'};
+                            $details->usage_rate = $details->{$prefix . '_usage_rate'};
+                            $details->home_tax_rate = $details->{$prefix . '_tax_rate'};
+                            $details->health_tax_rate = $details->{$prefix . '_health_tax'};
+                            $details->lamp_tax_rate = $details->{$prefix . '_lamp_tax'};
+                            $details->water_tax_rate = $details->{$prefix . '_water_tax'};
+                        }
                     }
                 }
 
@@ -1257,7 +1328,7 @@ class TaxCalculationController extends Controller
 
         $tax = $homeTaxes->first();
 
-        //  dd($tax);
+        //   dd($tax);
         return view('panchayat.pages.hometax.demand_bill', compact('tax'));
     }
 
@@ -1289,17 +1360,28 @@ class TaxCalculationController extends Controller
                         'House of sticks' => 'sticks',
                     ];
 
-                    $prefix = $property->description === 'MIDC' ? 'midc' : ($property->description === 'Commercial' ? 'commercial' : ($typeMap[$property->house_type] ?? null));
-
-                    if ($prefix) {
-                        $details->open_plot_readireckoner_rate = $details->{$prefix . '_open_plot_readireckoner_rate'};
-                        $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
-                        $details->depreciation = $details->{$prefix . '_depreciation_rate'};
-                        $details->usage_rate = $details->{$prefix . '_usage_rate'};
-                        $details->home_tax_rate = $details->{$prefix . '_tax_rate'};
-                        $details->health_tax_rate = $details->{$prefix . '_health_tax'};
-                        $details->lamp_tax_rate = $details->{$prefix . '_lamp_tax'};
-                        $details->water_tax_rate = $details->{$prefix . '_water_tax'};
+                    $prefix = $property->description === 'MIDC' ? 'midc' : ($property->description === 'Open plot' ? 'open_plot' : 
+                    ($property->description === 'Commercial' ? 'commercial' :
+                    ($typeMap[$property->house_type] ?? null)));
+                    if ($property->description === 'Open plot') {
+                        if ($prefix) {
+                            $details->open_plot_readireckoner_rate = $details->{$prefix . '_readireckoner_rate'};
+                            $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
+                            $details->depreciation = $details->{$prefix . '_depreciation_rate'};
+                            $details->usage_rate = $details->{$prefix . '_usage_rate'};
+                            $details->home_tax_rate = $details->{$prefix . '_tax_rate'};
+                        }
+                    }else{
+                        if ($prefix) {
+                            $details->open_plot_readireckoner_rate = $details->{$prefix . '_open_plot_readireckoner_rate'};
+                            $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
+                            $details->depreciation = $details->{$prefix . '_depreciation_rate'};
+                            $details->usage_rate = $details->{$prefix . '_usage_rate'};
+                            $details->home_tax_rate = $details->{$prefix . '_tax_rate'};
+                            $details->health_tax_rate = $details->{$prefix . '_health_tax'};
+                            $details->lamp_tax_rate = $details->{$prefix . '_lamp_tax'};
+                            $details->water_tax_rate = $details->{$prefix . '_water_tax'};
+                        }
                     }
                 }
 
@@ -1362,6 +1444,7 @@ class TaxCalculationController extends Controller
         $marathi = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
         return str_replace($english, $marathi, $string);
     }
+
     public function convertNumberToWords($number)
     {
         $words = array(

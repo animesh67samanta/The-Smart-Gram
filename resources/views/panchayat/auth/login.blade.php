@@ -21,7 +21,7 @@
 	<link href="{{asset('admin/assets/css/app.css')}}" rel="stylesheet">
 	<link href="{{asset('admin/assets/css/icons.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	<title>The Smart Gram Admin</title>
+	<title>The Smart Gram Panchayat</title>
 </head>
 
 <body class="bg-theme bg-theme2">
@@ -38,7 +38,7 @@
 										<img src="{{asset('admin/assets/images/logo-icon.png')}}" width="60px" height="60px" alt="" style="background: white;" />
 									</div>
 									<div class="text-center mb-4">
-										<h5 class="">The Smart Gram Admin</h5>
+										<h5 class="">The Smart Gram Panchayat</h5>
 										<p class="mb-0">Please log in to your account</p>
 									</div>
 									<div class="form-body">

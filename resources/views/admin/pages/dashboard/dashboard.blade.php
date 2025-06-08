@@ -11,7 +11,7 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <p class="mb-0">Total Usesrs</p>
-                                    <h4 class="my-1">0</h4>
+                                    <h4 class="my-1">{{ $totalUserCount }}</h4>
                                     {{-- <p class="mb-0 font-13"><i class='bx bxs-up-arrow align-middle'></i>$34 Since last week
                                     </p> --}}
                                 </div>
@@ -28,7 +28,7 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <p class="mb-0">Total Property</p>
-                                    <h4 class="my-1">0</h4>
+                                    <h4 class="my-1">{{ $propertyCount }}</h4>
                                     {{-- <p class="mb-0 font-13"><i class='bx bxs-up-arrow align-middle'></i>14% Since last week
                                     </p> --}}
                                 </div>
@@ -45,7 +45,7 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <p class="mb-0">Total Certificate</p>
-                                    <h4 class="my-1">0</h4>
+                                    <h4 class="my-1">{{ $certificateCount }}</h4>
                                     {{-- <p class="mb-0 font-13"><i class='bx bxs-down-arrow align-middle'></i>12.4% Since last
                                         week</p> --}}
                                 </div>

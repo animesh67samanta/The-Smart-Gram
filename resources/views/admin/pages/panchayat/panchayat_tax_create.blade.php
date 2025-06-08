@@ -365,6 +365,42 @@
                                     </div>
                                 </div>
                                 
+                                {{-- Open plot Tax Fields --}}
+                                <div class="row">
+                                    <div class="row text-center text-warning mb-3"><strong><u>Tax Rate Of Open plot</u></strong></div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Open plot Readireckoner Rate</label>
+                                            <input type="number" step="0.01" name="open_plot_readireckoner_rate" class="form-control" value="{{ old('open_plot_readireckoner_rate') }}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Open plot Builtup Area Readireckoner Rate</label>
+                                            <input type="number" step="0.01" name="open_plot_builtup_area_readireckoner_rate" class="form-control" value="{{ old('open_plot_builtup_area_readireckoner_rate') }}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Open plot Depreciation Rate</label>
+                                            <input type="number" step="0.01" name="open_plot_depreciation_rate" class="form-control" value="{{ old('open_plot_depreciation_rate') }}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Open plot Usage Rate</label>
+                                            <input type="number" step="0.01" name="open_plot_usage_rate" class="form-control" value="{{ old('open_plot_usage_rate') }}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Open plot Tax Rate</label> 
+                                            <input type="number" step="0.01" name="open_plot_tax_rate" class="form-control" value="{{ old('open_plot_tax_rate') }}" >
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
                                 {{-- Special Tax Fields --}}
                                 <div class="row">
                                     <div class="row text-center text-warning mb-3"><strong><u>Tax Rate Of Spacial</u></strong></div>

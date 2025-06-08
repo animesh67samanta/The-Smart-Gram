@@ -15,9 +15,13 @@ return [
     'enable_font_subsetting' => false,
     'pdf_backend' => 'CPDF',
     'default_media_type' => 'screen',
-    'default_paper_size' => 'a4',
-    'default_font' => 'serif',
-
+    'default_paper_size' => 'legal',
+    'default_font' => 'mangal',
+    'fonts' => [
+        'mangal' => [
+            'R' => 'Mangal.ttf',  // Regular
+        ],
+    ],
     // Custom fonts
     'font_family' => [
     'custom-font' => [
@@ -154,7 +158,7 @@ return [
      *
      * @see CPDF_Adapter::PAPER_SIZES for valid sizes ('letter', 'legal', 'A4', etc.)
      */
-    'default_paper_size' => 'a4',
+    'default_paper_size' => 'legal',
 
     /**
      * The default paper orientation.
@@ -163,7 +167,7 @@ return [
      *
      * @var string
      */
-    'default_paper_orientation' => 'portrait',
+    'default_paper_orientation' => 'landscape',
 
     /**
      * The default font family

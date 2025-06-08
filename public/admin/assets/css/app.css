@@ -56,7 +56,7 @@ a {
 
 .sidebar-wrapper {
 
-	width: 250px;
+	width: 270px;
 
 	height: calc(100% - 60px);
 
@@ -81,11 +81,13 @@ a {
 }
 .table-responsive .table-striped{
     overflow-x: scroll !important;
-    width: 1000px !important;
+    /* width: 1000px !important; */
+
+    width: 100% !important;
 }
 .sidebar-header {
 
-	width: 250px;
+	width: 270px;
 
 	height: 60px;
 
@@ -159,7 +161,7 @@ a {
 
 	top: 0;
 
-	left: 250px;
+	left: 270px;
 
 	right: 0;
 
@@ -203,14 +205,14 @@ a {
 	margin-top: 60px;
 
 	margin-bottom: 0px;
-
+	/* margin-left: 0; */
 	margin-left: 250px
 
 }
 
 .page-content {
 
-	padding: 1.5rem 1.5rem 0 1.5rem
+	padding: 1.5rem 1.5rem 0 6.5rem
 
 }
 
@@ -389,13 +391,14 @@ input{
 
 	font-size: 24px;
 
-	line-height: 1
+	line-height: 1;
 
 }
 
 .sidebar-wrapper .metismenu a .menu-title {
 
-	margin-left: 10px
+	margin-left: 10px;
+	margin-right: 10px;
 
 }
 
@@ -4306,12 +4309,6 @@ body.bg-theme15 {
 	.sidebar-header {
 
 		background: #171717;
-
-	}
-
-	.page-wrapper {
-
-		margin-left: 0
 
 	}
 

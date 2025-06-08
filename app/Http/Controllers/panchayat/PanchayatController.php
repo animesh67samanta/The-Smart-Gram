@@ -206,6 +206,13 @@ class PanchayatController extends Controller
             'midc_lamp_tax' => 'nullable|numeric',
             'midc_water_tax' => 'nullable|numeric',
 
+            // Open Plot
+            'open_plot_readireckoner_rate' => 'nullable|numeric',
+            'open_plot_builtup_area_readireckoner_rate' => 'nullable|numeric',
+            'open_plot_depreciation_rate' => 'nullable|numeric',
+            'open_plot_usage_rate' => 'nullable|numeric',
+            'open_plot_tax_rate' => 'nullable|numeric',
+
             // Special
             'special_tax' => 'nullable|string',
             'special_tax_rate' => 'nullable|numeric',
@@ -284,6 +291,13 @@ class PanchayatController extends Controller
             'midc_health_tax' => $validated['midc_health_tax'] ?? null,
             'midc_lamp_tax' => $validated['midc_lamp_tax'] ?? null,
             'midc_water_tax' => $validated['midc_water_tax'] ?? null,
+
+            // Open Plot
+            'open_plot_readireckoner_rate' => $validated['open_plot_readireckoner_rate'] ?? null,
+            'open_plot_builtup_area_readireckoner_rate' => $validated['open_plot_builtup_area_readireckoner_rate'] ?? null,
+            'open_plot_depreciation_rate' => $validated['open_plot_depreciation_rate'] ?? null,
+            'open_plot_usage_rate' => $validated['open_plot_usage_rate'] ?? null,
+            'open_plot_tax_rate' => $validated['open_plot_tax_rate'] ?? null,
 
             // Special
             'special_tax' => $validated['special_tax'] ?? null,
@@ -368,6 +382,14 @@ class PanchayatController extends Controller
             'midc_health_tax' => 'nullable|numeric',
             'midc_lamp_tax' => 'nullable|numeric',
             'midc_water_tax' => 'nullable|numeric',
+            
+            // Open Plot
+            'open_plot_readireckoner_rate' => 'nullable|numeric',
+            'open_plot_builtup_area_readireckoner_rate' => 'nullable|numeric',
+            'open_plot_depreciation_rate' => 'nullable|numeric',
+            'open_plot_usage_rate' => 'nullable|numeric',
+            'open_plot_tax_rate' => 'nullable|numeric',
+
             // Special
             'special_tax' => 'nullable|string',
             'special_tax_mr' => 'nullable|string',

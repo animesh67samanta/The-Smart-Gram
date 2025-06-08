@@ -186,6 +186,8 @@ return [
         /*
          * Package Service Providers...
          */
+        Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -212,8 +214,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-   
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
-    'GoogleTranslate' => Stichoza\GoogleTranslate\GoogleTranslate::class,
+        'GoogleTranslate' => Stichoza\GoogleTranslate\GoogleTranslate::class,
 ])->toArray(),
 ];

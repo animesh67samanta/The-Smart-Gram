@@ -9,7 +9,7 @@
                 <div class="breadcrumb-title pe-3">Home Tax</div>
                 <div>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
+                        <ol class="breadcrumb mb-0 p-2">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Home Tax Details</li>
@@ -20,7 +20,7 @@
             </div>
             
             <div class="row">
-                <div class="col-md-10 mx-auto">
+                <div class="col-md-10 mx-auto offset-4">
                     <div class="card shadow-lg">
                         <div class="card-body">
                             <h2 class="mb-4 text-center">Home Tax Calculation Details</h2>

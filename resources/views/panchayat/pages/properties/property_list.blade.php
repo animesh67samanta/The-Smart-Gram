@@ -14,7 +14,7 @@
                     <div class="breadcrumb-title pe-3">Property</div>
                     <div class="ps-3">
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb mb-0 p-0">
+                            <ol class="breadcrumb mb-0 p-2">
                                 <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">List</li>
@@ -30,24 +30,16 @@
                                 <thead>
                                     <tr>
                                         <th>Sl No</th>
-                                        <!-- <th>{{ GoogleTranslate::trans('Panchayat Name', 'mr') }}/Panchayat Name</th> -->
-                                        <!-- <th>Owner Name</th> -->
-                                        <!-- <th>Property No</th> -->
-                                        <!-- <th>Property Name</th> -->
-                                        <!-- <th>Property User Name</th>
-                                        <th>Property Type</th>
-                                        <th>House Type</th>
-                                        <th>Area in Square Feet</th>
-                                        <th>Area in Square Meter</th> -->
-                                        <th>{{ GoogleTranslate::trans('Panchayat Name', 'mr') }}</th>
-                                        <th>{{ GoogleTranslate::trans('Owner Name', 'mr') }}</th>
-                                        <th>{{ GoogleTranslate::trans('Property No', 'mr') }}</th>
+                                       
+                                        <th>पंचायत नाव</th>
+                                        <th>मालकाचे नाव</th>
+                                        <th>मालमत्ता क्र</th>
 
-                                        <th>{{ GoogleTranslate::trans('Property Property User Name', 'mr') }}</th>
-                                        <th>{{ GoogleTranslate::trans('Property Type', 'mr') }}</th>
-                                        <th>{{ GoogleTranslate::trans('House Type', 'mr') }}</th>
-                                        <th>{{ GoogleTranslate::trans('Area in Square Feet', 'mr') }}</th>
-                                        <th>{{ GoogleTranslate::trans('Area in Square Meter', 'mr') }}</th>
+                                        <th>लमत्ता मालमत्ता वापरकर्त्याचे नाव</th>
+                                        <th>मालमत्ता प्रकार</th>
+                                        <th>घराचा प्रकार</th>
+                                        <th>चौरस फूट क्षेत्र</th>
+                                        <th>चौरस मीटर क्षेत्र</th>
 
 
 
@@ -62,7 +54,7 @@
                                             <td>{{ $property->panchayat->name_mr ?? 'null' }}</td>
                                             <td>{{ $property->owner_name_mr ?? 'null' }}</td>
                                             <td>{{ $property->property_no ?? 'null' }}</td>
-                                            <!-- <td>{{ $property->property_name ?? 'null' }}</td> -->
+                                           
                                             <td>{{ $property->property_user_name_mr ?? 'null' }}</td>
                                             <td>{{ $property->description_mr ?? 'null' }}</td>
                                             <td>{{ $property->house_type_mr ?? 'null' }}</td>
@@ -73,7 +65,7 @@
 
                                                 <a href="{{ route('panchayat.property.edit', $property->id) }}"><i
                                                     class='bx bx-edit'></i>Edit</a>
-
+                                                    <br>
                                                     <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this property?')) { document.getElementById('delete-property-{{ $property->id }}').submit(); }">
                                                         <i class='bx bx-trash'></i> Delete
                                                     </a>

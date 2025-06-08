@@ -20,7 +20,7 @@
                 <div class="breadcrumb-title pe-3">Hometax</div>
                 <div>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
+                        <ol class="breadcrumb mb-0 p-2">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Calculation</li>
@@ -41,22 +41,12 @@
                                     <label for="year" class="form-label mb-2">Payment Year</label>
                                     <select name="year" class="form-control" required>
                                         <option value="" disabled selected>Select a year</option>
-                                        <option value="2022" {{ old('year') == '2022' ? 'selected' : '' }}>2022</option>
-                                        <option value="2023" {{ old('year') == '2023' ? 'selected' : '' }}>2023</option>
-                                        <option value="2024" {{ old('year') == '2024' ? 'selected' : '' }}>2024</option>
-                                        <option value="2025" {{ old('year') == '2025' ? 'selected' : '' }}>2025</option>
+                                        <option value="2025" {{ old('year') == '2025' ? 'selected' : '' }}>2025 - 2026</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="property_name " class="form-label mb-2">Property Details</label>
-                                    <!-- <select class="form-select" name="property_id" id="property_id" required>
-                                        <option value="" disabled selected>Select a Property</option>
-                                        @foreach($properties as $property)
-                                            <option value="{{ $property->id }}" data-area="{{ $property->area_in_sqmt }}">
-                                                 {{ $property->owner_name_mr }} - {{ $property->property_no }}
-                                            </option>
-                                        @endforeach
-                                    </select> -->
+                                   
                                     <select class="form-select property-select" name="property_id" id="property_id" required>
                                         <option value="" disabled selected>Select a Property</option>
                                         @foreach($properties as $property)
@@ -95,15 +85,15 @@
     // });
 
     $('#property_id').select2({
-    placeholder: 'मालमत्ता निवडा',
-    allowClear: true,
-    width: '100%',
-    language: {
-        noResults: function() {
-            return "कोणतेही परिणाम सापडले नाहीत";
+        placeholder: 'मालमत्ता निवडा',
+        allowClear: true,
+        width: '100%',
+        language: {
+            noResults: function() {
+                return "कोणतेही परिणाम सापडले नाहीत";
+            }
         }
-    }
-});
+    });
 
 </script>
 

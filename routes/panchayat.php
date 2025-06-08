@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\panchayat\AuthPanchayatController;
 use App\Http\Controllers\panchayat\PropertyController;
 use Illuminate\Support\Facades\Route;
@@ -53,8 +54,8 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
         Route::post('healthTaxes/payment-store', [TaxCalculationController::class, 'healthTaxPaymentStore'])->name('healthtaxes.payment.store');
         Route::get('healthtaxes/{healthtax}/due-create', [TaxCalculationController::class, 'healthTaxPaymentDueCreate'])->name('healthtaxes.due.create');
         Route::post('healthtaxes/{healthtax}', [TaxCalculationController::class, 'healthTaxPaymentDueStore'])->name('healthtaxes.due.store');
-       //Lamp Tax
-       Route::get('lamptaxes', [TaxCalculationController::class, 'lamptaxList'])->name('lamptaxes.payment.index');
+        //Lamp Tax
+        Route::get('lamptaxes', [TaxCalculationController::class, 'lamptaxList'])->name('lamptaxes.payment.index');
         Route::get('lampTaxes/payment-create', [TaxCalculationController::class, 'lampTaxPaymentCreate'])->name('lamptaxes.payment.create');
         Route::post('lampTaxes/payment-store', [TaxCalculationController::class, 'lampTaxPaymentStore'])->name('lamptaxes.payment.store');
         Route::get('lamptaxes/{lamptax}/due-create', [TaxCalculationController::class, 'lampTaxPaymentDueCreate'])->name('lamptaxes.due.create');
@@ -66,70 +67,71 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
 
 
         //certificate route
-            //Birthcertificate route
+        //Birthcertificate route
 
-            Route::get('birthCertificate/list', [CertificateController::class, 'birthCertificateList'])->name('birthCertificate.list');
-            Route::get('birthCertificate/create', [CertificateController::class, 'birthCertificateCreate'])->name('birthCertificate.create');
-            Route::post('birthCertificate/store', [CertificateController::class, 'birthCertificateStore'])->name('birthCertificate.store');
-            Route::post('birthCertificate/bulkUpload', [CertificateController::class, 'birthCertificateBulkUpload'])->name('birthCertificate.bulkUpload');
-            Route::get('birthCertificate/details/{id}', [CertificateController::class, 'birthCertificateDetails'])->name('birthCertificate.details');
-            Route::get('birthCertificate/edit/{id}', [CertificateController::class, 'birthCertificateEdit'])->name('birthCertificate.edit');
-            Route::post('birthCertificate/update/{id}', [CertificateController::class, 'birthCertificateUpdate'])->name('birthCertificate.update');
-            Route::get('birthCertificate/allValues/{id}', [CertificateController::class, 'birthCertificateAllValues'])->name('birthCertificate.allValues');
-
-
-             //Deathcertificate route
-             Route::get('deathCertificate/list', [CertificateController::class, 'deathCertificateList'])->name('deathCertificate.list');
-             Route::get('deathCertificate/create', [CertificateController::class, 'deathCertificateCreate'])->name('deathCertificate.create');
-             Route::post('deathCertificate/store', [CertificateController::class, 'deathCertificateStore'])->name('deathCertificate.store');
-             Route::post('deathCertificate/bulkUpload', [CertificateController::class, 'deathCertificateBulkUpload'])->name('deathCertificate.bulkUpload');
-             Route::get('deathCertificate/details/{id}', [CertificateController::class, 'deathCertificateDetails'])->name('deathCertificate.details');
-             Route::get('deathCertificate/edit/{id}', [CertificateController::class, 'deathCertificateEdit'])->name('deathCertificate.edit');
-             Route::post('deathCertificate/update/{id}', [CertificateController::class, 'deathCertificateUpdate'])->name('deathCertificate.update');
-             Route::get('deathCertificate/allValues/{id}', [CertificateController::class, 'deathCertificateAllValues'])->name('deathCertificate.allValues');
-
-              //Marriagecertificate route
-              Route::get('marriageCertificate/list', [CertificateController::class, 'marriageCertificateList'])->name('marriageCertificate.list');
-              Route::get('marriageCertificate/create', [CertificateController::class, 'marriageCertificateCreate'])->name('marriageCertificate.create');
-              Route::post('marriageCertificate/store', [CertificateController::class, 'marriageCertificateStore'])->name('marriageCertificate.store');
-              Route::get('marriageCertificate/details/{id}', [CertificateController::class, 'marriageCertificateDetails'])->name('marriageCertificate.details');
-              Route::get('marriageCertificate/edit/{id}', [CertificateController::class, 'marriageCertificateEdit'])->name('marriageCertificate.edit');
-              Route::post('marriageCertificate/update/{id}', [CertificateController::class, 'marriageCertificateUpdate'])->name('marriageCertificate.update');
-              Route::get('marriageCertificate/allValues/{id}', [CertificateController::class, 'marriageCertificateAllValues'])->name('marriageCertificate.allValues');
-
-             Route::get('oldCertificate/create', [CertificateController::class, 'oldCertificateCreate'])->name('oldCertificate.create');
-             Route::post('oldCertificate/store', [CertificateController::class, 'oldCertificateStore'])->name('oldCertificate.store');
-             Route::get('oldCertificate/list', [CertificateController::class, 'oldCertificateList'])->name('oldCertificate.list');
-
-             Route::get('penalty/payment-create', [TaxCalculationController::class, 'penaltyPaymentCreate'])->name('penalty.payment.create');
-
-             //Route For Namuna
-             Route::get('namuna/nine/select', [TaxCalculationController::class, 'namunaNineSelect'])->name('namuna.nine.select');
-             Route::post('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details');
-
-             Route::get('namuna/eight/select', [TaxCalculationController::class, 'namunaEightSelect'])->name('namuna.eight.select');
-             Route::post('namuna/eight/details', [TaxCalculationController::class, 'namunaEightDetails'])->name('namuna.eight.details');
+        Route::get('birthCertificate/list', [CertificateController::class, 'birthCertificateList'])->name('birthCertificate.list');
+        Route::get('birthCertificate/create', [CertificateController::class, 'birthCertificateCreate'])->name('birthCertificate.create');
+        Route::post('birthCertificate/store', [CertificateController::class, 'birthCertificateStore'])->name('birthCertificate.store');
+        Route::post('birthCertificate/bulkUpload', [CertificateController::class, 'birthCertificateBulkUpload'])->name('birthCertificate.bulkUpload');
+        Route::get('birthCertificate/details/{id}', [CertificateController::class, 'birthCertificateDetails'])->name('birthCertificate.details');
+        Route::get('birthCertificate/edit/{id}', [CertificateController::class, 'birthCertificateEdit'])->name('birthCertificate.edit');
+        Route::post('birthCertificate/update/{id}', [CertificateController::class, 'birthCertificateUpdate'])->name('birthCertificate.update');
+        Route::get('birthCertificate/allValues/{id}', [CertificateController::class, 'birthCertificateAllValues'])->name('birthCertificate.allValues');
 
 
+        //Deathcertificate route
+        Route::get('deathCertificate/list', [CertificateController::class, 'deathCertificateList'])->name('deathCertificate.list');
+        Route::get('deathCertificate/create', [CertificateController::class, 'deathCertificateCreate'])->name('deathCertificate.create');
+        Route::post('deathCertificate/store', [CertificateController::class, 'deathCertificateStore'])->name('deathCertificate.store');
+        Route::post('deathCertificate/bulkUpload', [CertificateController::class, 'deathCertificateBulkUpload'])->name('deathCertificate.bulkUpload');
+        Route::get('deathCertificate/details/{id}', [CertificateController::class, 'deathCertificateDetails'])->name('deathCertificate.details');
+        Route::get('deathCertificate/edit/{id}', [CertificateController::class, 'deathCertificateEdit'])->name('deathCertificate.edit');
+        Route::post('deathCertificate/update/{id}', [CertificateController::class, 'deathCertificateUpdate'])->name('deathCertificate.update');
+        Route::get('deathCertificate/allValues/{id}', [CertificateController::class, 'deathCertificateAllValues'])->name('deathCertificate.allValues');
+
+        //Marriagecertificate route
+        Route::get('marriageCertificate/list', [CertificateController::class, 'marriageCertificateList'])->name('marriageCertificate.list');
+        Route::get('marriageCertificate/create', [CertificateController::class, 'marriageCertificateCreate'])->name('marriageCertificate.create');
+        Route::post('marriageCertificate/store', [CertificateController::class, 'marriageCertificateStore'])->name('marriageCertificate.store');
+        Route::get('marriageCertificate/details/{id}', [CertificateController::class, 'marriageCertificateDetails'])->name('marriageCertificate.details');
+        Route::get('marriageCertificate/edit/{id}', [CertificateController::class, 'marriageCertificateEdit'])->name('marriageCertificate.edit');
+        Route::post('marriageCertificate/update/{id}', [CertificateController::class, 'marriageCertificateUpdate'])->name('marriageCertificate.update');
+        Route::get('marriageCertificate/allValues/{id}', [CertificateController::class, 'marriageCertificateAllValues'])->name('marriageCertificate.allValues');
+
+        Route::get('oldCertificate/create', [CertificateController::class, 'oldCertificateCreate'])->name('oldCertificate.create');
+        Route::post('oldCertificate/store', [CertificateController::class, 'oldCertificateStore'])->name('oldCertificate.store');
+        Route::get('oldCertificate/list', [CertificateController::class, 'oldCertificateList'])->name('oldCertificate.list');
+
+        Route::get('penalty/payment-create', [TaxCalculationController::class, 'penaltyPaymentCreate'])->name('penalty.payment.create');
+
+        //Route For Namuna
+        Route::get('namuna/nine/select', [TaxCalculationController::class, 'namunaNineSelect'])->name('namuna.nine.select');
+        Route::post('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details');
+
+        Route::get('namuna/nine/bulk', [TaxCalculationController::class, 'namunaNineBulk'])->name('namuna.nine.bulk');
+        Route::post('namuna/nine/bulk-download', [TaxCalculationController::class, 'namunaNineBulkDownload'])->name('namuna.nine.bulk.download');
 
 
-            // Route for certificate approval
-            Route::get('birth/certificate/approval/list', [OfficerController::class, 'birthCertificateApprovalList'])->name('birthCertificate.approval.list');
-            Route::get('birth/certificate/approve/{id}', [OfficerController::class, 'birthCertificateApprove'])->name('birthCertificate.approve');
+        Route::get('namuna/eight/select', [TaxCalculationController::class, 'namunaEightSelect'])->name('namuna.eight.select');
+        Route::post('namuna/eight/details', [TaxCalculationController::class, 'namunaEightDetails'])->name('namuna.eight.details');
 
-            Route::get('death/certificate/approval/list', [OfficerController::class, 'deathCertificateApprovalList'])->name('deathCertificate.approval.list');
-            Route::get('death/certificate/approve/{id}', [OfficerController::class, 'deathCertificateApprove'])->name('deathCertificate.approve');
+        Route::post('/store-previous-year-data', [TaxCalculationController::class, 'storePreviousYearData'])->name('storePreviousYearData');
+        Route::get('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details.get');
 
-            Route::get('marriaage/certificate/approval/list', [OfficerController::class, 'marriageCertificateApprovalList'])->name('marriageCertificate.approval.list');
-            Route::get('marriage/certificate/approve/{id}', [OfficerController::class, 'marriageCertificateApprove'])->name('marriageCertificate.approve');
+        // Route for certificate approval
+        Route::get('birth/certificate/approval/list', [OfficerController::class, 'birthCertificateApprovalList'])->name('birthCertificate.approval.list');
+        Route::get('birth/certificate/approve/{id}', [OfficerController::class, 'birthCertificateApprove'])->name('birthCertificate.approve');
 
-             // Route for officer certificate view
+        Route::get('death/certificate/approval/list', [OfficerController::class, 'deathCertificateApprovalList'])->name('deathCertificate.approval.list');
+        Route::get('death/certificate/approve/{id}', [OfficerController::class, 'deathCertificateApprove'])->name('deathCertificate.approve');
 
-             Route::get('birth/certificate/officer/view/{id}', [OfficerController::class, 'birthCertificateView'])->name('birthCertificate.officer.view');
-             Route::get('death/certificate/officer/view/{id}', [OfficerController::class, 'deathCertificateView'])->name('deathCertificate.officer.view');
-             Route::get('marriage/certificate/officer/view/{id}', [OfficerController::class, 'marriageCertificateView'])->name('marriageCertificate.officer.view');
- 
+        Route::get('marriaage/certificate/approval/list', [OfficerController::class, 'marriageCertificateApprovalList'])->name('marriageCertificate.approval.list');
+        Route::get('marriage/certificate/approve/{id}', [OfficerController::class, 'marriageCertificateApprove'])->name('marriageCertificate.approve');
 
+        // Route for officer certificate view
+
+        Route::get('birth/certificate/officer/view/{id}', [OfficerController::class, 'birthCertificateView'])->name('birthCertificate.officer.view');
+        Route::get('death/certificate/officer/view/{id}', [OfficerController::class, 'deathCertificateView'])->name('deathCertificate.officer.view');
+        Route::get('marriage/certificate/officer/view/{id}', [OfficerController::class, 'marriageCertificateView'])->name('marriageCertificate.officer.view');
     });
 });
-

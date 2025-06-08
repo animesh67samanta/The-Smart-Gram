@@ -8,7 +8,7 @@
                 <div class="breadcrumb-title pe-3">Property</div>
                 <div>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
+                        <ol class="breadcrumb mb-0 p-2">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Create Property Tax</li>
@@ -77,6 +77,8 @@
                                         <option value="House">House</option>
                                         <option value="Commercial">Commercial</option>
                                         <option value="MIDC">MIDC</option>
+                                        <option value="Open plot">Open plot</option>
+
                                     </select>
                                     @error('description')
                                         <span class="text-danger">{{ $message }}</span>

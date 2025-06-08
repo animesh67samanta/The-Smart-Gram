@@ -8,7 +8,7 @@
                 <div class="breadcrumb-title pe-3">Property</div>
                 <div>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
+                        <ol class="breadcrumb mb-0 p-2">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Edit</li>
@@ -81,6 +81,8 @@
                                         <option value="House" {{ $property->description == 'House' ? 'selected' : '' }}>House</option>
                                         <option value="Commercial" {{ $property->description == 'Commercial' ? 'selected' : '' }}>Commercial</option>
                                         <option value="MIDC" {{ $property->description == 'MIDC' ? 'selected' : '' }}>MIDC</option>
+                                        <option value="Open plot" {{ $property->description == 'Open plot' ? 'selected' : '' }}>Open plot</option>
+
                                     </select>
                                     @error('description')
                                         <span class="text-danger">{{ $message }}</span>

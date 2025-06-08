@@ -34,6 +34,6 @@ class Admin extends Authenticatable
 
     public function panchayatTaxes()
     {
-        return $this->hasOne(PanchayatTax::class, 'panchayat_id');
+        return $this->hasOne(PanchayatTaxes::class, 'panchayat_id');
     }
 }

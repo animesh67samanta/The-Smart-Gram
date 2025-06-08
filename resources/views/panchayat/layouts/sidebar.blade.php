@@ -15,7 +15,7 @@
             <a href="{{route('panchayat.dashboard')}}">
                 <div class="parent-icon"><i class='bx bx-home-alt'></i>
                 </div>
-                <div class="menu-title ">{{ GoogleTranslate::trans('Dashboard', 'mr') }}/Dashboard</div>
+                <div class="menu-title ">डॅशबोर्ड / Dashboard</div>
             </a>
 
         </li>
@@ -23,75 +23,46 @@
 
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-home-alt"></i>
+                <div class="parent-icon"><i class="bx bx-building-house"></i>
                 </div>
-                <div class="menu-title">{{ GoogleTranslate::trans('Property Management', 'mr') }}/Property Management</div>
+                <div class="menu-title">मालमत्ता व्यवस्थापन / Property Management</div>
             </a>
             <ul>
-                <li> <a href="{{route('panchayat.property.list')}}"><i class='bx bx-home-alt'></i>{{ GoogleTranslate::trans('List', 'mr') }}/List</a>
+                <li> <a href="{{route('panchayat.property.list')}}"><i class='bx bx-home-alt'></i> यादी / List</a>
                 </li>
-                <li> <a href="{{route('panchayat.property.create')}}"><i class='bx bx-home-alt'></i>{{ GoogleTranslate::trans('Add', 'mr') }}/Add</a>
+                <li> <a href="{{route('panchayat.property.create')}}"><i class='bx bx-home-alt'></i>जोडा / Add</a>
                 </li>
             </ul>
         </li>
-{{--
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-home-alt"></i>
-                </div>
-                <div class="menu-title">Property Tax Management</div>
-            </a>
-            <ul>
-                <li> <a href="{{route('admin.propertyTax.list')}}"><i class='bx bx-home-alt'></i>List</a>
-                </li>
-                <li> <a href="{{route('admin.propertyTax.create')}}"><i class='bx bx-home-alt'></i>Add</a>
-                </li>
-            </ul>
-        </li> --}}
+
 
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-money"></i>
+                <div class="parent-icon"><i class="bx bx-coin-stack"></i>
                 </div>
-                <div class="menu-title">{{ GoogleTranslate::trans('Tax Management', 'mr') }}/Tax Management</div>
+                <div class="menu-title">कर व्यवस्थापन / Tax Management</div>
             </a>
             <ul>
-                <li> <a href="{{route('panchayat.hometaxes.index')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans(' Tax Calculation List', 'mr') }}/ Tax Calculation List</a>
+                <li> <a href="{{route('panchayat.hometaxes.index')}}"><i class='bx bx-list-ul'></i>कर गणना यादी / Tax Calculation List</a>
                 </li>
-                <li> <a href="{{route('panchayat.hometaxes.create')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans(' Tax Payment Create', 'mr') }}/ Tax Payment Create</a>
+                <li> <a href="{{route('panchayat.hometaxes.create')}}"><i class='bx bx-list-plus'></i> / Tax Payment Create</a>
                 </li>
-                {{-- <li> <a href="{{route('panchayat.hometaxes.due.create')}}"><i class='bx bx-money'></i>Home Tax Payment Due</a>
-                </li> --}}
-
-                {{-- <li> <a href="{{route('panchayat.healthtaxes.payment.index')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Health Tax Payment Create', 'mr') }}/Health Tax Calculation List</a>
-                </li>
-                <li> <a href="{{route('panchayat.healthtaxes.payment.create')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Health Tax Calculation Create', 'mr') }}/Health Tax Calculation Create</a>
-
-                </li>
-                <li> <a href="{{route('panchayat.lamptaxes.payment.index')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Lamp Tax Calculation List', 'mr') }}/Lamp Tax Calculation List</a>
-                </li>
-                <li> <a href="{{route('panchayat.lamptaxes.payment.create')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Lamp Tax Calculation Create', 'mr') }}/Lamp Tax Calculation Create</a>
-                </li>
-                <li> <a href="{{route('panchayat.penalty.index')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Penalty List', 'mr') }}/Penalty List</a>
-                </li>
-                <li> <a href="{{route('panchayat.penalty.payment.create')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Penalty Calculation Create', 'mr') }}/Penalty Calculation Create</a>
-                </li> --}}
+               
             </ul>
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-money"></i>
+                <div class="parent-icon"><i class="bx bxs-donate-heart"></i>
                 </div>
-                <div class="menu-title">{{ GoogleTranslate::trans('Namuna Eight & Nine', 'mr') }}/Namuna Eight & Nine</div>
+                <div class="menu-title">नामुना आठ आणि नऊ / Namuna Eight & Nine</div>
             </a>
             <ul>
-                <li> <a href="{{route('panchayat.namuna.eight.select')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Namuna Eight', 'mr') }}/Namuna Eight</a>
+                <li> <a href="{{route('panchayat.namuna.eight.select')}}"><i class='bx bxs-file-pdf'></i>ननचे एट / Namuna Eight</a>
                 </li>
-                <li> <a href="{{route('panchayat.namuna.nine.select')}}"><i class='bx bx-money'></i>{{ GoogleTranslate::trans('Namuna Nine', 'mr') }}/Namuna Nine</a>
+                <li> <a href="{{route('panchayat.namuna.nine.select')}}"><i class='bx bxs-file-pdf'></i>नऊ नऊ / Namuna Nine</a>
                 </li>
-
-
-
+                <li> <a href="{{route('panchayat.namuna.nine.bulk')}}"><i class='bx bxs-file-pdf'></i>नऊ नऊ / Namuna Nine Bulk</a>
+                </li>
             </ul>
         </li>
 
@@ -99,24 +70,24 @@
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-certification"></i>
                 </div>
-                <div class="menu-title">{{ GoogleTranslate::trans('Certificate Management', 'mr') }}/Certificate Management</div>
+                <div class="menu-title"> प्रमाणपत्र व्यवस्थापन / Certificate Management</div>
             </a>
             <ul>
-                <li> <a href="{{route('panchayat.birthCertificate.list')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Birth Certificate List', 'mr') }}/Birth Certificate List</a>
+                <li> <a href="{{route('panchayat.birthCertificate.list')}}"><i class='bx bxs-certification'></i>जन्म प्रमाणपत्र यादी / Birth Certificate List</a>
                 </li>
-                <li> <a href="{{route('panchayat.birthCertificate.create')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Birth Certificate Manage', 'mr') }}/Birth Certificate Manage</a>
+                <li> <a href="{{route('panchayat.birthCertificate.create')}}"><i class='bx bxs-certification'></i>जन्म प्रमाणपत्र व्यवस्थापित / Birth Certificate Manage</a>
                 </li>
-                <li> <a href="{{route('panchayat.deathCertificate.list')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Death Certificate List', 'mr') }}/Death Certificate List</a>
+                <li> <a href="{{route('panchayat.deathCertificate.list')}}"><i class='bx bxs-certification'></i>मृत्यू प्रमाणपत्र यादी / Death Certificate List</a>
                 </li>
-                <li> <a href="{{route('panchayat.deathCertificate.create')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Death Certificate Manage', 'mr') }}/Death Certificate Manage</a>
+                <li> <a href="{{route('panchayat.deathCertificate.create')}}"><i class='bx bxs-certification'></i> मृत्यू प्रमाणपत्र व्यवस्थापित / Death Certificate Manage </a>
                 </li>
-                <li> <a href="{{route('panchayat.marriageCertificate.list')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Marriage Certificate List', 'mr') }}/Marriage Certificate List</a>
+                <li> <a href="{{route('panchayat.marriageCertificate.list')}}"><i class='bx bxs-certification'></i>विवाह प्रमाणपत्र यादी / Marriage Certificate List </a>
                 </li>
-                <li> <a href="{{route('panchayat.marriageCertificate.create')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Marriage Certificate Manage', 'mr') }}/Marriage Certificate Manage</a>
+                <li> <a href="{{route('panchayat.marriageCertificate.create')}}"><i class='bx bxs-certification'></i>विवाह प्रमाणपत्र व्यवस्थापित / Marriage Certificate Manage</a>
                 </li>
-                <li> <a href="{{route('panchayat.oldCertificate.list')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Old Certificate List', 'mr') }}/Old Certificate List</a>
+                <li> <a href="{{route('panchayat.oldCertificate.list')}}"><i class='bx bxs-certification'></i>जुनी प्रमाणपत्र यादी / Old Certificate List</a>
                 </li>
-                <li> <a href="{{route('panchayat.oldCertificate.create')}}"><i class='bx bx-certification'></i>{{ GoogleTranslate::trans('Old Certificate Upload', 'mr') }}/Old Certificate Upload</a>
+                <li> <a href="{{route('panchayat.oldCertificate.create')}}"><i class='bx bxs-certification'></i> जुने प्रमाणपत्र अपलोड / Old Certificate Upload</a>
                 </li>
             </ul>
         </li>

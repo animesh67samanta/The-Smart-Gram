@@ -140,55 +140,7 @@ class PropertyController extends Controller
 
         return redirect()->back()->with('success', 'CSV uploaded and properties imported successfully.');
     }
-    /* public function uploadCsv(Request $request)
-    {
-        $request->validate([
-            'csv_file' => 'required|file|mimes:csv',
-        ]);
-    
-        $file = $request->file('csv_file');
-        $handle = fopen($file, 'r');
-        $header = fgetcsv($handle); // First row (header)
-    
-        while (($data = fgetcsv($handle)) !== false) {
-            $row = array_combine($header, $data);
-            // print_r($row); exit; 
-            // Convert sqft to sqmt
-            $areaInSqmt = $row['area_in_sqft'] * 0.092903;
-    
-            // Build property_name
-            $propertyName = $row['property_user_name'] . $row['property_no'];
-    
-            $propertyData = [
-                'panchayat_id' => Auth::guard('admin')->user()->id,
-                'street_name' => $row['street_name'],
-                'street_name_mr' => GoogleTranslate::trans($row['street_name'], 'mr'),
-                'ct_survey_no' => $row['ct_survey_no'],
-                'property_no' => $row['property_no'],
-                'owner_name' => $row['owner_name'],
-                'owner_name_mr' => GoogleTranslate::trans($row['owner_name'], 'mr'),
-                'property_user_name' => $row['property_user_name'],
-                'property_user_name_mr' => GoogleTranslate::trans($row['property_user_name'], 'mr'),
-                'description' => $row['description'],
-                'description_mr' => GoogleTranslate::trans($row['description'], 'mr'),
-                'house_type' => $row['house_type'],
-                'year_of_income_construction' => $row['year_of_income_construction'],
-                'area_in_sqft' => $row['area_in_sqft'],
-                'area_in_sqmt' => round($areaInSqmt, 2), // optional rounding
-                // 'property_name' => $propertyName,
-            ];
-    
-            if (strtolower(trim($row['description'])) === 'house') {
-                $propertyData['house_type_mr'] = GoogleTranslate::trans($row['house_type'], 'mr');
-            }
-    
-            Property::create($propertyData);
-        }
-    
-        fclose($handle);
-    
-        return redirect()->back()->with('success', 'CSV uploaded and properties imported successfully.');
-    } */
+  
     
     /**
      * Display the specified resource.
@@ -269,5 +221,5 @@ class PropertyController extends Controller
         return redirect()->route('panchayat.property.list')->with('success', 'Property deleted successfully.');
     }
 
-
+    
 }

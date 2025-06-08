@@ -35,6 +35,7 @@
                                         <th colspan="8" class="text-center text-info">Tax Rate Of House Of Sticks</th>
                                         <th colspan="8" class="text-center text-info">Tax Rate Of Commercial</th>
                                         <th colspan="8" class="text-center text-info">Tax Rate Of MIDC</th>
+                                        <th colspan="5" class="text-center text-info">Tax Rate Of Open Plot</th>
                                         <!-- <th colspan="3" class="text-center">Tax Rate Of Others</th> -->
                                         <th colspan="3" class="text-center text-info">Tax Rate Of Spacial</th>
                                         <th rowspan="2" class="text-center">Action</th>
@@ -97,6 +98,12 @@
                                         <th>Health Tax Rate</th>
                                         <th>Lamp Tax Rate</th>
                                         <th>Water Tax Rate</th>
+
+                                         <th>Open Plot Readireckoner Rate</th>
+                                        <th>Builtup Area Readireckoner Rate</th>
+                                        <th>Depreciation Rate</th>
+                                        <th>Usage Rate</th>
+                                        <th>Tax Rate</th>
 
                                         <th>Spacial Tax Name</th>
                                         <th>Spacial Tax Name In Marathi</th>
@@ -164,6 +171,12 @@
                                             <td>{{ $panchayatTax->midc_lamp_tax ?? '-' }}</td>
                                             <td>{{ $panchayatTax->midc_water_tax ?? '-' }}</td>
 
+                                             <td>{{ $panchayatTax->open_plot_readireckoner_rate ?? '-' }}</td>
+                                            <td>{{ $panchayatTax->open_plot_builtup_area_readireckoner_rate ?? '-' }}</td>
+                                            <td>{{ $panchayatTax->open_plot_depreciation_rate ?? '-' }}</td>
+                                            <td>{{ $panchayatTax->open_plot_usage_rate ?? '-' }}</td>
+                                            <td>{{ $panchayatTax->open_plot_tax_rate ?? '-' }}</td>
+
                                             <td>{{ $panchayatTax->special_tax ?? '-' }}</td>
                                             <td>{{ $panchayatTax->special_tax_mr ?? '-' }}</td>
                                             <td>{{ $panchayatTax->special_tax_rate ?? '-' }}</td>
@@ -190,5 +203,4 @@
 
 
     @endsection
-    {{-- @push('js')
-    @endpush --}}
+  

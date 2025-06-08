@@ -1,5 +1,16 @@
 @extends('panchayat.layouts.main')
 @section('title', 'Property Select For Namuna 9')
+@push('styles')
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-results{
+        color: black !important;
+    }
+
+    
+</style>
+@endpush
 @section('content')
 
     <div class="page-wrapper">
@@ -9,7 +20,7 @@
                 <div class="breadcrumb-title pe-3">Namuna No.</div>
                 <div>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
+                        <ol class="breadcrumb mb-0 p-2">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">9</li>
@@ -18,15 +29,7 @@
                 </div>
 
             </div>
-            {{-- @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif --}}
+            
             <div class="row">
                 <div class="col-xl-9 mx-auto">
                     <div class="card">
@@ -41,16 +44,20 @@
                                     <select class="form-select" name="property_id" id="property_id" required>
                                         <option value="" disabled selected >Select a Property</option>
                                         @foreach($properties as $property)
-                                            <option value="{{ $property->id }}">{{$property->owner_name}} - {{ $property->property_no }}</option>
+                                            <option value="{{ $property->id }}">{{$property->owner_name_mr}} - {{ $property->property_no }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-group">
                                         <label for="year">Year</label>
-                                        <input type="text"  name="year"
-                                            value="{{ old('year') }}"
-                                            class="form-control" required>
+                                        <select name="year" class="form-control" required>
+                                            <option value="">Select Year</option>
+                                            <option value="2025" {{ old('year') == '2025' ? 'selected' : '' }}>2025 - 2026</option>
+                                            {{-- <option value="2026" {{ old('year') == '2026' ? 'selected' : '' }}>2026 - 2027</option>
+                                            <option value="2027" {{ old('year') == '2027' ? 'selected' : '' }}>2027 - 2028</option> --}}
+                                            <!-- Add more options as needed -->
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- Submit Button -->
@@ -66,5 +73,23 @@
             </div>
         </div>
     </div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $('#property_id').select2({
+        placeholder: 'मालमत्ता निवडा',
+        allowClear: true,
+        width: '100%',
+        language: {
+            noResults: function() {
+                return "कोणतेही परिणाम सापडले नाहीत";
+            }
+        }
+    });
+</script>
+
+@endpush
 @endsection
 
