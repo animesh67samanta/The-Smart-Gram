@@ -54,7 +54,7 @@
                                       <input id="total_tax" readonly type="number" step="0.01" class="form-control" name="total_tax">
                                   </div>
                               </div>
-                              <div class="form-group row mb-3">
+                              {{-- <div class="form-group row mb-3">
                                   <label for="home_pay_tax_amount" class="col-md-4 col-form-label text-md-right">Paid Tax Amount</label>
                                   <div class="col-md-6">
                                       <input id="home_pay_tax_amount" type="number" step="0.01" class="form-control" name="home_pay_tax_amount" >
@@ -66,7 +66,7 @@
                                   <div class="col-md-6">
                                       <input id="home_due_tax_amount" type="number" step="0.01" class="form-control" name="home_due_tax_amount" required>
                                   </div>
-                              </div>
+                              </div> --}}
 
                              
                               <div class="form-group row mb-0">

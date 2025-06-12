@@ -25,7 +25,16 @@
                         <div class="card-body">
                             <form action="{{ route('panchayat.properties.upload') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                               
+                               <!-- Demo CSV Download Section -->
+                                <div class="mb-3">
+                                    {{-- <label class="form-label mx-1">Download Sample CSV:</label> --}}
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ asset('csv/property.csv') }}" class="btn btn-sm btn-outline-warning me-2">
+                                            <i class="fas fa-file-csv me-1"></i> Download Sample CSV
+                                        </a>
+                                        <small class="text-warning">Use this template to ensure proper formatting</small>
+                                    </div>
+                                </div>
                                <div class="mb-3">
                                 <label class="form-label mx-1">Upload CSV for Bulk Properties:</label>
                                 <input type="file" name="csv_file" class="form-control " accept=".csv" required>

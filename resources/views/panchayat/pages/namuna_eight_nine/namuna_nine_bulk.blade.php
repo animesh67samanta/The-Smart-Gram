@@ -18,7 +18,7 @@
         font-weight: 600;
     }
     .property-table tr:hover {
-        background-color: #f5f5f5;
+        background-color: #0c047f;
     }
     .select-all-container {
         margin-bottom: 15px;
@@ -118,12 +118,10 @@
                             </div>
                             
                             <div class="action-buttons">
-                                <button type="submit" class="btn admin-btn-decorate">
-                                    <i class="fas fa-eye"></i> View Details
+                                <button type="submit" class="btn btn-info">
+                                    <i class="fas fa-eye"></i> Download Selected as PDF
                                 </button>
-                                <button type="submit" name="download" value="1" class="btn btn-success">
-                                    <i class="fas fa-file-pdf"></i> Download Selected as PDF
-                                </button>
+                               
                             </div>
                         </form>
                     </div>

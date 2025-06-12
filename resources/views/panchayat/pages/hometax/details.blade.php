@@ -29,110 +29,107 @@
                                     <tbody>
                                         <tr>
                                             <!-- <th scope="row">Property Owner Name</th> -->
-                                            <th scope="row">{{ GoogleTranslate::trans('Property Owner Name', 'mr') }}</th>
-                                            <td>{{$details->property->owner_name_mr}}</td>
+                                            <th scope="row">मिळकत धारकाचे नाव </th>
+                                            <td>{{$details->property->owner_name_mr ?? '-' }}</td>
                                         </tr>
-                                        <!-- <tr>
-                                            <th scope="row">Property Name</th>
-                                            <td>{{$details->property->property_name}}</td>
-                                        </tr> -->
+                                      
                                         <tr>
-                                            <!-- <th scope="row">Property User Name</th> -->
-                                            <th scope="row">{{ GoogleTranslate::trans('Property User Name', 'mr') }}</th>
-                                            <td>{{$details->property->property_user_name_mr}}</td>
+                                            {{-- <th scope="row">{{ GoogleTranslate::trans('Property User Name', 'mr') }}</th> --}}
+                                           <th scope="row">मिळकत वापरकर्त्याचे नाव</th> 
+                                            <td>{{$details->property->property_user_name_mr ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Property No', 'mr') }}</th>
-                                            <td>{{ $details->property->property_no }}</td>
+                                            <th scope="row">मिळकत नं.</th>
+                                            <td>{{ $details->property->property_no ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Total Square Meter / Feet', 'mr') }}</th>
-                                            <td>"{{$details->property->area_in_sqmt}}" /  "{{$details->property->area_in_sqft}}"</td>
+                                            <th scope="row">एकूण चौरस मीटर / पाय</th>
+                                            <td>"{{$details->property->area_in_sqmt ?? '-' }}" /  "{{$details->property->area_in_sqft ?? '-' }}"</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Year', 'mr') }}</th>
-                                            <td>{{$details->year}}</td>
+                                            <th scope="row">वर्ष</th>
+                                            <td>{{$details->year ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Property Depreciation', 'mr') }}</th>
-                                            <td>{{$details->property->description_mr}}</td>
+                                            <th scope="row">मिळकत घसारा</th>
+                                            <td>{{$details->property->description_mr ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Property Type', 'mr') }}</th>
+                                            <th scope="row">मिळकत प्रकार</th>
                                             <td>{{$details->property->house_type_mr ?? ''}}</td>
                                         </tr>
                                        
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Street Name', 'mr') }}</th>
-                                            <td>{{ $details->property->street_name_mr }}</td>
+                                            <th scope="row">रस्त्याचे नाव</th>
+                                            <td>{{ $details->property->street_name_mr ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('CT Survey No', 'mr') }}</th>
-                                            <td>{{$details->property->ct_survey_no}}</td>
+                                            <th scope="row">सीटी सर्वेक्षण क्र</th>
+                                            <td>{{$details->property->ct_survey_no ?? '-' }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Year of Income Construction', 'mr') }}</th>
-                                            <td>{{$details->property->year_of_income_construction}}</td>
+                                            <th scope="row">उत्पन्नाचे वर्ष</th>
+                                            <td>{{$details->property->year_of_income_construction ?? '-'}}</td>
                                         </tr>
                                        
                                        {{-- Panchat Taxes --}}
                                        <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Open Plot Readireckoner Rate', 'mr') }}</th>
-                                            <td>{{ $open_plot_readireckoner_rate ?? '-' }}</td>
+                                            <th scope="row">ओपन प्लॉट रीडरेकॉनर दर</th>
+                                            <td>{{ $open_plot_readireckoner_rate ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Build Up Area Readireckoner Rate', 'mr') }}</th>
-                                            <td>{{ $builtup_area_readireckoner_rate ?? '-' }}</td>
+                                            <th scope="row">बिल्ट अप एरिया रीडायरेसीओनर रेट</th>
+                                            <td>{{ $builtup_area_readireckoner_rate ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Depreciation Rate', 'mr') }}</th>
-                                            <td>{{ $depreciation ?? '-' }}</td>
+                                            <th scope="row">घसारा दर</th>
+                                            <td>{{ $depreciation ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Usage Rate', 'mr') }}</th>
-                                            <td>{{ $usage_rate ?? '-' }}</td>
+                                            <th scope="row">वापर दर</th>
+                                            <td>{{ $usage_rate ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Home Tax Rate', 'mr') }}</th>
-                                            <td>{{ $home_tax_rate ?? '-' }}</td>
+                                            <th scope="row">घरपट्टी कर दर</th>
+                                            <td>{{ $home_tax_rate ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Health Tax Rate', 'mr') }}</th>
-                                            <td>{{$health_tax_rate}}</td>
+                                            <th scope="row">आरोग्य कर दर</th>
+                                            <td>@if($details->property->description != "Open plot") {{$health_tax_rate ?? 0.00}} @endif</td>
                                         </tr>
 
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Lamp Tax Rate', 'mr') }}</th>
-                                            <td>{{$lamp_tax_rate}}</td>
+                                            <th scope="row">दिवाबत्ती कर दर</th>
+                                            <td>@if($details->property->description != "Open plot") {{$lamp_tax_rate ?? 0.00}} @endif</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Water Tax Rate', 'mr') }}</th>
-                                            <td>{{$water_tax_rate}}</td>
+                                            <th scope="row">पाणी कर दर</th>
+                                            <td>@if($details->property->description != "Open plot") {{$water_tax_rate ?? 0.00}} @endif</td>
                                         </tr>
-                                        @if(!empty($details->special_tax) && !empty($details->special_tax_rate))
+                                        @if(!empty($details->special_tax) && !empty($details->special_tax_rate) && ($details->property->description != "Open plot"))
                                         <tr>
                                             <th scope="row">{{$details->special_tax_mr}}</th>
-                                            <td>{{$details->special_tax_rate}}</td>
+                                            <td>{{$details->special_tax_rate ?? 0.00}}</td>
                                         </tr>
                                         @endif
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Discount Home Tax', 'mr') }}</th>
+                                            <th scope="row">सूट गृह कर</th>
                                             <td>{{$details->tax_discount ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Penalty Home Tax', 'mr') }}</th>
+                                            <th scope="row">पेनल्टी होम टॅक्स</th>
                                             <td>{{$details->tax_penalty ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Capital Value', 'mr') }}</th>
+                                            <th scope="row">भांडवली मूल्य</th>
                                             <td>{{ number_format($capitalValue, 0) ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Home Tax Amount', 'mr') }}</th>
+                                            <th scope="row">गृह कर रक्कम</th>
                                             <td>{{number_format($homeTax, 2 ) ?? 0.00 }}</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">{{ GoogleTranslate::trans('Total Tax Amount', 'mr') }}</th>
+                                            <th scope="row">एकूण कर रक्कम</th>
                                             <td>{{ number_format($getTotalTax, 2 )?? 0.00 }}</td>
                                         </tr>
 

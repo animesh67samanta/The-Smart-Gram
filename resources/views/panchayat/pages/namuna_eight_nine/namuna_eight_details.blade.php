@@ -120,31 +120,27 @@
         <table>
             <thead>
                 <tr>
-                    <th rowspan="4" style="font-size: 8px;">Sr no. <br>अनुक्रमांक</th>
-                    <th rowspan="4" style="font-size: 8px;">Street no. रस्ता क्रमांक</th>
-                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 800;">C.T survey no.</th>
+                    <th rowspan="4" style="font-size: 8px;">Sr no. <br>अ. क्र.</th>
+                    <th rowspan="4" style="font-size: 8px;">Street no. <br> रस्त्याचे नाव / गल्लीचे नाव </th>
+                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 800;">C.T survey no. <br> सी. टि. सर्वे नं. / भूमापन क्र.</th>
                     <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 800;">Property no. <br>मालमत्ता क्र.</th>
-                    <!-- <th rowspan="4" style="vertical-align: top; font-weight: 800;">उत्पन्न धारकाचे नाव / Name of Income holder</th>
-                    <th colspan="9" style="font-weight: 800;">मागणी / Demand</th>
-                    <th colspan="5"></th>
-                    <th colspan="15" style="font-weight: 800;">वसूली / Recovery</th>
-                    <th rowspan="4" class="rotate" style="font-weight: normal;">अजून येणे बाकी आहे <br> yet to come</th> -->
+                  
                 </tr>
                 <tr>
-                    <th rowspan="3" style="font-weight: 900; font-size: 8px;">Owner's name<br>वोनरचे नाव</th>
-                    <th rowspan="3" style="font-weight: 900; font-size: 8px;">property username <br> मालमत्ता वापरकर्तानाव</th>
+                    <th rowspan="3" style="font-weight: 900; font-size: 8px;">Owner's name<br>मालमत्ता धारकाचे नाव</th>
+                    <th rowspan="3" style="font-weight: 900; font-size: 8px;">property username <br> भोगवटा धारकाचे नाव</th>
                     <th rowspan="3" style="font-weight: 900; font-size: 8px;">property description<br>मालमत्तेचे वर्णन</th>
-                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 900;">Year of Income<br>construction <br> उत्पन्न बांधकाम वर्ष</th>
-                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 900;">Area in square feet <br>चौरस फूट क्षेत्रफळ</th>
-                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 900;">Area in square meter<br>चौरस मीटर मध्ये क्षेत्र</th>
+                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 900;">Year of Income<br>construction <br> मिळकत बांधकामाचे वर्</th>
+                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 900;">Area in square feet <br>क्षेत्रफळ चौ. फु.</th>
+                    <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 900;">Area in square meter<br>क्षेत्रफळ चौ. मी.</th>
                     <th colspan="3" style="font-weight: 900; font-size: 8px;">RediRekor rate
                         <br> Square meter <br>रेडीरेकोर दर वाचा
                         <br>प्रति चौरस मीटर
                     </th>
                     <th rowspan="3" class="rotate" style="font-weight: normal; font-size:8px !important;">Depreciation rate <br>घसारा दर</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size:8px !important;">weighted according to <br>the use of building<br>इमारतीच्या वापरानुसार वजन <br> केले जाते</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size:8px !important;">weighted according to <br>the use of building<br>इमा. वापरानुसार भारांक<br> केले जाते</th>
                     <th rowspan="3" class="rotate" style="font-weight: normal; font-size:8px !important;">Capital value<br>भांडवली मूल्य</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size:8px !important;">Tax rate<br>कर दर</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size:8px !important;">Tax rate<br>कराचा दर </th>
                     @if(!empty($homeTaxes->special_tax))
                         <th colspan="6" style="font-size:8px; font-weight: 900;">Tax amount<br>कर रक्कम</th>
                     @else
@@ -156,8 +152,8 @@
                 </tr>
                 <tr></tr>
                 <tr>
-                    <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Open plot <br> खुली जागा</th>
-                    <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Residence <br> निवासस्थान</th>
+                    <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Open plot <br> जमीन</th>
+                    <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Residence <br> बांधकाम</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Building <br> इमारत</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Home tax <br>गृहकर</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Lamp tax <br>दिवा कर</th>
@@ -169,7 +165,7 @@
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Total <br>एकूण</th>
 
 
-                    <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Home tax <br>गृहकर</th>
+                    <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Home tax <br>घरपट्टी</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Lamp tax <br>दिवा कर</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Health tax <br>आरोग्य कर</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Water tax <br>पाणी कर</th>
@@ -226,29 +222,37 @@
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->property->property_no ?? ' '}}</td>
                     <td >{{ $homeTaxes->property->owner_name_mr ?? ' '}}/{{$homeTaxes->property->owner_name ?? ' '}}</td>
                     <td>{{ $homeTaxes->property->property_user_name_mr ?? ' '}}/{{$homeTaxes->property->property_user_name ?? ' '}}</td>
+
                     @if($homeTaxes->property->description == 'House')
                         <td>{{ $homeTaxes->property->house_type_mr ?? ' ' }}/{{$homeTaxes->property->house_type ?? ' '}}</td>
                     @else
                         <td>{{ $homeTaxes->property->description_mr ?? ' ' }}/{{$homeTaxes->property->description ?? ' '}}</td>
                     @endif
+
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->property->year_of_income_construction ?? ' '}}</td>
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->property->area_in_sqft ?? ' '}}</td>
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->property->area_in_sqmt ?? ' '}}</td>
+
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->open_plot_readireckoner_rate?? ' '}}</td>
-                    <td class="rotate" style="font-weight: normal;">{{$homeTaxes->builtup_area_readireckoner_rate ?? ' '}}</td>
+                     @if($homeTaxes->property->description == 'MIDC')
+                        <td class="rotate" style="font-weight: normal;">0.00</td>
+                        <td class="rotate" style="font-weight: normal;">{{$homeTaxes->builtup_area_readireckoner_rate ?? ' '}}</td>
+                     @else
+                        <td class="rotate" style="font-weight: normal;">{{$homeTaxes->builtup_area_readireckoner_rate ?? ' '}}</td>
+                        <td class="rotate" style="font-weight: normal;">0.00</td>
+                     @endif
 
-                    <td class="rotate" style="font-weight: normal;">{{$homeTaxes->building ?? ' '}}</td>
+                    
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->depreciation ?? ' '}}</td>
-
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->usage_rate ?? ' '}}</td>
                     <td class="rotate" style="font-weight: normal;">{{number_format($homeTaxes->capital_value, 2) ?? ' '}}</td>
                     <td class="rotate" style="font-weight: normal;">{{ $homeTaxes->home_tax_rate ?? ' ' }}</td>
                     <td class="rotate" style="font-weight: normal;">{{number_format($homeTaxes->total_home_tax, 2) ?? ' '}}</td>
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->lamp_tax_rate ?? ' '}}</td>
-                    <td class="rotate" style="font-weight: normal;">{{$homeTaxes->health_tax_rate ?? ' '}}</td>
-                    <td class="rotate" style="font-weight: normal;">{{$homeTaxes->water_tax_rate ?? ' '}}</td>
+                    <td class="rotate" style="font-weight: normal;">@if($homeTaxes->property->description != 'Open plot'){{$homeTaxes->health_tax_rate ?? ' '}} @endif</td>
+                    <td class="rotate" style="font-weight: normal;">@if($homeTaxes->property->description != 'Open plot'){{$homeTaxes->water_tax_rate ?? ' '}} @endif</td>
                     @if(!empty($homeTaxes->special_tax))
-                    <td class="rotate" style="font-weight: normal;">{{$homeTaxes->special_tax_rate ?? ' '}}</td>
+                    <td class="rotate" style="font-weight: normal;">@if($homeTaxes->property->description != 'Open plot'){{$homeTaxes->special_tax_rate ?? ' '}} @endif</td>
                     @endif
                     <td class="rotate" style="font-weight: normal;">{{ number_format($homeTaxes->total_tax_amount, 2) ?? ' '}}</td>
                     <td class="rotate" style="font-weight: normal;">0</td>

@@ -23,7 +23,7 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
 
         Route::get('/property-list', [PropertyController::class, 'index'])->name('property.list'); // List properties
         Route::get('/property-create', [PropertyController::class, 'create'])->name('property.create');
-        // 
+
         Route::post('/property-csv-store', [PropertyController::class, 'uploadCsv'])->name('properties.upload');
 
         Route::post('/property-store', [PropertyController::class, 'store'])->name('property.store');
@@ -44,6 +44,8 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
         Route::post('hometaxes/{hometax}', [TaxCalculationController::class, 'homeTaxPaymentDueStore'])->name('hometaxes.due.store');
         // Payment slip
         Route::get('hometaxes/payment-recipt/{id}', [TaxCalculationController::class, 'homeTaxPaymentRecipt'])->name('hometaxes.payment.recipt');
+        Route::get('hometaxes/payment-chalan/{id}', [TaxCalculationController::class, 'homeTaxPaymentChalan'])->name('hometaxes.payment.chalan');
+
 
         // Demand Bill
         Route::get('hometaxes/demand-bill/{id}', [TaxCalculationController::class, 'homeTaxDemandBill'])->name('hometaxes.demand.bill');
