@@ -40,6 +40,9 @@
                 <li> 
                     <a href="{{route('admin.panchayat.tax.create')}}"><i class='bx bx-coin-stack'></i>कर दर जोडा / Add Tax Rate</a>
                 </li>
+                 <li> 
+                    <a href="{{route('admin.namuna.form.list')}}"><i class='bx bx-coin-stack'></i>नमुना क्रमांक ८ यादी व्यवस्थापित करा / Namuna No.8 Manage List</a>
+                </li>
             </ul>
         </li>
 

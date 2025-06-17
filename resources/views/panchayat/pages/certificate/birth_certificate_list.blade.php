@@ -10,7 +10,7 @@
                 <div class="breadcrumb-title pe-3">Birth Certificate</div>
                 <div class="ps-3">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
+                        <ol class="breadcrumb mb-0 p-2">
                             <li class="breadcrumb-item"><a href="{{ route('panchayat.dashboard') }}"><i class="bx bx-home-alt"></i></a></li>
                             <li class="breadcrumb-item active" aria-current="page">List</li>
                         </ol>
@@ -27,7 +27,7 @@
                             @csrf
                             <div class="input-group">
                                 <input type="file" name="file" class="form-control" accept=".xlsx, .xls, .csv" required>
-                                <button type="submit" class="btn btn-primary ms-2">Upload</button>
+                                <button type="submit" class="btn btn-info ms-2">Upload</button>
                             </div>
                         </form>
                         @if ($errors->has('file'))

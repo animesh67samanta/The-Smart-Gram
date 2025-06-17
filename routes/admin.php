@@ -51,5 +51,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/property-taxes-update/{id}', [PropertyTaxController::class, 'update'])->name('propertyTax.update');
         Route::post('/property-taxes-delete/{id}', [PropertyTaxController::class, 'destroy'])->name('propertyTax.delete');
         Route::get('/property-taxes-details/{id}', [PropertyTaxController::class, 'details'])->name('propertyTax.details');
+
+        Route::get('/namuna-form-get', [PropertyTaxController::class, 'namunaFormGet'])->name('namuna.form.list');
+        Route::post('/namuna-form-save', [PropertyTaxController::class, 'saveNamuna'])->name('namuna.form.save');
     });
 });

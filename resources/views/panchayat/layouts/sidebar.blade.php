@@ -59,9 +59,11 @@
             <ul>
                 <li> <a href="{{route('panchayat.namuna.eight.select')}}"><i class='bx bxs-file-pdf'></i>ननचे एट / Namuna Eight</a>
                 </li>
+                <li> <a href="{{route('panchayat.namunaEightBulk')}}"><i class='bx bxs-file-pdf'></i>ननचे एट मोठ्या प्रमाणात/ Namuna Eight Bulk</a>
+                </li>
                 <li> <a href="{{route('panchayat.namuna.nine.select')}}"><i class='bx bxs-file-pdf'></i>नऊ नऊ / Namuna Nine</a>
                 </li>
-                <li> <a href="{{route('panchayat.namuna.nine.bulk')}}"><i class='bx bxs-file-pdf'></i>नऊ नऊ / Namuna Nine Bulk</a>
+                <li> <a href="{{route('panchayat.namuna.nine.bulk')}}"><i class='bx bxs-file-pdf'></i>नऊ नऊ मोठ्या प्रमाणात/ Namuna Nine Bulk</a>
                 </li>
             </ul>
         </li>

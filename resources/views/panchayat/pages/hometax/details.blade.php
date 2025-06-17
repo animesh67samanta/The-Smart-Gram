@@ -137,7 +137,9 @@
                                 </table>
                             </div>
                             <div class="text-center mt-4">
-                                <a href="{{ route('panchayat.hometaxes.payment.create',$id) }}" class="btn btn-info"> Home Tax Payment</a>
+                                 <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
+                                <a href="{{ route('panchayat.hometaxes.payment.create',$id) }}"  onclick="return confirmPayment();" class="btn btn-warning">Pay Now</a>
+
                             </div>
                         </div>
                     </div>
@@ -146,4 +148,11 @@
 
         </div>
     </div>
+
+<script>
+    function confirmPayment() {
+        return confirm("Are you sure you want to proceed with the payment?");
+    }
+</script>
+    
 @endsection

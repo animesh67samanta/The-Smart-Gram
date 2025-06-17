@@ -107,18 +107,25 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
         Route::get('penalty/payment-create', [TaxCalculationController::class, 'penaltyPaymentCreate'])->name('penalty.payment.create');
 
         //Route For Namuna
+         Route::get('namuna/eight/bulk', [TaxCalculationController::class, 'namunaEightBulk'])->name('namunaEightBulk');
+        Route::post('namuna/eight/bulk-download', [TaxCalculationController::class, 'namunaEightBulkDownload'])->name('namunaEightBulkDownload');
+
         Route::get('namuna/nine/select', [TaxCalculationController::class, 'namunaNineSelect'])->name('namuna.nine.select');
         Route::post('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details');
 
         Route::get('namuna/nine/bulk', [TaxCalculationController::class, 'namunaNineBulk'])->name('namuna.nine.bulk');
         Route::post('namuna/nine/bulk-download', [TaxCalculationController::class, 'namunaNineBulkDownload'])->name('namuna.nine.bulk.download');
-
+        
+        Route::post('/store-previous-year-data', [TaxCalculationController::class, 'storePreviousYearData'])->name('storePreviousYearData');
+        Route::get('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details.get');
 
         Route::get('namuna/eight/select', [TaxCalculationController::class, 'namunaEightSelect'])->name('namuna.eight.select');
         Route::post('namuna/eight/details', [TaxCalculationController::class, 'namunaEightDetails'])->name('namuna.eight.details');
 
-        Route::post('/store-previous-year-data', [TaxCalculationController::class, 'storePreviousYearData'])->name('storePreviousYearData');
-        Route::get('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details.get');
+        
+
+
+       
 
         // Route for certificate approval
         Route::get('birth/certificate/approval/list', [OfficerController::class, 'birthCertificateApprovalList'])->name('birthCertificate.approval.list');

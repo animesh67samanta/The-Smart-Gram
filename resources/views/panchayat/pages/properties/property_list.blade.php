@@ -63,10 +63,10 @@
 
                                             <td>
 
-                                                <a href="{{ route('panchayat.property.edit', $property->id) }}"><i
+                                                <a href="{{ route('panchayat.property.edit', $property->id) }}" class="text-info"><i
                                                     class='bx bx-edit'></i>Edit</a>
                                                     <br>
-                                                    <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this property?')) { document.getElementById('delete-property-{{ $property->id }}').submit(); }">
+                                                    <a href="#" class="text-danger" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this property?')) { document.getElementById('delete-property-{{ $property->id }}').submit(); }">
                                                         <i class='bx bx-trash'></i> Delete
                                                     </a>
 

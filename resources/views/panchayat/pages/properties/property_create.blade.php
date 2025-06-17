@@ -19,7 +19,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-9 mx-auto">
+                <div class="col-xl-8 mx-auto">
                     <div class="card">
                         <!-- CSV Upload Section -->
                         <div class="card-body">

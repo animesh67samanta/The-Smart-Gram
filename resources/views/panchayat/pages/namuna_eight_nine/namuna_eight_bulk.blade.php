@@ -56,7 +56,7 @@
                     <ol class="breadcrumb mb-0 p-2">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">9</li>
+                        <li class="breadcrumb-item active" aria-current="page">8</li>
                     </ol>
                 </nav>
             </div>
@@ -66,9 +66,9 @@
             <div class="col-xl-12 mx-auto">
                 <div class="card">
                     <div class="card-body">
-                        <h2>Select Property for Namuna Nine</h2>
+                        <h2>Select Property for Namuna Eight</h2>
 
-                        <form action="{{ route('panchayat.namuna.nine.bulk.download') }}" method="POST" id="propertyForm">
+                        <form action="{{ route('panchayat.namunaEightBulkDownload') }}" method="POST" id="propertyForm">
                             @csrf
                             
                             <div class="mb-3 col-md-3">

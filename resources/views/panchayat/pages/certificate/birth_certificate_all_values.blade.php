@@ -9,7 +9,7 @@
             <div class="breadcrumb-title pe-3">BirthCertificate</div>
             <div>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0 p-0">
+                    <ol class="breadcrumb mb-0 p-2">
                         <li class="breadcrumb-item"><a href="{{ route('panchayat.dashboard') }}"><i class="bx bx-home-alt"></i></a></li>
                         <li class="breadcrumb-item active" aria-current="page">All Details</li>
                     </ol>

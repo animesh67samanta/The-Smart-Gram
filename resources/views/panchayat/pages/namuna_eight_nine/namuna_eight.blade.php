@@ -31,7 +31,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-9 mx-auto">
+                <div class="col-xl-6 mx-auto">
                     <div class="card">
                         <div class="card-body">
                             <h2>Select Property for Namuna 8</h2>

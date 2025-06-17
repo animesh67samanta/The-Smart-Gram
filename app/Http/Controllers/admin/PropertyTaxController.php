@@ -7,7 +7,7 @@ use App\Models\Property;
 use App\Models\PropertyTax;
 use App\Models\Admin;
 use Illuminate\Http\Request;
-
+use App\Models\NamunaForm;
 
 class PropertyTaxController extends Controller
 {
@@ -147,5 +147,51 @@ class PropertyTaxController extends Controller
         return redirect()->route('admin.propertyTax.list')->with('success', 'Property tax record deleted successfully.');
     }
 
+    public function namunaFormGet()
+    {
+        try {
+            $namunaForm = NamunaForm::first(); // Get the first record or null
+            return view('admin.pages.panchayat.namuna-form', compact('namunaForm'));
+        } catch (\Exception $e) {
+            // Log the error and return a debug-friendly message
+            \Log::error('Namuna Form error: ' . $e->getMessage());
+            abort(500, 'Something went wrong while loading the form.');
+        }
+    }
+    public function saveNamuna(Request $request)
+    {
+        
+        $request->validate([
+            'start_year_before' => 'nullable|integer|min:1900|max:2099',
+            'end_year_before' => 'nullable|integer|min:1900|max:2099',
+            'start_year_after' => 'nullable|integer|min:1900|max:2099',
+            'end_year_after' => 'nullable|integer|min:1900|max:2099',
+        ]);
+        // dd($request->all());
+        if (!empty($request->id)) {
+            $namunaForm = NamunaForm::find($request->id);
+            if (!$namunaForm) {
+                return back()->with('error', 'Form not found.');
+            }
+            //  dd($request->all());
+            $namunaForm->start_year_before = $request->start_year_before;
+            $namunaForm->end_year_before = $request->end_year_before;
+            $namunaForm->start_year_after = $request->start_year_after;
+            $namunaForm->end_year_after = $request->end_year_after;
+            
+            $namunaForm->save();
+            return back()->with('success', 'Namuna Form data update successfully.');
+        }else{
+            $namunaForm = new NamunaForm();
+            $namunaForm->start_year_before = $request->start_year_before;
+            $namunaForm->end_year_before = $request->end_year_before;
+            $namunaForm->start_year_after = $request->start_year_after;
+            $namunaForm->end_year_after = $request->end_year_after;
+
+            $namunaForm->save();
+            return back()->with('success', 'Namuna Form data saved successfully.');
+        }
+        
+    }
 
 }

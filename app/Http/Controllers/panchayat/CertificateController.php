@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\BirthCertificate;
 use App\Models\DeathCertificate;
 use App\Models\MarriageCertificate;
+use Illuminate\Support\Facades\Validator;
 use App\Models\OldCertificate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use DB;
 
 class CertificateController extends Controller
 {
@@ -341,22 +343,142 @@ class CertificateController extends Controller
         $details = DeathCertificate::with('panchayat')->findOrFail($id);
         return view('panchayat.pages.certificate.death_certificate_all_values', compact('details'));
     }
+    // public function deathCertificateBulkUpload(Request $request)
+    // {
+    //     $request->validate([
+    //         'file' => 'required|mimes:xls,xlsx',
+    //     ]);
+
+    //     try {
+    //         $import = new DeathCertificateImport();
+    //         Excel::import($import, $request->file('file'));
+    //         Log::info('Bulk import completed.');
+    //         return redirect()->back()->with('success', 'Data imported successfully!');
+    //     } catch (\Exception $e) {
+    //         Log::error('Error during import: ' . $e->getMessage());
+    //         return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    //     }
+    // }
+
+
     public function deathCertificateBulkUpload(Request $request)
     {
+        ini_set('max_execution_time', 10000); // 5 minutes
+        ini_set('memory_limit', '5000M');
+        
         $request->validate([
-            'file' => 'required|mimes:xls,xlsx',
+            'csv_file' => 'required|file|mimes:csv,txt'
         ]);
 
+        $file = $request->file('csv_file');
+        $csvData = array_map('str_getcsv', file($file));
+        $header = array_shift($csvData);
+   
+        $translator = new GoogleTranslate('mr');
+        $successCount = 0;
+        $errorCount = 0;
+        $errors = [];
+        // dd(12);
+        $id = Auth::guard('admin')->user()->id;
+        DB::beginTransaction();
         try {
-            $import = new DeathCertificateImport();
-            Excel::import($import, $request->file('file'));
-            Log::info('Bulk import completed.');
-            return redirect()->back()->with('success', 'Data imported successfully!');
+             
+            foreach ($csvData as $row) {
+                $row = array_combine($header, $row);
+           
+                try {
+                    // Validate required fields
+                    if (empty($row['name']) || empty($row['date_of_death']) || empty($row['gender']) || 
+                        empty($row['father_or_husband_name']) || empty($row['death_place']) || 
+                        empty($row['mother_name']) ||
+                        empty($row['permanent_address']) || empty($row['registration_number']) || 
+                        empty($row['registration_date']) || empty($row['issue_date']) || 
+                        empty($row['nationality']) || empty($row['adhar_card_no_deceased'])) {
+                        throw new \Exception("Required fields missing");
+                    }
+
+                    // Format dates
+                    $dobFormatted = Carbon::parse($row['date_of_death'])->format('Y-m-d');
+                    // dd($dobFormatted);
+                    $registrationDateFormatted = Carbon::parse($row['registration_date'])->format('Y-m-d');
+                    $issueDateFormatted = Carbon::parse($row['issue_date'])->format('Y-m-d');
+
+                    // Marathi translations
+                    $dob_mr = $this->convertToMarathiDigits($translator->translate($dobFormatted));
+                    $registration_date_mr = $this->convertToMarathiDigits($translator->translate($registrationDateFormatted));
+                    $issue_date_mr = $this->convertToMarathiDigits($translator->translate($issueDateFormatted));
+                    $registration_no = $this->convertToMarathiDigits($row['registration_number']);
+                    $aadhar_card = $this->convertToMarathiDigits($row['adhar_card_no_deceased']);
+                    $data = [];
+                    $data = [
+                        'panchayat_id'              => $id,
+                        'name'                      => $row['name'],
+                        'name_mr'                   => GoogleTranslate::trans($row['name'], 'mr'),
+                        'dob'                       => $dobFormatted,
+                        'dob_mr'                    => $dob_mr,
+                        'gender'                    => $row['gender'],
+                        'gender_mr'                 => GoogleTranslate::trans($row['gender'], 'mr'),
+                        'father_or_husband_name'    => $row['father_or_husband_name'],
+                        'father_or_husband_name_mr' => GoogleTranslate::trans($row['father_or_husband_name'], 'mr'),
+                        'mother_name'               => $row['mother_name'] ?? null,
+                        'mother_name_mr'            => !empty($row['mother_name']) ? GoogleTranslate::trans($row['mother_name'], 'mr') : null,
+                        'death_place'               => $row['death_place'],
+                        'death_place_mr'            => GoogleTranslate::trans($row['death_place'], 'mr'),
+                        'permanent_address'         => $row['permanent_address'],
+                        'permanent_address_mr'      => GoogleTranslate::trans($row['permanent_address'], 'mr'),
+                        'registration_number'       => $row['registration_number'],
+                        'registration_number_mr'    => $registration_no,
+                        'registration_date'         => $registrationDateFormatted,
+                        'registration_date_mr'      => $registration_date_mr,
+                        'remarks'                   => $row['remarks'] ?? null,
+                        'remarks_mr'                => !empty($row['remarks']) ? GoogleTranslate::trans($row['remarks'], 'mr') : null,
+                        'issue_date'                => $issueDateFormatted,
+                        'issue_date_mr'             => $issue_date_mr,
+                        'nationality'               => $row['nationality'],
+                        'nationality_mr'            => GoogleTranslate::trans($row['nationality'], 'mr'),
+                        'adhar_card_no_deceased'    => $row['adhar_card_no_deceased'],
+                        'adhar_card_no_deceased_mr' => $aadhar_card,
+                    ];
+                    
+                    // dd($data);
+                    DeathCertificate::create($data);
+                   
+                    $successCount++;
+                } catch (\Exception $e) {
+                    $errorCount++;
+                    Log::error('DeathCertificate Insert Error', [
+                        'row_data' => $data,
+                        'message' => $e->getMessage(),
+                        'trace' => $e->getTraceAsString(),
+                    ]);
+                    $errors[] = "Row " . ($successCount + $errorCount) . ": " . $e->getMessage();
+                    continue;
+                }
+            }
+            // exit;
+            DB::commit();
+
+            $message = "Bulk upload completed. Success: {$successCount}, Errors: {$errorCount}";
+            if ($errorCount > 0) {
+                return redirect()->back()
+                    ->with('warning', $message)
+                    ->with('errors', $errors);
+            }
+
+            return redirect()->back()
+                ->with('success', $message);
+
         } catch (\Exception $e) {
-            Log::error('Error during import: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            DB::rollback();
+            return redirect()->back()
+                ->with('error', 'Bulk upload failed: ' . $e->getMessage());
         }
     }
+
+
+   
+
+
     public function oldCertificateList()
     {
 

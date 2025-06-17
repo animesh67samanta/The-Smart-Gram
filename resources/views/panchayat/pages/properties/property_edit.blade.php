@@ -134,9 +134,14 @@
                                         value="{{ old('area_in_sqmt', $property->area_in_sqmt) }}" class="form-control"
                                         placeholder="Insert Area in sqmt">
                                 </div>
+                                <div class="row">
 
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                    <button type="submit" class="btn admin-btn-decorate">Update Property</button>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 text-center">
+                                        <a href="{{ route('panchayat.property.list') }}" class="btn btn-danger">Back</a>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 text-center">
+                                        <button type="submit" class="btn admin-btn-decorate">Update Property</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

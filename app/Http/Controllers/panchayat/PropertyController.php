@@ -17,7 +17,7 @@ class PropertyController extends Controller
     public function index()
     {
         $userId = Auth::guard('admin')->user()->id;
-        $properties = Property::where('panchayat_id', $userId)->get();
+        $properties = Property::where('panchayat_id', $userId)->orderby('property_no','asc')->get();
         $panchayats = Admin::where('user_type','panchayat')->orderby('id','asc')->find($userId);
         // dd($panchayats);
         return view('panchayat.pages.properties.property_list',compact('properties','panchayats'));

@@ -72,6 +72,29 @@
             bottom: 20%;
         }
 
+        .print-header {
+            display: none;
+        }
+
+        /* Footer with signature and page number */
+        .print-footer {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            /* border-top: 1px solid #000; */
+            margin-top: 10px;
+        }
+
+        .signature-line {
+            margin-top: 0px;
+            text-align: left;
+            font-size: 12px;
+            padding-right: 50px;
+            font-weight: normal;
+        }
+
+
         @media print {
             body {
                 margin: 0;
@@ -92,10 +115,53 @@
                 display: none;
             }
 
-            th.rotate {
+            /* th.rotate {
                 height: 30px;
                 font-size: 3px;
+            } */
+
+            .print-header {
+                display: block;
+                text-align: center;
+                margin-bottom: 15px;
+                page-break-after: avoid;
             }
+
+            /* Show footer on each printed page */
+            .print-footer {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+            }
+
+
+            /* Add page breaks */
+            tbody {
+                page-break-inside: avoid;
+            }
+
+            /* Reset padding for printed pages */
+            @page {
+                size: legal landscape;
+                margin-top: 10mm;
+                counter-increment: page;
+                @bottom-right {
+                    content: "पान नंबर : " counter(page);
+                    font-size: 10px;
+                }
+            }
+
+            /* Page counter */
+            /* .page-number:after {
+                content: counter(page);
+            } */
+            .container-fluid {
+                counter-increment: page;
+            }
+
         }
     </style>
 </head>
@@ -104,18 +170,24 @@
        
 
         <div class="row">
-            <h4 class="text-center">ग्रामपंचायत पूर्णी, तालुका: भिवंडी, जिल्हा: ठाणे</h4>
-            <h3 class="text-center">ग्रामपंचायत: {{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h3>
-            <h5 class="text-center">नमुना नं. १ मागणी रजिस्टर </h5>
+            <h4 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h4>
+            {{-- <h3 class="text-center">ग्रामपंचायत: {{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h3> --}}
+            <h5 class="text-center">नमुना नं. ९ मागणी रजिस्टर २०२५ - २०२६ </h5> 
+            {{-- <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: bold; font-family: 'Mangal', 'Noto Sans Devanagari', sans-serif;">
+                <div> </div>
+                <div>पान नंबर : <span class="page-number"></span></div>
+            </div> --}}
         </div>
 
         <table>
             <thead>
-                <tr style="height: 40px;">
+                <tr style="height: 30px;">
                     <th rowspan="3" class="rotate" style="font-size: 10px;">मिळकत नं.</th>
                     <th rowspan="3" style="font-weight: 800; padding: 10px;">मिळकत धारकाचे नाव </th>
-                    <th colspan="15" style="font-weight: 800;">मागणी / Demand</th>
-                    <th colspan="16" style="font-weight: 800;">वसूली / Recovery</th>
+                    {{-- <th colspan="15" style="font-weight: 800;">मागणी / Demand</th> --}}
+                    {{-- <th colspan="16" style="font-weight: 800;">वसूली / Recovery</th> --}}
+                    <th colspan="15" style="font-weight: 800;">मागणी </th>
+                    <th colspan="16" style="font-weight: 800;">वसूली </th>
                     <th rowspan="3" class="rotate" style="font-weight: 800; font-size: 12px;">अजून येणे बाकी आहे </th>
                 </tr>
                 <tr>
@@ -123,19 +195,22 @@
                     <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
                     <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
                     <th colspan="1" style="font-weight: 800;">विशेष कर </th>
-                    <th colspan="3" style="font-weight: 800;">5% दंड / सवलत</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">30 सप्टेंबर पूर्वी </th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">30 सप्टेंबर नंतर </th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती क्र.<br>Reciept no.</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती तारीख <br> Reciept date</th>
+                    <th colspan="3" style="font-weight: 800;">५% दंड / सवलत</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर पूर्वी </th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर नंतर </th>
+                    {{-- <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती क्र.<br>Reciept no.</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती तारीख <br> Reciept date</th> --}}
+
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती क्र.</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती तारीख </th>
                     <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
                     <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
                     <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
                     <th colspan="1" style="font-weight: 800;">विशेष कर </th>
-                    <th colspan="3" style="font-weight: 800;">5% दंड / सवलत </th>
+                    <th colspan="3" style="font-weight: 800;">५% दंड / सवलत </th>
                     <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">एकूण</th>
                 </tr>
-                <tr style="height: 160px;">
+                <tr style="height: 80px;">
                     <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
                     <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
                     <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
@@ -183,55 +258,147 @@
                             ($responseData['tax_penalty'] ?? 0) - 
                             ($responseData['tax_discount'] ?? 0);
                 ?>
-                <tr style="height: 200px;">
+                <tr style="height: 110px;">
                     <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ $responseData['property_no'] }}</td>
                     <td style="font-weight: normal; font-size: 12px;">{{ $responseData['owner_name_mr'] }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['previous_home_tax_amount'], 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['home_tax'] + ($responseData['water_tax_rate'] ?? 0), 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($totalHomeTax, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['previous_home_tax_amount'], 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['home_tax'] + ($responseData['water_tax_rate'] ?? 0), 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($totalHomeTax, 2) }}</td>
 
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['previous_health_tax_amount'] ?? 0, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['health_tax_rate'] ?? 0, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($totalHealthTax, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['previous_health_tax_amount'] ?? 0, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['health_tax_rate'] ?? 0, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($totalHealthTax, 2) }}</td>
 
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['previous_lamp_tax_amount'] ?? 0, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['lamp_tax_rate'] ?? 0, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($totalLampTax, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['previous_lamp_tax_amount'] ?? 0, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['lamp_tax_rate'] ?? 0, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($totalLampTax, 2) }}</td>
 
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">@if($responseData['description'] != 'Open plot')₹{{ number_format($responseData['special_tax_rate'] ?? 0, 2) }}@endif</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['tax_penalty'] ?? 0, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($responseData['tax_discount'] ?? 0, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($allTaxes, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($totalTax, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($totalTax, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;"></td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;"></td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">@if($responseData['description'] != 'Open plot')0.00 @endif</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">@if($responseData['description'] != 'Open plot'){{ number_format($responseData['special_tax_rate'] ?? 0, 2) }}@endif</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['tax_penalty'] ?? 0, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['tax_discount'] ?? 0, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($allTaxes, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($totalTax, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($totalTax, 2) }}</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
                     <td class="rotate" style="font-size: 12px; font-weight: 800;">{{ number_format($totalTax, 2) }}</td>
-                </tr>
-                @if(($index + 1) % 3 === 0 && !$loop->last)
+                
+                @if(($index + 1) % 5 === 0 && !$loop->last)
+              
                     </tbody>
-                    <tbody style="page-break-before: always;">
-                @endif
+                    </table>
+                    
+                   
+                    
+                    <!-- Page break -->
+                    <div style="page-break-after: always;"></div>
+                    <!-- Start new table on next page with header -->
+                    <div class="print-header">
+                        <h4>{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h4>
+                        {{-- <h3>ग्रामपंचायत: </h3>   --}}
+                        <h5>नमुना नं. ९ मागणी रजिस्टर २०२५ - २०२६ </h5> 
+
+                        {{-- <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: bold; font-family: 'Mangal', 'Noto Sans Devanagari', sans-serif;">
+                            <div> </div>
+                            <div>पान नंबर : <span class="page-number"></span></div>
+                        </div> --}}
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <!-- Repeat table header -->
+                            <tr style="height: 30px;">
+                                <th rowspan="3" class="rotate" style="font-size: 10px;">मिळकत नं.</th>
+                                <th rowspan="3" style="font-weight: 800; padding: 10px;">मिळकत धारकाचे नाव </th>
+                                 {{-- <th colspan="15" style="font-weight: 800;">मागणी / Demand</th> --}}
+                                {{-- <th colspan="16" style="font-weight: 800;">वसूली / Recovery</th> --}}
+                                <th colspan="15" style="font-weight: 800;">मागणी </th>
+                                <th colspan="16" style="font-weight: 800;">वसूली </th>
+                                <th rowspan="3" class="rotate" style="font-weight: 800; font-size: 12px;">अजून येणे बाकी आहे </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
+                                <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
+                                <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
+                                <th colspan="1" style="font-weight: 800;">विशेष कर </th>
+                                <th colspan="3" style="font-weight: 800;">५% दंड / सवलत</th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर पूर्वी </th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर नंतर </th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती क्र.<br>Reciept no.</th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती तारीख <br> Reciept date</th>
+                                <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
+                                <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
+                                <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
+                                <th colspan="1" style="font-weight: 800;">विशेष कर </th>
+                                <th colspan="3" style="font-weight: 800;">५% दंड / सवलत </th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">एकूण</th>
+                            </tr>
+                            <tr style="height: 80px;">
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">{{ $specialTax ?? '' }}</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;"> {{ $specialTax ?? ''}}</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    @endif
                 @endforeach
             </tbody>
         </table>
 
+        <!-- Footer for each page -->
+       <div class="print-footer">
+                    <div class="signature-line" style="font-weight: normal;">
+                        शेरे व दुरुस्ती यांजवर खरेपणाबद्दल सरपंचाने सही केली पाहिजे
+                    </div>
+                    
+                </div>
 
         <button id="printButton" onclick="window.print()"><i class="fa-solid fa-print" style="font-size: 20px"></i> Print</button>
     </div>
+
+    <script>
+        // Add page numbers when printing
+        document.addEventListener('DOMContentLoaded', function() {
+           
+            
+        });
+    </script>
 </body>
 </html>
