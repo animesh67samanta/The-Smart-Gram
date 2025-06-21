@@ -101,16 +101,14 @@
 </head>
 <body>
        
-    <div class="container-fluid">
+     <div class="container-fluid">
         <div class="row">
-            <h4 class="text-center">ग्रामपंचायत पूर्णी, तालुका: भिवंडी, जिल्हा: ठाणे</h4>
-        
-            <h3 class="text-center">ग्रामपंचायत: {{ $responseData['panchayat_name_mr'] }}, {{ $responseData['panchayat_address_mr'] }}</h3>
-            <h5 class="text-center">नमुना नं. १ मागणी रजिस्टर </h5>
+            <h5 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h5>
+            <h5 class="text-center">नमुना नं. ९ मागणी रजिस्टर २०२५ - २०२६ </h5> 
         </div>
 
         <table>
-            <thead>
+            {{-- <thead>
                 <tr style="height: 40px;">
                     <th rowspan="3" class="rotate" style="font-size: 10px;">मिळकत नं.</th>
                     <th rowspan="3"  style="font-weight: 800; padding: 10px;">मिळकत धारकाचे नाव</th>
@@ -166,6 +164,60 @@
                     <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
                     <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
                 </tr>
+            </thead> --}}
+            <thead>
+                <tr style="height: 30px;">
+                    <th rowspan="3" class="rotate" style="font-size: 10px;">मिळकत नं.</th>
+                    <th rowspan="3" style="font-weight: 800; padding: 40px;">मिळकत धारकाचे नाव </th>
+                    <th colspan="15" style="font-weight: 800;">मागणी </th>
+                    <th colspan="16" style="font-weight: 800;">वसूली </th>
+                    <th rowspan="3" class="rotate" style="font-weight: 800; font-size: 12px;">अजून येणे <br>बाकी आहे </th>
+                </tr>
+                <tr style="height: 30px;">
+                    <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
+                    <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
+                    <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
+                    <th colspan="1" style="font-weight: 800; padding: 5px;">विशेष कर </th>
+                    <th colspan="3" style="font-weight: 800;">५% दंड / सवलत</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">३० सप्टेंबर<br> पूर्वी </th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">३० सप्टेंबर<br> नंतर </th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 10px;">पावती <br>क्र.</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 10px;">पावती <br>तारीख </th>
+                    <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
+                    <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
+                    <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
+                    <th colspan="1" style="font-weight: 800; padding: 0px 5px;">विशेष कर </th>
+                    <th colspan="3" style="font-weight: 800;">५% दंड / सवलत </th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">एकूण</th>
+                </tr>
+                <tr style="height: 80px;">
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">@if($responseData['description'] != 'Open plot'){{ $responseData['special_tax_mr'] }}@endif</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;"> @if($responseData['description'] != 'Open plot'){{ $responseData['special_tax_mr'] }}@endif</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                </tr>
             </thead>
             <tbody>
                 <?php
@@ -202,22 +254,22 @@
                     <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($allTaxes, 2) }}</td>
                     <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($totalTax, 2) }}</td>
                     <td class="rotate" style="font-size: 12px; font-weight: normal;">₹{{ number_format($totalTax, 2) }}</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;"></td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;"></td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">@if($responseData['description'] != 'Open plot')0.00 @endif</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
-                    <td class="rotate" style="font-size: 12px; font-weight: normal;">0.00</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;">@if($responseData['description'] != 'Open plot')  @endif</td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
+                    <td class="rotate" style="font-size: 12px; font-weight: normal;"> </td>
                     <td class="rotate" style="font-size: 12px; font-weight: 800;">{{ number_format($totalTax, 2) }}</td>
 
                 </tr>

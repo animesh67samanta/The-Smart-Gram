@@ -138,7 +138,7 @@
                             </div>
                             <div class="text-center mt-4">
                                  <a href="{{ url()->previous() }}" class="btn btn-danger">Back</a>
-                                <a href="{{ route('panchayat.hometaxes.payment.create',$id) }}"  onclick="return confirmPayment();" class="btn btn-warning">Pay Now</a>
+                                <a href="{{ route('panchayat.hometaxes.due.create', $id) }}"  onclick="return confirmPayment();" class="btn btn-warning">Pay Now</a>
 
                             </div>
                         </div>

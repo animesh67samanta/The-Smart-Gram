@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Namuna No. 8 Form </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/fontawesome.min.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"  />
     <style>
         * {
             box-sizing: border-box;
@@ -40,7 +43,9 @@
             text-align: center;
             vertical-align: middle;
         }
-
+        .row {
+            text-align: center;
+        }
         .rotate {
             transform: rotate(-90deg);
             transform-origin: center;
@@ -51,7 +56,10 @@
             text-align: center;
             vertical-align: middle;
         }
-
+        .print-header {
+            display: none;
+             font-family: 'Mangal', 'Noto Sans Devanagari', sans-serif;
+        }
         /* Styling for the print button */
         #printButton {
             margin: 20px 0;
@@ -61,6 +69,22 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
+        }
+        .print-footer {
+            /* display: none; */
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            /* border-top: 1px solid #000; */
+            margin-top: 10px;
+        }
+       
+        .signature-line {
+            margin-top: 0px;
+            text-align: left;
+            font-size: 12px;
+            padding-right: 50px;
+            font-weight: normal;
         }
 
         /* Print styles */
@@ -79,7 +103,14 @@
                 width: 100%; /* Full width for printing */
                 page-break-inside: avoid; /* Prevent table from breaking inside pages */
             }
-
+            .print-footer {
+                /* display: block; */
+                position: relative;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+            }
             #printButton {
                 display: none; /* Hide print button when printing */
             }
@@ -97,36 +128,36 @@
 </head>
 <body>
     <?php
-   // dd($homeTaxes);
+        $add = explode(',', Auth::guard('admin')->user()->address_mr); 
     ?>
-    <div class="container">
-        <div style="display: flex; justify-content: center;">
-            <h3>ग्रामपंचायत : {{ $homeTaxes->panchayat_name_mr }}, {{ $homeTaxes->panchayat_address_mr }}</h3>
+    <div class="container-fluid">
+        
+        <div class="row">
+            <h5>नमुना ८ नियम ३२(१)</h5>
+            <h5>सन. {{ $taxYear['start_year_before'] }}-{{ $taxYear['end_year_before']}} ते {{ $taxYear['start_year_after'] }}-{{ $taxYear['end_year_after'] }} साठी कर आकारणी नोंदवही</h5>
+            
         </div>
-        <div >
-            <div style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
-                <div style="flex: 0 0 50%; max-width: 20%; padding-right: 15px; padding-left: 15px;  text-align: center; padding: 20px; margin-bottom: 15px;">
-                    <h5>ward no :</h5>
-                </div>
-                <div style="flex: 0 0 50%; max-width: 70%; padding-right: 15px; padding-left: 15px; text-align: center; padding: 20px; margin-bottom: 15px; margin-left: 65px;">
-                    <h4>Namuna no. 8 (Rule 32(1))</h4>
-                    list of Taxable buildings and land for the year 2023-24 to 2026-27
-                </div>
-            </div>
-
-
+        <div class="row mt-3 mb-2">  
+            <div class="col-4" style="text-align: left;">ग्रामपंचायत : {{ Auth::guard('admin')->user()->name_mr }}</div>
+            <div class="col-4">तालुका : {{ $add[0]}}</div>
+            <div class="col-4" style="text-align: right;">जिल्हा : {{ $add[1] }}</div>
         </div>
-
         <table>
             <thead>
-                <tr>
+                {{-- <tr>
                     <th rowspan="4" style="font-size: 8px;">Sr no. <br>अ. क्र.</th>
                     <th rowspan="4" style="font-size: 8px;">Street no. <br> रस्त्याचे नाव / गल्लीचे नाव </th>
                     <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 800;">C.T survey no. <br> सी. टि. सर्वे नं. / भूमापन क्र.</th>
                     <th rowspan="4" class="rotate" style="font-size: 8px; font-weight: 800;">Property no. <br>मालमत्ता क्र.</th>
                   
-                </tr>
+                </tr> --}}
                 <tr>
+                    <th rowspan="4" style="padding: 0px 15px; font-size: 12px;">अ. क्र.</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 0px 40px;">रस्त्याचे नाव / गल्लीचे नाव</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 8px; font-weight: 900;">सी. टि. सर्वे नं. <br>/ भूमापन क्र. / गट क्र.</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 5px; font-weight: 900;">मालमत्ता क्र.</th>
+                </tr>
+                {{-- <tr>
                     <th rowspan="3" style="font-weight: 900; font-size: 8px;">Owner's name<br>मालमत्ता धारकाचे नाव</th>
                     <th rowspan="3" style="font-weight: 900; font-size: 8px;">property username <br> भोगवटा धारकाचे नाव</th>
                     <th rowspan="3" style="font-weight: 900; font-size: 8px;">property description<br>मालमत्तेचे वर्णन</th>
@@ -149,9 +180,30 @@
                     <th colspan="5" style="font-weight: 900; font-size:8px;">Appeal decision and modification thereof<br>अपील निर्णय आणि त्यात सुधारणा</th>
                     <th colspan="4" rowspan="4" style="font-weight: 900; font-size:8px; padding: 0px 15px;">Later remarks regas Is the order in case of increase or decrease<br> नंतरचे शेरे regas वाढ किंवा कमी बाबतीत क्रम आहे</th>
 
+                </tr> --}}
+                <tr style="height: 70px;">
+                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 55px;">मालमत्ता धारकाचे नाव</th>
+                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 35px;">भोगवटा धारकाचे नाव</th>
+                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 10px;">मालमत्तेचे वर्णन</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">मिळकत <br>बांधकामाचे वर्ष</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900; padding: 5px;">क्षेत्रफळ <br>चौ. फु.</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900; padding: 5px;">क्षेत्रफळ <br>चौ. मी.</th>
+                    <th colspan="3" style="font-weight: 900; font-size: 12px; padding: 10px">रेडीरेकनर दर <br>प्रति चौ. मी.</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">घसारा दर</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">इ. वापरा <br>नुसार भारांक</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">भांडवली<br> मूल्य</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important; padding: 5px;">कराचा <br>दर</th>
+                    @if(!empty($homeTaxes->special_tax))
+                        <th colspan="6" style="font-size: 12px; font-weight: 900;">वार्षिक कराची रक्कम (रुपयात)</th>
+                    @else
+                        <th colspan="5" style="font-size: 12px; font-weight: 900;">वार्षिक कराची रक्कम (रुपयात)</th>
+                    @endif
+                    
+                    <th colspan="5" style="font-weight: 900; font-size: 12px;">अपिलाचे निकाल व त्यावर केलेले फेरफार</th>
+                    <th colspan="4" rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 5px;">नंतर वाढ किंवा घट झालेल्या बाबतीत आदेशाच्या संदर्भात शेरा</th>
                 </tr>
                 <tr></tr>
-                <tr>
+                {{-- <tr>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Open plot <br> जमीन</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Residence <br> बांधकाम</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Building <br> इमारत</th>
@@ -170,6 +222,24 @@
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Health tax <br>आरोग्य कर</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important;">Water tax <br>पाणी कर</th>
                     <th class="rotate" style="font-weight: normal;padding:15px 0; font-size:8px !important; padding:0 10px ">Total <br>एकूण</th>
+                </tr> --}}
+                <tr>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">जमीन</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">बांधकाम</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">इमारत</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">घरपट्टी कर</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">दिवाबत्ती कर</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">आरोग्य कर</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">पाणीपट्टी कर</th>
+                    @if(!empty($homeTaxes->special_tax))
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">{{ $homeTaxes->special_tax_mr }}</th>
+                    @endif
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">एकूण</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">घरपट्टी कर</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">दिवाबत्ती कर</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">आरोग्य कर</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important;">पाणीपट्टी कर</th>
+                    <th class="rotate" style="font-weight: normal;padding: 20px 0; font-size: 12px !important; padding:0 10px">एकूण</th>
                 </tr>
             </thead>
             <tbody>
@@ -214,19 +284,19 @@
                     <td colspan="4">28</td>
                     @endif
                 </tr>
-<?php //dd($homeTaxes); ?>
+
                 <tr>
                     <td>{{$homeTaxes->id}}</td>
-                    <td style="font-weight: normal;">{{ $homeTaxes->property->street_name_mr ?? ' ' }}<br>{{$homeTaxes->property->street_name ?? ' '}}</td>
+                    <td style="font-weight: normal;">{{ $homeTaxes->property->street_name_mr ?? ' ' }}</td>
                     <td>{{$homeTaxes->property->ct_survey_no ?? ' '}}</td>
-                    <td class="rotate" style="font-weight: normal;">{{$homeTaxes->property->property_no ?? ' '}}</td>
-                    <td >{{ $homeTaxes->property->owner_name_mr ?? ' '}}/{{$homeTaxes->property->owner_name ?? ' '}}</td>
-                    <td>{{ $homeTaxes->property->property_user_name_mr ?? ' '}}/{{$homeTaxes->property->property_user_name ?? ' '}}</td>
+                    <td style="font-weight: normal;">{{$homeTaxes->property->property_no ?? ' '}}</td>
+                    <td >{{ $homeTaxes->property->owner_name_mr ?? ' '}}</td>
+                    <td>{{ $homeTaxes->property->property_user_name_mr ?? ' '}}</td>
 
                     @if($homeTaxes->property->description == 'House')
-                        <td>{{ $homeTaxes->property->house_type_mr ?? ' ' }}/{{$homeTaxes->property->house_type ?? ' '}}</td>
+                        <td>{{ $homeTaxes->property->house_type_mr ?? ' ' }}</td>
                     @else
-                        <td>{{ $homeTaxes->property->description_mr ?? ' ' }}/{{$homeTaxes->property->description ?? ' '}}</td>
+                        <td>{{ $homeTaxes->property->description_mr ?? ' ' }}</td>
                     @endif
 
                     <td class="rotate" style="font-weight: normal;">{{$homeTaxes->property->year_of_income_construction ?? ' '}}</td>
@@ -265,7 +335,16 @@
                 <!-- Additional rows can be added similarly -->
             </tbody>
         </table>
-        <button id="printButton" onclick="window.print()">Print</button>
+         <!-- Footer for each page -->
+       <div class="print-footer">
+                    <div class="signature-line" style="font-weight: normal;">
+                        सदर उतारा हा मालकी हक्काचा नसून कर आकारणीचा आहे. सदरच्या उताऱ्यावरून खरेदी विक्रीचा व्यवहार झाल्यास त्यास ग्रामपंचायत जबाबदार राहणार नाही. शासन परिपत्रक क्र. VTM२६०३ / प्र. क्र. २०६८/ पं. रा. ४ दि.२० नोव्हेंबर २००३ नुसार ग्रामीण भागातील घरांची नोंदणी पती-पत्नी यांच्या संयुक्त नावे करण्याबाबत निर्देशित करण्यात आलेले आहे.
+                    </div>
+                    <div style="font-weight: normal; text-align: right;">
+                        येणे प्रमाणे उतारा दिला असे दिनांक - {{ date('d-m-Y') }}
+                    </div>
+                </div>
+        <button id="printButton" onclick="window.print()"><i class="fa-solid fa-print" style="font-size: 20px"></i> Print</button>
     </div>
 </body>
 </html>

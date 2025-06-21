@@ -45,7 +45,9 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
         // Payment slip
         Route::get('hometaxes/payment-recipt/{id}', [TaxCalculationController::class, 'homeTaxPaymentRecipt'])->name('hometaxes.payment.recipt');
         Route::get('hometaxes/payment-chalan/{id}', [TaxCalculationController::class, 'homeTaxPaymentChalan'])->name('hometaxes.payment.chalan');
-
+        Route::get('hometaxes/check-previous/{id}', [TaxCalculationController::class, 'checkPreviousTax'])->name('hometaxes.check-previous');
+            
+        Route::delete('hometaxes/home-tax/{id}', [TaxCalculationController::class, 'destroyHomeTax'])->name('hometaxes.homeTax.delete');
 
         // Demand Bill
         Route::get('hometaxes/demand-bill/{id}', [TaxCalculationController::class, 'homeTaxDemandBill'])->name('hometaxes.demand.bill');

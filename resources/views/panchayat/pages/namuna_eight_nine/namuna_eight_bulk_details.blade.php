@@ -119,7 +119,7 @@
            
             /* Footer with signature and page number */
             .print-footer {
-                display: block;
+                /* display: block; */
                 position: fixed;
                 bottom: 0;
                 width: 100%;
@@ -171,8 +171,8 @@
     <div class="container-fluid">
         <!-- Screen header (only shows on screen) -->
         <div class="row">
-            <h4>नमुना ८ नियम ३२(१)</h4>
-            <h4>सन. {{ $taxYear['start_year_before'] }}-{{ $taxYear['end_year_before']}} ते {{ $taxYear['start_year_after'] }}-{{ $taxYear['end_year_after'] }} साठी कर आकारणी नोंदवही</h4>
+            <h5>नमुना ८ नियम ३२(१)</h5>
+            <h5>सन. {{ $taxYear['start_year_before'] }}-{{ $taxYear['end_year_before']}} ते {{ $taxYear['start_year_after'] }}-{{ $taxYear['end_year_after'] }} साठी कर आकारणी नोंदवही</h5>
             
         </div>
         <div class="row mt-3 mb-2">  
@@ -186,26 +186,26 @@
             <thead>
                 
                 <tr>
-                    <th rowspan="4" style="font-size: 12px;">अ. क्र.</th>
-                    <th rowspan="4" style="font-size: 12px; padding: 0px 10px;">रस्त्याचे नाव / गल्लीचे नाव</th>
-                    <th rowspan="4" class="rotate" style="font-size: 12px; font-weight: 900;">सी. टि. सर्वे नं. / भूमापन क्र. / गट क्र.</th>
-                    <th rowspan="4" class="rotate" style="font-size: 12px; font-weight: 900;">मालमत्ता क्र.</th>
+                    <th rowspan="4" style="padding: 0px 15px; font-size: 12px;">अ. क्र.</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 0px 40px;">रस्त्याचे नाव / गल्लीचे नाव</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 8px; font-weight: 900;">सी. टि. सर्वे नं. <br>/ भूमापन क्र. / गट क्र.</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 5px; font-weight: 900;">मालमत्ता क्र.</th>
                 </tr>
                 <tr style="height: 90px;">
-                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 10px;">मालमत्ता धारकाचे नाव</th>
-                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 10px;">भोगवटा धारकाचे नाव</th>
+                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 55px;">मालमत्ता धारकाचे नाव</th>
+                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 35px;">भोगवटा धारकाचे नाव</th>
                     <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 10px;">मालमत्तेचे वर्णन</th>
-                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">मिळकत बांधकामाचे वर्</th>
-                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">क्षेत्रफळ चौ. फु.</th>
-                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">क्षेत्रफळ चौ. मी.</th>
-                    <th colspan="3" style="font-weight: 900; font-size: 12px;">रेडीरेकनर दर प्रति चौ. मी.</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">मिळकत <br>बांधकामाचे वर्ष</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900; padding: 5px;">क्षेत्रफळ <br>चौ. फु.</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900; padding: 5px;">क्षेत्रफळ <br>चौ. मी.</th>
+                    <th colspan="3" style="font-weight: 900; font-size: 12px; padding: 10px">रेडीरेकनर दर <br>प्रति चौ. मी.</th>
                     <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">घसारा दर</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">इ. वापरा नुसार भारांक</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">भांडवली मूल्य</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">कराचा दर</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">इ. वापरा <br>नुसार भारांक</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">भांडवली<br> मूल्य</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important; padding: 5px;">कराचा <br>दर</th>
                     <th colspan="6" style="font-size: 12px; font-weight: 900;">वार्षिक कराची रक्कम (रुपयात)</th>
                     <th colspan="5" style="font-weight: 900; font-size: 12px;">अपिलाचे निकाल व त्यावर केलेले फेरफार</th>
-                    <th colspan="4" rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 15px;">नंतर वाढ किंवा घट झालेल्या बाबतीत आदेशाच्या संदर्भात शेरा</th>
+                    <th colspan="4" rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 5px;">नंतर वाढ किंवा घट झालेल्या बाबतीत आदेशाच्या संदर्भात शेरा</th>
                 </tr>
                 <tr></tr>
                 <tr>
@@ -272,7 +272,7 @@
                     <td>{{ $responseData['sl_no'] }}</td>
                     <td style="font-weight: normal;">{{ $responseData['street_name'] ?? ' ' }}</td>
                     <td>{{ $responseData['ct_survey_no'] ?? ' ' }}</td>
-                    <td class="rotate" style="font-weight: normal;">{{ $responseData['property_no'] ?? ' ' }}</td>
+                    <td style="font-weight: normal;">{{ $responseData['property_no'] ?? ' ' }}</td>
                     <td>{{ $responseData['owner_name_mr'] ?? ' ' }}</td>
                     <td>{{ $responseData['property_user_name'] ?? ' ' }}</td>
 
@@ -327,8 +327,8 @@
                     <div class="print-header">
                     
                        <div class="row">
-                        <h4>नमुना ८ नियम ३२(१)</h4>
-                        <h4>सन. {{ $taxYear['start_year_before'] }}-{{ $taxYear['end_year_before']}} ते {{ $taxYear['start_year_after'] }}-{{ $taxYear['end_year_after'] }} साठी कर आकारणी नोंदवही</h4>
+                        <h5>नमुना ८ नियम ३२(१)</h5>
+                        <h5>सन. {{ $taxYear['start_year_before'] }}-{{ $taxYear['end_year_before']}} ते {{ $taxYear['start_year_after'] }}-{{ $taxYear['end_year_after'] }} साठी कर आकारणी नोंदवही</h5>
                         
                     </div>
                     <div class="row mt-3">  
@@ -342,26 +342,26 @@
                         <thead>
                             <!-- Repeat table header -->
                             <tr>
-                    <th rowspan="4" style="font-size: 12px;">अ. क्र.</th>
-                    <th rowspan="4" style="font-size: 12px; padding: 0px 10px;">रस्त्याचे नाव / गल्लीचे नाव</th>
-                    <th rowspan="4" class="rotate" style="font-size: 12px; font-weight: 900;">सी. टि. सर्वे नं. / भूमापन क्र. / गट क्र.</th>
-                    <th rowspan="4" class="rotate" style="font-size: 12px; font-weight: 900;">मालमत्ता क्र.</th>
+                    <th rowspan="4" style="padding: 0px 15px; font-size: 12px;">अ. क्र.</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 0px 40px;">रस्त्याचे नाव / गल्लीचे नाव</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 8px; font-weight: 900;">सी. टि. सर्वे नं. <br>/ भूमापन क्र. / गट क्र.</th>
+                    <th rowspan="4" style="font-size: 12px; padding: 5px; font-weight: 900;">मालमत्ता क्र.</th>
                 </tr>
                 <tr style="height: 90px;">
-                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 10px;">मालमत्ता धारकाचे नाव</th>
-                    <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 10px;">भोगवटा धारकाचे नाव</th>
+                     <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 55px;">मालमत्ता धारकाचे नाव</th>
+                     <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 35px;">भोगवटा धारकाचे नाव</th>
                     <th rowspan="3" style="font-weight: 900; font-size: 12px; padding: 10px;">मालमत्तेचे वर्णन</th>
-                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">मिळकत बांधकामाचे वर्</th>
-                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">क्षेत्रफळ चौ. फु.</th>
-                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">क्षेत्रफळ चौ. मी.</th>
-                    <th colspan="3" style="font-weight: 900; font-size: 12px;">रेडीरेकनर दर प्रति चौ. मी.</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900;">मिळकत <br>बांधकामाचे वर्ष</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900; padding: 5px;">क्षेत्रफळ <br>चौ. फु.</th>
+                    <th rowspan="3" class="rotate" style="font-size: 12px; font-weight: 900; padding: 5px;">क्षेत्रफळ <br>चौ. मी.</th>
+                    <th colspan="3" style="font-weight: 900; font-size: 12px; padding: 10px">रेडीरेकनर दर <br>प्रति चौ. मी.</th>
                     <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">घसारा दर</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">इ. वापरा नुसार भारांक</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">भांडवली मूल्य</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">कराचा दर</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">इ. वापरा <br>नुसार भारांक</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important;">भांडवली<br> मूल्य</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px !important; padding: 5px;">कराचा <br>दर</th>
                     <th colspan="6" style="font-size: 12px; font-weight: 900;">वार्षिक कराची रक्कम (रुपयात)</th>
                     <th colspan="5" style="font-weight: 900; font-size: 12px;">अपिलाचे निकाल व त्यावर केलेले फेरफार</th>
-                    <th colspan="4" rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 15px;">नंतर वाढ किंवा घट झालेल्या बाबतीत आदेशाच्या संदर्भात शेरा</th>
+                    <th colspan="4" rowspan="3" style="font-weight: 900; font-size: 12px; padding: 0px 5px;">नंतर वाढ किंवा घट झालेल्या बाबतीत आदेशाच्या संदर्भात शेरा</th>
                 </tr>
                 <tr></tr>
                 <tr >
@@ -419,9 +419,7 @@
             </tbody>
         </table>
 
-        
-
-            <button id="printButton" onclick="window.print()"><i class="fa-solid fa-print" style="font-size: 20px"></i> Print</button>
+        <button id="printButton" onclick="window.print()"><i class="fa-solid fa-print" style="font-size: 20px"></i> Print</button>
 
     </div>
 </body>

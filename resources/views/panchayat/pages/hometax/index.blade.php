@@ -49,6 +49,7 @@
                                     <th>Payment Status</th> <!-- Make sure "Action" has its own column -->
                                     <th>Payment Slip</th>
                                     <th>Download</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             
@@ -96,8 +97,11 @@
                                         {{-- <a href="{{ route('panchayat.hometaxes.edit', $homeTax->id) }}">
                                             <i class='bx bx-edit'></i>Edit
                                         </a> --}}
-                                        @if($homeTax->home_pay_tax_amount > 0)
+                                        @if(($homeTax->home_pay_tax_amount > 0) && ($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) != 0)
                                         <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.chalan', $homeTax->id) }}" > <i class="bx bx-download"></i></a>
+                                        @else
+                                        <a href="#"><i class="bx bx-right-arrow-alt" style="font-size: 20px;"></i></a>
+                                        
                                         @endif
                                     </td>
                                     <td  class="text-center">
@@ -106,6 +110,11 @@
                                         @else
                                         <a class="btn btn-warning btn-sm" href="{{ route('panchayat.hometaxes.demand.bill', $homeTax->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Demand Bill Download"><i class="bx bx-download" ></i></a>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm delete-tax-btn" data-tax-id="{{ $homeTax->id }}">
+                                            <i class="bx bx-trash-alt"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -118,5 +127,119 @@
         </div>
     </div>
 </div>
+{{-- delete modal --}}
 
+<!-- Add this modal at the bottom of your view -->
+<div class="modal fade" id="deleteTaxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalMessage">Are you sure you want to delete this tax record?</p>
+                <div id="previousYearCheckbox" class="form-check mt-3" style="display: none;">
+                    <input class="form-check-input" type="checkbox" id="deletePreviousCheck">
+                    <label class="form-check-label" for="deletePreviousCheck">
+                        Also delete <span id="previousYearText"></span> tax record
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButtons = document.querySelectorAll('.delete-tax-btn');
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteTaxModal'));
+    let currentTaxId = null;
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentTaxId = this.getAttribute('data-tax-id');
+            
+            // Show loading state
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
+            
+            // Check for previous year data
+            fetch(`{{ route('panchayat.hometaxes.check-previous', '') }}/${currentTaxId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Reset button
+                    this.innerHTML = originalText;
+                    
+                    // Update modal content based on response
+                    const checkboxDiv = document.getElementById('previousYearCheckbox');
+                    const previousYearText = document.getElementById('previousYearText');
+                    
+                    if (data.has_previous) {
+                        document.getElementById('deleteModalMessage').textContent = 
+                            `Are you sure you want to delete ${data.current_year} tax record?`;
+                        checkboxDiv.style.display = 'block';
+                        previousYearText.textContent = data.previous_year;
+                    } else {
+                        document.getElementById('deleteModalMessage').textContent = 
+                            `Are you sure you want to delete this tax record?`;
+                        checkboxDiv.style.display = 'none';
+                    }
+                    
+                    // Show modal
+                    deleteModal.show();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    this.innerHTML = originalText;
+                    alert('Failed to check tax records. Please try again.');
+                });
+        });
+    });
+
+    // Handle delete confirmation
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        const deletePrevious = document.getElementById('deletePreviousCheck').checked;
+        
+        // Show loading in modal
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+        this.disabled = true;
+        
+        // Send delete request
+        fetch(`{{ route('panchayat.hometaxes.homeTax.delete', '') }}/${currentTaxId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                delete_previous: deletePrevious
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message and reload
+                deleteModal.hide();
+                alert(data.message);
+                window.location.reload();
+            } else {
+                throw new Error(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete: ' + error.message);
+            this.innerHTML = 'Delete';
+            this.disabled = false;
+        });
+    });
+});
+</script>
 @endsection

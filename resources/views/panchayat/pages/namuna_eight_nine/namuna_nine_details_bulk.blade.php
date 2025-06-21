@@ -167,12 +167,10 @@
 </head>
 <body>
     <div class="container-fluid">
-       
-
         <div class="row">
-            <h4 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h4>
-            {{-- <h3 class="text-center">ग्रामपंचायत: {{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h3> --}}
+            <h5 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h5>
             <h5 class="text-center">नमुना नं. ९ मागणी रजिस्टर २०२५ - २०२६ </h5> 
+            {{-- <h3 class="text-center">ग्रामपंचायत: {{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h3> --}}
             {{-- <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: bold; font-family: 'Mangal', 'Noto Sans Devanagari', sans-serif;">
                 <div> </div>
                 <div>पान नंबर : <span class="page-number"></span></div>
@@ -183,60 +181,60 @@
             <thead>
                 <tr style="height: 30px;">
                     <th rowspan="3" class="rotate" style="font-size: 10px;">मिळकत नं.</th>
-                    <th rowspan="3" style="font-weight: 800; padding: 10px;">मिळकत धारकाचे नाव </th>
+                    <th rowspan="3" style="font-weight: 800; padding: 0px 40px;">मिळकत धारकाचे नाव </th>
                     {{-- <th colspan="15" style="font-weight: 800;">मागणी / Demand</th> --}}
                     {{-- <th colspan="16" style="font-weight: 800;">वसूली / Recovery</th> --}}
                     <th colspan="15" style="font-weight: 800;">मागणी </th>
                     <th colspan="16" style="font-weight: 800;">वसूली </th>
-                    <th rowspan="3" class="rotate" style="font-weight: 800; font-size: 12px;">अजून येणे बाकी आहे </th>
+                    <th rowspan="3" class="rotate" style="font-weight: 800; font-size: 12px;">अजून येणे<br> बाकी आहे </th>
                 </tr>
-                <tr>
+                <tr style="height: 50px;">
                     <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
                     <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
                     <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
-                    <th colspan="1" style="font-weight: 800;">विशेष कर </th>
+                    <th colspan="1" style="font-weight: 800; padding: 5px;">विशेष कर </th>
                     <th colspan="3" style="font-weight: 800;">५% दंड / सवलत</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर पूर्वी </th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर नंतर </th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">३० सप्टेंबर<br>  पूर्वी </th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">३० सप्टेंबर<br>  नंतर </th>
                     {{-- <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती क्र.<br>Reciept no.</th>
                     <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती तारीख <br> Reciept date</th> --}}
 
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती क्र.</th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती तारीख </th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 10px;">पावती<br> क्र.</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 10px;">पावती<br> तारीख </th>
                     <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
                     <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
                     <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
-                    <th colspan="1" style="font-weight: 800;">विशेष कर </th>
+                    <th colspan="1" style="font-weight: 800; padding: 0px 5px;">विशेष कर </th>
                     <th colspan="3" style="font-weight: 800;">५% दंड / सवलत </th>
-                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">एकूण</th>
+                    <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">एकूण</th>
                 </tr>
                 <tr style="height: 80px;">
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">{{ $specialTax ?? '' }}</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;"> {{ $specialTax ?? ''}}</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                    <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">{{ $specialTax ?? '' }}</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;"> {{ $specialTax ?? ''}}</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                    <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
                 </tr>
             </thead>
             <tbody>
@@ -258,7 +256,7 @@
                             ($responseData['tax_penalty'] ?? 0) - 
                             ($responseData['tax_discount'] ?? 0);
                 ?>
-                <tr style="height: 110px;">
+                <tr style="height: 135px;">
                     <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ $responseData['property_no'] }}</td>
                     <td style="font-weight: normal; font-size: 12px;">{{ $responseData['owner_name_mr'] }}</td>
                     <td class="rotate" style="font-size: 12px; font-weight: normal;">{{ number_format($responseData['previous_home_tax_amount'], 2) }}</td>
@@ -323,57 +321,57 @@
                             <!-- Repeat table header -->
                             <tr style="height: 30px;">
                                 <th rowspan="3" class="rotate" style="font-size: 10px;">मिळकत नं.</th>
-                                <th rowspan="3" style="font-weight: 800; padding: 10px;">मिळकत धारकाचे नाव </th>
+                                <th rowspan="3" style="font-weight: 800; padding: 0px 40px;">मिळकत धारकाचे नाव </th>
                                  {{-- <th colspan="15" style="font-weight: 800;">मागणी / Demand</th> --}}
                                 {{-- <th colspan="16" style="font-weight: 800;">वसूली / Recovery</th> --}}
                                 <th colspan="15" style="font-weight: 800;">मागणी </th>
                                 <th colspan="16" style="font-weight: 800;">वसूली </th>
                                 <th rowspan="3" class="rotate" style="font-weight: 800; font-size: 12px;">अजून येणे बाकी आहे </th>
                             </tr>
-                            <tr>
+                            <tr style="height: 50px;">
                                 <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
                                 <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
                                 <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
-                                <th colspan="1" style="font-weight: 800;">विशेष कर </th>
+                                <th colspan="1" style="font-weight: 800; padding: 5px;">विशेष कर </th>
                                 <th colspan="3" style="font-weight: 800;">५% दंड / सवलत</th>
-                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर पूर्वी </th>
-                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">३० सप्टेंबर नंतर </th>
-                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती क्र.<br>Reciept no.</th>
-                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">पावती तारीख <br> Reciept date</th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">३० सप्टेंबर पूर्वी </th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">३० सप्टेंबर नंतर </th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">पावती क्र.</th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">पावती तारीख</th>
                                 <th colspan="3" style="font-weight: 800;">घरपट्टी कर </th>
                                 <th colspan="3" style="font-weight: 800;">आरोग्य कर </th>
                                 <th colspan="3" style="font-weight: 800;">दिवाबत्ती कर </th>
-                                <th colspan="1" style="font-weight: 800;">विशेष कर </th>
+                                <th colspan="1" style="font-weight: 800; padding: 0px 5px;">विशेष कर </th>
                                 <th colspan="3" style="font-weight: 800;">५% दंड / सवलत </th>
-                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px;">एकूण</th>
+                                <th rowspan="3" class="rotate" style="font-weight: normal; font-size: 12px; padding: 0px 5px;">एकूण</th>
                             </tr>
                             <tr style="height: 80px;">
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">{{ $specialTax ?? '' }}</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण </th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;"> {{ $specialTax ?? ''}}</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">मागील</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">चालू</th>
-                                <th class="rotate" style="font-size: 12px; font-weight: normal;">एकूण</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">{{ $specialTax ?? '' }}</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण </th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;"> {{ $specialTax ?? ''}}</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">मागील</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">चालू</th>
+                                <th class="rotate" style="font-size: 12px; font-weight: normal; padding: 0px 5px;">एकूण</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -531,48 +531,11 @@ class TaxCalculationController extends Controller
             ->where('panchayat_id', $panchayatId->id)
             ->orderBy('year', 'desc')
             ->first();
-      
+        // dd($previousYearTax, $hometax);
         return view('panchayat.pages.hometax.due_create', compact('previousYearTax', 'hometax'));
     }
 
-    // public function homeTaxPaymentDueStore(Request $request, HomeTax $hometax)
-    // {
-    //     dd($request->all());
-    //     $request->validate([
-    //         'home_pay_tax_amount' => 'required|numeric',
-    //     ]);
     
-    //     $adminId = Auth::guard('admin')->user()->id;
-    
-    //     $paidNow = floatval($request->home_pay_tax_amount);
-    //     $discount = floatval($request->tax_discount ?? 0);
-    //     $penalty = floatval($request->tax_penalty ?? 0);
-    
-    //     $existingPaidTax = $hometax->home_pay_tax_amount ?? 0;
-    //     $totalPaid = $existingPaidTax + $paidNow;
-    
-    //     // Adjust original tax with discount/penalty
-    //     $adjustedTax = $hometax->calculated_home_tax;
-    
-    //     if ($request->option === 'discount') {
-    //         $adjustedTax -= $discount;
-    //     } elseif ($request->option === 'penalty') {
-    //         $adjustedTax += $penalty;
-    //     }
-    
-    //     $dueTax = $adjustedTax - $totalPaid;
-    
-    //     // Update the HomeTax record
-    //     $hometax->update([
-    //         'home_pay_tax_amount' => $totalPaid,
-    //         'home_due_tax_amount' => $dueTax,
-    //         'tax_discount' => $discount > 0 ? $discount : null,
-    //         'tax_penalty' => $penalty > 0 ? $penalty : null,
-    //         'updated_at' => now(),
-    //     ]);
-    
-    //     return redirect()->route('panchayat.hometaxes.index')->with('success', 'Home tax record updated successfully.');
-    // }
     public function homeTaxPaymentDueStore(Request $request, HomeTax $hometax)
     {
         $request->validate([
@@ -599,17 +562,17 @@ class TaxCalculationController extends Controller
 
         // Determine payment distribution
         if ($previousYearTax && $previousYearDue > 0) {
-            // Split payment 50/50 between current and previous year
-            $currentYearPayment = $totalPayment / 2;
-            $previousYearPayment = $totalPayment / 2;
-            
-            // Ensure we don't overpay previous year
-            if ($previousYearPayment > $previousYearDue) {
+            // First pay previous year due completely
+            if ($totalPayment <= $previousYearDue) {
+                $previousYearPayment = $totalPayment;
+                $currentYearPayment = 0;
+            } else {
+                // After paying previous due, pay current year
                 $previousYearPayment = $previousYearDue;
                 $currentYearPayment = $totalPayment - $previousYearPayment;
             }
         } else {
-            // Apply full payment to current year if no previous due
+            // No previous due, pay current year directly
             $currentYearPayment = $totalPayment;
             $previousYearPayment = 0;
         }
@@ -652,7 +615,58 @@ class TaxCalculationController extends Controller
         return redirect()->route('panchayat.hometaxes.index')
                         ->with('success', 'Payment processed successfully');
     }
-    
+
+    public function checkPreviousTax($id)
+    {
+        $currentTax = HomeTax::findOrFail($id);
+        $previousTax = HomeTax::where('property_id', $currentTax->property_id)
+                            ->where('year', $currentTax->year - 1)
+                            ->first();
+
+        return response()->json([
+            'has_previous' => $previousTax ? true : false,
+            'previous_year' => $previousTax ? $previousTax->year : null,
+            'current_year' => $currentTax->year
+        ]);
+    }
+
+    public function destroyHomeTax($id, Request $request)
+    {
+        $currentTax = HomeTax::findOrFail($id);
+        $deletePrevious = $request->input('delete_previous', false);
+
+        try {
+            DB::beginTransaction();
+
+            // Delete current tax record
+            $currentTax->delete();
+
+            // Delete previous year tax if checkbox was checked
+            if ($deletePrevious) {
+                HomeTax::where('property_id', $currentTax->property_id)
+                    ->where('year', $currentTax->year - 1)
+                    ->delete();
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Tax record deleted successfully'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete tax record: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
+
+
     //Health Tax
     public function healthtaxList()
     {
@@ -1505,6 +1519,13 @@ class TaxCalculationController extends Controller
             // 'year'        => 'required',
         ]);
         //   dd($request->all());
+         $taxYearPayment = NamunaForm::first();
+        $taxYear = [
+            'start_year_before' => $this->convertToMarathiDigits($taxYearPayment->start_year_before),
+                'end_year_before' => $this->convertToMarathiDigits($taxYearPayment->end_year_before),
+                'start_year_after' => $this->convertToMarathiDigits($taxYearPayment->start_year_after),
+                'end_year_after' => $this->convertToMarathiDigits($taxYearPayment->end_year_after),
+        ];
         $homeTaxes = HomeTax::with('property')
         ->where('property_id', $request->property_id)
         // ->where('year', $request->year)
@@ -1637,7 +1658,7 @@ class TaxCalculationController extends Controller
          $homeTaxes->total_home_tax =  round($homeTax);
         $homeTaxes->total_tax_amount = round($getTotalTax);
         
-        return view('panchayat.pages.namuna_eight_nine.namuna_eight_details', compact('homeTaxes'));
+        return view('panchayat.pages.namuna_eight_nine.namuna_eight_details', compact('homeTaxes', 'taxYear'));
 
     }
    
@@ -1738,7 +1759,7 @@ class TaxCalculationController extends Controller
                     ($typeMap[$property->house_type] ?? null)));
                     if ($property->description === 'Open plot') {
                         if ($prefix) {
-                            $details->open_plot_readireckoner_rate = $details->{$prefix . '_readireckoner_rate'};
+                            $details->open_plot_readireckoner_rate_data = $details->{$prefix . '_readireckoner_rate'};
                             $details->builtup_area_readireckoner_rate = $details->{$prefix . '_builtup_area_readireckoner_rate'};
                             $details->depreciation = $details->{$prefix . '_depreciation_rate'};
                             $details->usage_rate = $details->{$prefix . '_usage_rate'};
@@ -1762,6 +1783,7 @@ class TaxCalculationController extends Controller
             });
 
         $tax = $homeTaxes->first();
+        // dd($tax);
         $squareMeter = $tax->property->area_in_sqmt;
         $capitalValue = ($squareMeter * $tax->open_plot_readireckoner_rate) +
             (($squareMeter * $tax->builtup_area_readireckoner_rate * $tax->depreciation) * $tax->usage_rate);
@@ -1786,7 +1808,7 @@ class TaxCalculationController extends Controller
         $formatToMarathi = function ($number) {
             return $this->convertToMarathiDigits(number_format($number ?? 0, 2, '.', ''));
         };
-
+        
         // Final tax array
         $tax = [
             'panchayat_address_mr' => $tax->panchayat_address_mr ?? '',
@@ -1795,10 +1817,12 @@ class TaxCalculationController extends Controller
             'property_no' => $tax->property->property_no,
             'year' => $this->convertToMarathiDigits($tax->year ?? 0.00),
             'total_home_tax' => $formatToMarathi($tax->total_home_tax),
-            'lamp_tax_rate' => $this->convertToMarathiDigits($tax->lamp_tax_rate ?? 0.00),
-            'health_tax_rate' => $this->convertToMarathiDigits($tax->health_tax_rate ?? 0.00),
-            'water_tax_rate' => $this->convertToMarathiDigits($tax->water_tax_rate ?? 0.00),
-            'special_tax_rate' => $this->convertToMarathiDigits($tax->special_tax_rate ?? 0.00),
+            'lamp_tax_rate' => $this->convertToMarathiDigits(
+                $tax->property->description != 'Open plot' ? ($tax->lamp_tax_rate ?? 0.00) : 0.00
+            ),
+            'health_tax_rate' => $this->convertToMarathiDigits($tax->property->description != 'Open plot' ?($tax->health_tax_rate ?? 0.00) : 0.00),
+            'water_tax_rate' => $this->convertToMarathiDigits($tax->property->description != 'Open plot' ?($tax->water_tax_rate ?? 0.00) : 0.00),
+            'special_tax_rate' => $this->convertToMarathiDigits($tax->property->description != 'Open plot' ?($tax->special_tax_rate ?? 0.00) : 0.00),
             'calculated_home_tax' => $this->convertToMarathiDigits($tax->calculated_home_tax ?? 0.00),
             'tax_penalty' => $formatToMarathi($tax->tax_penalty),
             'tax_discount' => $formatToMarathi($tax->tax_discount),
@@ -1807,7 +1831,7 @@ class TaxCalculationController extends Controller
             'home_pay_tax_amount_in_word' => $in_word,
         ];
 
-        //   dd($tax);
+          dd($tax);
         return view('panchayat.pages.hometax.payment_recipt', compact('tax'));
     }
 
