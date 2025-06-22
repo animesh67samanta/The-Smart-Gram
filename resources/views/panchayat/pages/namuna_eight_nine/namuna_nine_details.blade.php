@@ -100,13 +100,19 @@
     </style>
 </head>
 <body>
-       
+        <?php
+        $add = explode(',', Auth::guard('admin')->user()->address_mr); 
+    ?>
      <div class="container-fluid">
         <div class="row">
-            <h5 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h5>
-            <h5 class="text-center">नमुना नं. ९ मागणी रजिस्टर २०२५ - २०२६ </h5> 
+            {{-- <h5 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h5> --}}
+            <h5 class="text-center">नमुना नं. ९ मागणी रजिस्टर {{ $responseData['year1'] }} - {{ $responseData['year2'] }} </h5> 
         </div>
-
+        <div class="row mt-3 mb-2">  
+            <div class="col-4" style="text-align: left;">ग्रामपंचायत : {{ Auth::guard('admin')->user()->name_mr }}</div>
+            <div class="col-4" style="text-align: center;">तालुका : {{ $add[0]}}</div>
+            <div class="col-4" style="text-align: right;">जिल्हा : {{ $add[1] }}</div>
+        </div>
         <table>
             {{-- <thead>
                 <tr style="height: 40px;">

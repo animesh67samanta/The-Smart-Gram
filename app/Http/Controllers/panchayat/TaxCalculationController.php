@@ -1061,8 +1061,21 @@ class TaxCalculationController extends Controller
         }
 
         $currentYear = $request->year;
+        $date = null;
+        $date = $date ? \Carbon\Carbon::parse($date) : \Carbon\Carbon::now();
 
+        $year = $date->year;
 
+        if ($date->month < 4) {
+            // If before April, financial year starts from previous year
+            $startYear = $year - 1;
+            $endYear = $year;
+        } else {
+            // From April onwards, current year is start
+            $startYear = $year;
+            $endYear = $year + 1;
+        }
+        // return $this->convertToMarathiDigits($startYear . ' - ' . $endYear);
 
         $homeTaxes = HomeTax::with('property')
             ->where('property_id', $request->property_id)
@@ -1204,6 +1217,8 @@ class TaxCalculationController extends Controller
         }
 
         $responseData = [
+            'year1' => $this->convertToMarathiDigits($startYear),
+            'year2' => $this->convertToMarathiDigits($endYear),
             'property_no' => $homeTaxes->property->property_no,
             'owner_name_mr' => $homeTaxes->property->owner_name_mr,
             'owner_name' => $homeTaxes->property->owner_name,

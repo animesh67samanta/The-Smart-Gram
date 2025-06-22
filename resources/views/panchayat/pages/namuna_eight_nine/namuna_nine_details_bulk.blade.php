@@ -165,16 +165,19 @@
         }
     </style>
 </head>
+ <?php
+        $add = explode(',', Auth::guard('admin')->user()->address_mr); 
+    ?>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <h5 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h5>
+            {{-- <h5 class="text-center">{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h5> --}}
             <h5 class="text-center">नमुना नं. ९ मागणी रजिस्टर २०२५ - २०२६ </h5> 
-            {{-- <h3 class="text-center">ग्रामपंचायत: {{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h3> --}}
-            {{-- <div style="display: flex; justify-content: space-between; margin-top: 10px; font-weight: bold; font-family: 'Mangal', 'Noto Sans Devanagari', sans-serif;">
-                <div> </div>
-                <div>पान नंबर : <span class="page-number"></span></div>
-            </div> --}}
+        </div>
+         <div class="row mt-3 mb-2">  
+            <div class="col-4" style="text-align: left;">ग्रामपंचायत : {{ Auth::guard('admin')->user()->name_mr }}</div>
+            <div class="col-4" style="text-align: center;">तालुका : {{ $add[0]}}</div>
+            <div class="col-4" style="text-align: right;">जिल्हा : {{ $add[1] }}</div>
         </div>
 
         <table>
@@ -306,7 +309,7 @@
                     <div style="page-break-after: always;"></div>
                     <!-- Start new table on next page with header -->
                     <div class="print-header">
-                        <h4>{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h4>
+                        {{-- <h4>{{ Auth::guard('admin')->user()->name_mr }}, {{ Auth::guard('admin')->user()->address_mr }}</h4> --}}
                         {{-- <h3>ग्रामपंचायत: </h3>   --}}
                         <h5>नमुना नं. ९ मागणी रजिस्टर २०२५ - २०२६ </h5> 
 
@@ -315,7 +318,11 @@
                             <div>पान नंबर : <span class="page-number"></span></div>
                         </div> --}}
                     </div>
-                    
+                     <div class="row mt-3 mb-2">  
+                        <div class="col-4" style="text-align: left;">ग्रामपंचायत : {{ Auth::guard('admin')->user()->name_mr }}</div>
+                        <div class="col-4" style="text-align: center;">तालुका : {{ $add[0]}}</div>
+                        <div class="col-4" style="text-align: right;">जिल्हा : {{ $add[1] }}</div>
+                    </div>
                     <table>
                         <thead>
                             <!-- Repeat table header -->
