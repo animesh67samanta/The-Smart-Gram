@@ -87,23 +87,23 @@
 
                                     <td class="text-center">
                                         @if(($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) <= 0)
-                                        <p class="text-success"><b> Paid </b></p>
+                                        <a class="btn btn-success btn-sm ">Paid</a>
                                         @else
                                         <a class="btn btn-warning btn-sm " href="{{ route('panchayat.hometaxes.due.create', $homeTax->id) }}">Pay Now</a>
                                         @endif
                                     </td>
-                                    
                                     <td  class="text-center">
                                         {{-- <a href="{{ route('panchayat.hometaxes.edit', $homeTax->id) }}">
                                             <i class='bx bx-edit'></i>Edit
                                         </a> --}}
                                         @if(($homeTax->home_pay_tax_amount > 0) && ($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) != 0)
-                                        <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.chalan', $homeTax->id) }}" > <i class="bx bx-download"></i></a>
+                                        <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.recipt', $homeTax->id) }}" > <i class="bx bx-download"></i></a>
                                         @else
                                         <a href="#"><i class="bx bx-right-arrow-alt" style="font-size: 20px;"></i></a>
                                         
                                         @endif
                                     </td>
+                                   
                                     <td  class="text-center">
                                         @if(($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) <= 0)
                                         <a class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.recipt', $homeTax->id) }}" > <i class="bx bx-download"></i></a>

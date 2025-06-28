@@ -30,10 +30,10 @@
                                 <thead>
                                     <tr>
                                         <th>Sl No</th>
-                                       
                                         <th>पंचायत नाव</th>
                                         <th>मालकाचे नाव</th>
                                         <th>मालमत्ता क्र</th>
+                                        <th>Sequence</th>
 
                                         <th>लमत्ता मालमत्ता वापरकर्त्याचे नाव</th>
                                         <th>मालमत्ता प्रकार</th>
@@ -54,6 +54,7 @@
                                             <td>{{ $property->panchayat->name_mr ?? 'null' }}</td>
                                             <td>{{ $property->owner_name_mr ?? 'null' }}</td>
                                             <td>{{ $property->property_no ?? 'null' }}</td>
+                                            <td>{{ $property->sequence ?? ''  }}</td>
                                            
                                             <td>{{ $property->property_user_name_mr ?? 'null' }}</td>
                                             <td>{{ $property->description_mr ?? 'null' }}</td>

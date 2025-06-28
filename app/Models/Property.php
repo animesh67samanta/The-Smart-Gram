@@ -16,7 +16,7 @@ class Property extends Model
         'owner_name', 'owner_name_mr', 'property_name', 'property_user_name',
         'property_user_name_mr', 'property_no', 'description', 'description_mr',
         'house_type', 'house_type_mr', 'weighted_according_to_the_use_of_builders',
-        'use_of_builders', 'status', 'created_at', 'updated_at'
+        'use_of_builders', 'status', 'sequence', 'created_at', 'updated_at'
     ];
     
 

@@ -69,6 +69,11 @@
                                         class="form-control" placeholder="Insert Property Number">
                                 </div>
                                 <div class="mb-3">
+                                    <label class="form-label">Sequence Number:</label>
+                                    <input type="text" name="sequence" value="{{ old('sequence') }}"
+                                        class="form-control" placeholder="Insert Sequence Number" min="0">
+                                </div>
+                                <div class="mb-3">
                                     <label class="form-label">Owner Name:</label>
                                     <input type="text" name="owner_name" value="{{ old('owner_name') }}"
                                         class="form-control" placeholder="Insert Owner Name">

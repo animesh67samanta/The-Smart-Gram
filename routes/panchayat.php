@@ -13,6 +13,9 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
     Route::get('login', [AuthPanchayatController::class, 'showLoginForm'])->name('login');
     Route::post('login-action', [AuthPanchayatController::class, 'login'])->name('login-action');
     Route::middleware('admin')->group(function () {
+        Route::get('store-tax', [TaxCalculationController::class, 'taxStore']);
+
+
         Route::get('/dashboard', [AuthPanchayatController::class, 'dashboard'])->name('dashboard');
         Route::get('/officer-dashboard', [AuthPanchayatController::class, 'officerDashboard'])->name('officer.dashboard');
         Route::get('/profile', [AuthPanchayatController::class, 'profile'])->name('profile');

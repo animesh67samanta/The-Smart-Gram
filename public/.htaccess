@@ -1,5 +1,6 @@
 # Increase PHP execution time to 5 minutes
-php_value max_execution_time 300
+php_value max_execution_time 3000
+php_value max_input_vars 5000
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>

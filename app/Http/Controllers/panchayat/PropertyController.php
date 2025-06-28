@@ -17,7 +17,7 @@ class PropertyController extends Controller
     public function index()
     {
         $userId = Auth::guard('admin')->user()->id;
-        $properties = Property::where('panchayat_id', $userId)->orderby('property_no','asc')->get();
+        $properties = Property::where('panchayat_id', $userId) ->orderBy('sequence', 'asc')->get();
         $panchayats = Admin::where('user_type','panchayat')->orderby('id','asc')->find($userId);
         // dd($panchayats);
         return view('panchayat.pages.properties.property_list',compact('properties','panchayats'));
@@ -45,7 +45,7 @@ class PropertyController extends Controller
             'owner_name' => 'required|string|max:255',
             'property_user_name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            // 'house_type' => 'required|string|max:100',
+            'sequence' => 'nullable|number',
             'year_of_income_construction' => 'required',
             'area_in_sqft' => 'required',
             'area_in_sqmt' => 'required',
@@ -68,7 +68,7 @@ class PropertyController extends Controller
             'year_of_income_construction' => $request->year_of_income_construction,
             'area_in_sqft' => $request->area_in_sqft,
             'area_in_sqmt' => round($request->area_in_sqmt, 2),
-            // 'property_name' => $request->property_user_name . $request->property_no,
+            'sequence' => $request->sequence,
         ]);
         // Add `house_type_mr` only if `description` is "House"
         if ($request->description === 'House') {
@@ -77,11 +77,13 @@ class PropertyController extends Controller
         return redirect()->route('panchayat.property.edit', $property->id)
         ->with('success', 'Property created successfully. You can now edit the details.');
     }
-
+// ALTER TABLE `properties` ADD `sequence` BIGINT NULL DEFAULT NULL AFTER `status`, ADD INDEX `sequence` (`sequence`);
     public function uploadCsv(Request $request)
     {
+         ini_set('max_execution_time', 3000); // 5 minutes
+        ini_set('memory_limit', '556M');
         $request->validate([
-            'csv_file' => 'required|file|mimes:csv',
+            'csv_file' => 'required|file',
         ]);
 
         $panchayatId = optional(Auth::guard('admin')->user())->id;
@@ -92,7 +94,7 @@ class PropertyController extends Controller
         $file = $request->file('csv_file');
         $handle = fopen($file, 'r');
         $header = fgetcsv($handle);
-
+        $count = 0;
         while (($data = fgetcsv($handle)) !== false) {
             if (count($header) !== count($data)) {
                 continue; // Skip malformed row
@@ -105,7 +107,7 @@ class PropertyController extends Controller
 
             try {
                 $areaInSqmt = isset($row['area_in_sqft']) ? $row['area_in_sqft'] * 0.092903 : 0;
-                $propertyName = ($row['property_user_name'] ?? '') . ($row['property_no'] ?? '');
+                // $propertyName = ($row['property_user_name'] ?? '') . ($row['property_no'] ?? '');
 
                 $propertyData = [
                     'panchayat_id' => $panchayatId,
@@ -123,19 +125,22 @@ class PropertyController extends Controller
                     'year_of_income_construction' => $row['year_of_income_construction'] ?? '',
                     'area_in_sqft' => $row['area_in_sqft'] ?? 0,
                     'area_in_sqmt' => round($areaInSqmt, 2),
+                    // 'sequence' => $row['sequence'] ?? null,
+                    'sequence' => $count,
+
                 ];
 
                 if (strtolower(trim($row['description'] ?? '')) === 'house') {
                     $propertyData['house_type_mr'] = GoogleTranslate::trans($row['house_type'] ?? '', 'mr');
                 }
-               
+               $count++;
                 Property::create($propertyData);
             } catch (\Exception $e) {
                 \Log::error('CSV row import failed: ' . $e->getMessage(), ['row' => $row]);
                 continue;
             }
         }
-
+        // return $propertyData;
         fclose($handle);
 
         return redirect()->back()->with('success', 'CSV uploaded and properties imported successfully.');
@@ -157,6 +162,7 @@ class PropertyController extends Controller
     {
         $property = Property::findOrFail($id);
         $panchayats = Admin::where('user_type','panchayat')->get();
+        // dd($property);
         return view('panchayat.pages.properties.property_edit', compact('property','panchayats'));
     }
 
