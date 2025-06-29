@@ -52,52 +52,52 @@
                                     <th>Delete</th>
                                 </tr>
                             </thead>
-                            
+                            <?php //dd($allResponsiveData); ?>
                             <tbody>
-                                @foreach ($homeTaxes as $key => $homeTax)
-                                <?php //dd($homeTax);?>
+                                @foreach ($allResponsiveData as $key => $homeTax)
+                                <?php //dd($key + 1);?>
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $homeTax->year ?? '-' }}</td>
-                                    <td >{{ $homeTax->property->owner_name ?? '-' }} </td>
-                                    <td>{{ $homeTax->property->property_no ?? '-' }}</td>
-                                    <td>{{ $homeTax->property->property_user_name ?? '-' }} </td>
-                                    <td>{{ $homeTax->property->area_in_sqmt ?? '-' }}</td>
-                                    <td>{{ $homeTax->property->description ?? '-' }}</td>
-                                    <td>{{ $homeTax->property->house_type ?? '-' }} </td>
-                                    <td>{{ $homeTax->open_plot_readireckoner_rate ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->builtup_area_readireckoner_rate ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->depreciation ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->usage_rate ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->home_tax_rate ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->health_tax_rate ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->lamp_tax_rate ?? '0.00' }}</td>
-                                    {{-- <td>{{ $homeTax->water_tax_rate ?? '0.00' }}</td> --}}
-                                    <td>{{ $homeTax->calculated_home_tax ?? '0.00' }}</td>
-                                    {{-- <td>{{ $homeTax->tax_discount ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->tax_penalty ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->home_pay_tax_amount ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['year'] ?? '-' }}</td>
+                                    <td >{{ $homeTax['owner_name'] ?? '-' }} </td>
+                                    <td>{{ $homeTax['property_no'] ?? '-' }}</td>
+                                    <td>{{ $homeTax['property_user_name'] ?? '-' }} </td>
+                                    <td>{{ $homeTax['area_in_sqmt'] ?? '-' }}</td>
+                                    <td>{{ $homeTax['description'] ?? '-' }}</td>
+                                    <td>{{ $homeTax['house_type'] ?? '-' }} </td>
+                                    <td>{{ $homeTax['open_plot_readireckoner_rate'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['builtup_area_readireckoner_rate'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['depreciation'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['usage_rate'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['home_tax_rate'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['health_tax_rate'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['lamp_tax_rate'] ?? '0.00' }}</td>
+                                    {{-- <td>{{ $homeTax['water_tax_rate'] ?? '0.00' }}</td> --}}
+                                    <td>{{ $homeTax['calculated_home_tax'] ?? '0.00' }}</td>
+                                    {{-- <td>{{ $homeTax['tax_discount'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['tax_penalty'] ?? '0.00' }}</td>
+                                    <td>{{ $homeTax['home_pay_tax_amount'] ?? '0.00' }}</td>
                                     <td>
-                                    @if($homeTax->home_due_tax_amount <=0)
+                                    @if($homeTax['home_due_tax_amount'] <=0)
                                     <p>0.00</p>
                                     @else
-                                    {{ $homeTax->home_due_tax_amount ?? '0.00' }}
+                                    {{ $homeTax['home_due_tax_amount'] ?? '0.00' }}
                                     @endif
                                     </td> --}}
 
                                     <td class="text-center">
-                                        @if(($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) <= 0)
+                                        @if(($homeTax['calculated_home_tax'] - $homeTax['home_pay_tax_amount']) <= 0)
                                         <a class="btn btn-success btn-sm ">Paid</a>
                                         @else
-                                        <a class="btn btn-warning btn-sm " href="{{ route('panchayat.hometaxes.due.create', $homeTax->id) }}">Pay Now</a>
+                                        <a class="btn btn-warning btn-sm " href="{{ route('panchayat.hometaxes.due.payment', $homeTax['id']) }}">Pay Now</a>
                                         @endif
                                     </td>
                                     <td  class="text-center">
-                                        {{-- <a href="{{ route('panchayat.hometaxes.edit', $homeTax->id) }}">
+                                        {{-- <a href="{{ route('panchayat.hometaxes.edit', $homeTax['id) }}">
                                             <i class='bx bx-edit'></i>Edit
                                         </a> --}}
-                                        @if(($homeTax->home_pay_tax_amount > 0) && ($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) != 0)
-                                        <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.recipt', $homeTax->id) }}" > <i class="bx bx-download"></i></a>
+                                        @if(($homeTax['total_paid_amount'] > 0) && ($homeTax['total_paid_amount'] != $homeTax['total_calculate_tax']))
+                                        <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.recipt', $homeTax['id']) }}" > <i class="bx bx-download"></i></a>
                                         @else
                                         <a href="#"><i class="bx bx-right-arrow-alt" style="font-size: 20px;"></i></a>
                                         
@@ -105,10 +105,10 @@
                                     </td>
                                    
                                     <td  class="text-center">
-                                        @if(($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) <= 0)
-                                        <a class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.recipt', $homeTax->id) }}" > <i class="bx bx-download"></i></a>
+                                        @if(($homeTax['calculated_home_tax'] - $homeTax['home_pay_tax_amount']) <= 0)
+                                        <a class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.recipt', $homeTax['id']) }}" > <i class="bx bx-download"></i></a>
                                         @else
-                                        {{-- <a class="btn btn-warning btn-sm" href="{{ route('panchayat.hometaxes.demand.bill', $homeTax->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Demand Bill Download"><i class="bx bx-download" ></i></a> --}}
+                                        {{-- <a class="btn btn-warning btn-sm" href="{{ route('panchayat.hometaxes.demand.bill', $homeTax['id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Demand Bill Download"><i class="bx bx-download" ></i></a> --}}
                                         <a class="btn btn-warning btn-sm" 
                                             href="#" 
                                             onclick="event.preventDefault(); showWorkInProgress();"
@@ -120,7 +120,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm delete-tax-btn" data-tax-id="{{ $homeTax->id }}">
+                                        <button class="btn btn-danger btn-sm delete-tax-btn" data-tax-id="{{ $homeTax['id'] }}">
                                             <i class="bx bx-trash-alt"></i>
                                         </button>
                                     </td>

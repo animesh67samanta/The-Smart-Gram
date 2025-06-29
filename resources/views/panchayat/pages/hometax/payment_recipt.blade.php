@@ -87,6 +87,11 @@
     $finalEtc = $tax['special_tax_rate'] ?? 0.00;
     $finalHomeTax = $previousYearTax['calculated_home_tax'] + $tax['total_home_tax'];
     $finalSubTotal = $previousYearTax['calculated_home_tax'] + $tax['calculated_home_tax'];
+    $Taxdue = $previousYearTax['home_due_tax_amount'] + $tax['home_due_tax_amount'];
+    $totalPay = $previousYearTax['home_pay_tax_amount'] + $tax['home_pay_tax_amount'];
+    $taxDuxTotal = $finalSubTotal - $totalPay;
+    // dd($taxDuxTotal);
+
 ?>
 <body>
  
@@ -205,11 +210,11 @@
                     <p>Amount: ₹{{$recivedAmount->amount }}</p>
                     @if (!empty($previousYearTax) && ($previousYearTax['calculated_home_tax'] > $previousYearTax['home_pay_tax_amount']))
                         @php $totalTaxDue = $previousYearTax['calculated_home_tax'] +  $tax['home_due_tax_amount']; @endphp
-                        <p><b>Due : ₹{{ $totalTaxDue ?? 0.00 }}</b></p>
+                        <p><b>Due : ₹{{ number_format($taxDuxTotal, 2) ?? 0.00 }}</b></p>
                         
                     @elseif ($tax['calculated_home_tax'] > $tax['home_pay_tax_amount'] )
                            
-                        <p><b>Due : ₹{{ $tax['home_due_tax_amount'] ?? 0.00 }}</b></p>
+                        <p><b>Due : ₹{{ number_format($taxDuxTotal, 2)?? 0.00 }}</b></p>
                         
                     @endif
                 </div>

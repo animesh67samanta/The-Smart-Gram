@@ -43,7 +43,7 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
         Route::delete('hometaxes/{hometax}', [TaxCalculationController::class, 'hometaxDestroy'])->name('hometaxes.destroy');
         Route::get('hometaxes/payment-create/{id}', [TaxCalculationController::class, 'homeTaxPaymentCreate'])->name('hometaxes.payment.create');
         Route::post('hometaxes/payment-store/{id}', [TaxCalculationController::class, 'homeTaxPaymentStore'])->name('hometaxes.payment.store');
-        Route::get('hometaxes/{hometax}/due-create', [TaxCalculationController::class, 'homeTaxPaymentDueCreate'])->name('hometaxes.due.create');
+        Route::get('hometaxes/{hometax}/due-payment', [TaxCalculationController::class, 'homeTaxPaymentDuePayment'])->name('hometaxes.due.payment');
         Route::post('hometaxes/{hometax}', [TaxCalculationController::class, 'homeTaxPaymentDueStore'])->name('hometaxes.due.store');
         // Payment slip
         Route::get('hometaxes/payment-recipt/{id}', [TaxCalculationController::class, 'homeTaxPaymentRecipt'])->name('hometaxes.payment.recipt');
