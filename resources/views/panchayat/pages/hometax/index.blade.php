@@ -27,7 +27,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Year</th>
-                                    <th style="padding: 0 36px;">Owner Name</th>
+                                    <th style="padding: 0 46px;">Owner Name</th>
                                     <th>Property No</th>
                                     <th style="padding: 0 28px;">Property User Name</th>
                                     <th>Total Square Meter</th>
@@ -40,12 +40,12 @@
                                     <th>Tax Rate</th>
                                     <th>Health Tax Rate</th>
                                     <th>Lamp Tax Rate</th>
-                                    <th>Water Tax Rate</th>
+                                    {{-- <th>Water Tax Rate</th> --}}
                                     <th style="padding: 0 28px;">Calculated Home Tax</th> <!-- Removed the extra <th> -->
-                                    <th>Discount Tax</th>
-                                    <th>Penalty Tax</th>
-                                    <th style="padding: 0 28px;">Home Pay Tax</th>
-                                    <th style="padding: 0 28px;">Home Due Tax</th>
+                                    {{-- <th>Discount Tax</th> --}}
+                                    {{-- <th>Penalty Tax</th> --}}
+                                    {{-- <th style="padding: 0 28px;">Home Pay Tax</th> --}}
+                                    {{-- <th style="padding: 0 28px;">Home Due Tax</th> --}}
                                     <th>Payment Status</th> <!-- Make sure "Action" has its own column -->
                                     <th>Payment Slip</th>
                                     <th>Download</th>
@@ -72,9 +72,9 @@
                                     <td>{{ $homeTax->home_tax_rate ?? '0.00' }}</td>
                                     <td>{{ $homeTax->health_tax_rate ?? '0.00' }}</td>
                                     <td>{{ $homeTax->lamp_tax_rate ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->water_tax_rate ?? '0.00' }}</td>
+                                    {{-- <td>{{ $homeTax->water_tax_rate ?? '0.00' }}</td> --}}
                                     <td>{{ $homeTax->calculated_home_tax ?? '0.00' }}</td>
-                                    <td>{{ $homeTax->tax_discount ?? '0.00' }}</td>
+                                    {{-- <td>{{ $homeTax->tax_discount ?? '0.00' }}</td>
                                     <td>{{ $homeTax->tax_penalty ?? '0.00' }}</td>
                                     <td>{{ $homeTax->home_pay_tax_amount ?? '0.00' }}</td>
                                     <td>
@@ -83,7 +83,7 @@
                                     @else
                                     {{ $homeTax->home_due_tax_amount ?? '0.00' }}
                                     @endif
-                                    </td>
+                                    </td> --}}
 
                                     <td class="text-center">
                                         @if(($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) <= 0)
@@ -108,7 +108,15 @@
                                         @if(($homeTax->calculated_home_tax - $homeTax->home_pay_tax_amount) <= 0)
                                         <a class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Recipt Download" href="{{ route('panchayat.hometaxes.payment.recipt', $homeTax->id) }}" > <i class="bx bx-download"></i></a>
                                         @else
-                                        <a class="btn btn-warning btn-sm" href="{{ route('panchayat.hometaxes.demand.bill', $homeTax->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Demand Bill Download"><i class="bx bx-download" ></i></a>
+                                        {{-- <a class="btn btn-warning btn-sm" href="{{ route('panchayat.hometaxes.demand.bill', $homeTax->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Demand Bill Download"><i class="bx bx-download" ></i></a> --}}
+                                        <a class="btn btn-warning btn-sm" 
+                                            href="#" 
+                                            onclick="event.preventDefault(); showWorkInProgress();"
+                                            data-bs-toggle="tooltip" 
+                                            data-bs-placement="top" 
+                                            title="Demand Bill Download">
+                                            <i class="bx bx-download"></i>
+                                            </a>
                                         @endif
                                     </td>
                                     <td>
@@ -155,6 +163,20 @@
 </div>
 
 <!-- Add this script -->
+@push('js')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function showWorkInProgress() {
+    Swal.fire({
+        icon: 'info',
+        title: 'Feature Coming Soon',
+        text: 'The Demand Bill Download feature is currently under development and will be available in the next update!',
+        confirmButtonColor: '#ffc107',
+        confirmButtonText: 'OK'
+    });
+}
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const deleteButtons = document.querySelectorAll('.delete-tax-btn');
@@ -227,9 +249,25 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 // Show success message and reload
                 deleteModal.hide();
-                alert(data.message);
-                window.location.reload();
+                // alert(data.message);
+                 Swal.fire({
+                    icon: 'success',  // Fixed typo ('sucess' → 'success')
+                    title: 'Tax Calculation Deleted',
+                    text: data.message,
+                    confirmButtonColor: '#ffc107',
+                    confirmButtonText: 'OK',
+                    allowOutsideClick: false,
+                    willClose: () => {
+                        window.location.reload();
+                    }
+                });
+    
             } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message
+                });
                 throw new Error(data.message);
             }
         })
@@ -242,4 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+@endpush
+
 @endsection

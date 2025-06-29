@@ -45,7 +45,7 @@ class PropertyController extends Controller
             'owner_name' => 'required|string|max:255',
             'property_user_name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'sequence' => 'nullable|number',
+            'sequence' => 'nullable|',
             'year_of_income_construction' => 'required',
             'area_in_sqft' => 'required',
             'area_in_sqmt' => 'required',
@@ -125,8 +125,8 @@ class PropertyController extends Controller
                     'year_of_income_construction' => $row['year_of_income_construction'] ?? '',
                     'area_in_sqft' => $row['area_in_sqft'] ?? 0,
                     'area_in_sqmt' => round($areaInSqmt, 2),
-                    // 'sequence' => $row['sequence'] ?? null,
-                    'sequence' => $count,
+                    'sequence' => $row['sequence'] ?? null,
+                    // 'sequence' => $count,
 
                 ];
 
@@ -171,7 +171,7 @@ class PropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request->all());
+        // dd($request->all());
         $request->validate([
             'street_name' => 'required|string|max:255',
             'ct_survey_no' => 'required|string|max:100',
@@ -179,7 +179,7 @@ class PropertyController extends Controller
             'owner_name' => 'required|string|max:255',
             'property_user_name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            // 'house_type' => 'required|string|max:100',
+            'sequence' => 'nullable',
             'year_of_income_construction' => 'required',
             'area_in_sqft' => 'required',
             'area_in_sqmt' => 'required',
@@ -205,6 +205,7 @@ class PropertyController extends Controller
             'year_of_income_construction' => $request->year_of_income_construction,
             'area_in_sqft' => $request->area_in_sqft,
             'area_in_sqmt' => round($request->area_in_sqmt, 2),
+            'sequence' => $request->sequence,
             // 'property_name' => $request->property_user_name . $request->property_no,
         ]);
 

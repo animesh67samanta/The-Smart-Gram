@@ -269,7 +269,7 @@
                 ?>
                 
                 <tr style="border: none !important;">
-                    <td>{{ $responseData['sl_no'] }}</td>
+                    <td>{{ $index+1 }}</td>
                     <td style="font-weight: normal;">{{ $responseData['street_name'] ?? ' ' }}</td>
                     <td>{{ $responseData['ct_survey_no'] ?? ' ' }}</td>
                     <td style="font-weight: normal;">{{ $responseData['property_no'] ?? ' ' }}</td>

@@ -44,7 +44,7 @@
                                 @enderror
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                <button type="submit" class="btn admin-btn-decorate">Upload Property</button>
+                                <button type="submit" class="btn btn-success">Upload Property</button>
                             </div>
                             </form>
                         </div>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Sequence Number:</label>
-                                    <input type="text" name="sequence" value="{{ old('sequence') }}"
+                                    <input type="number" name="sequence" value="{{ old('sequence') }}"
                                         class="form-control" placeholder="Insert Sequence Number" min="0">
                                 </div>
                                 <div class="mb-3">
@@ -155,7 +155,7 @@
 
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                    <button type="submit" class="btn admin-btn-decorate">Add Property</button>
+                                    <button type="submit" class="btn btn-success">Add Property</button>
                                 </div>
                             </form>
                         </div>
