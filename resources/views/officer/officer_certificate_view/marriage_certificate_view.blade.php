@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('admin/assets/images/logo-icon.png') }}" type="image/png">
     <title>The smart gram marraige certificate</title>
     <!--  css -->
     {{-- <link rel="stylesheet" type="text/css" href="css/style.css"> --}}
@@ -448,7 +449,7 @@
         </div>
     </section>
     <div class="d-flex justify-content-center py-5">
-        <a href="{{ route('panchayat.marriageCertificate.approval.list') }}" class="btn btn-primary btn-sm">
+        <a href="{{ route('officer.marriageCertificate.approval.list') }}" class="btn btn-primary btn-sm">
             Back to list
         </a>
     </div>

@@ -149,7 +149,7 @@
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn admin-btn-decorate">Update</button>
+                                <button type="submit" class="btn btn-success">Update</button>
                             </div>
                         </div>
                         </form>

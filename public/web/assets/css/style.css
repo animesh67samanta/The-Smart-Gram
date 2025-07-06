@@ -142,9 +142,9 @@ body{
 .left-side-panel .active{
    font-weight: bold
 }
-footer .first-content img{
+/* footer .first-content img{
    margin-left: 117px!important;
-}
+} */
  .second-crousel .carousel-item img {
       width: 100%;
       height: 250px;

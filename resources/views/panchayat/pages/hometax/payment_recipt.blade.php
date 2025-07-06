@@ -77,7 +77,7 @@
 </style>
 
 <?php 
-    $add = explode(',', Auth::guard('admin')->user()->address_mr);  
+    $add = explode(',', Auth::guard('panchayat')->user()->address_mr);  
 
     $prevTotal = $previousYearTax['calculated_home_tax'] ?? 0 - ($previousYearTax['tax_discount'] ?? 0 + $previousYearTax['tax_penalty'] ?? 0); 
     $currTotal =  $tax['calculated_home_tax']- ($tax['tax_discount'] + $tax['tax_penalty']);
@@ -101,7 +101,7 @@
                 <div class="namuna_headings">
                     <h5>Namuna Number 10</h5>
                     <h5>Receipt Regarding taxes & fees</h5>
-                    <p class="text-center">ग्रामपंचायत : {{ Auth::guard('admin')->user()->name_mr }}, <span>{{ $add[0]}}, {{ $add[1]}}</span></p>
+                    <p class="text-center">ग्रामपंचायत : {{ Auth::guard('panchayat')->user()->name_mr }}, <span>{{ $add[0]}}, {{ $add[1]}}</span></p>
                 </div>
             </div>
 

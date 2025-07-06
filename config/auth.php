@@ -45,7 +45,6 @@ return [
             'provider' => 'users',
         ],
 
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
@@ -54,6 +53,28 @@ return [
         'admin-api' => [
             'driver' => 'token',
             'provider' => 'admins',
+            'hash' => false,
+        ],
+
+        'panchayat' => [
+            'driver' => 'session',
+            'provider' => 'panchayats',
+        ],
+
+        'panchayat-api' => [
+            'driver' => 'token',
+            'provider' => 'panchayats',
+            'hash' => false,
+        ],
+
+        'officer' => [
+            'driver' => 'session',
+            'provider' => 'officers',
+        ],
+
+        'officer-api' => [
+            'driver' => 'token',
+            'provider' => 'officers',
             'hash' => false,
         ],
     ],
@@ -90,6 +111,16 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
+
+        'panchayats' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'officers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
     ],
 
     /*
@@ -114,6 +145,18 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'panchayats' => [
+            'provider' => 'panchayats',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'officers' => [
+            'provider' => 'officers',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

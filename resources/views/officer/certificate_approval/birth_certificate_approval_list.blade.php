@@ -1,4 +1,4 @@
-@extends('panchayat.layouts_officer.main')
+@extends('officer.layouts.main')
 @section('title', 'Birth Certificate List')
 @section('content')
 
@@ -11,7 +11,7 @@
                 <div class="ps-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('panchayat.dashboard') }}"><i class="bx bx-home-alt"></i></a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('officer.officer.dashboard') }}"><i class="bx bx-home-alt"></i></a></li>
                             <li class="breadcrumb-item active" aria-current="page">List</li>
                         </ol>
                     </nav>
@@ -48,23 +48,24 @@
                                         <td>{{ $birthCertificate->registration_number ?? 'N/A' }}</td>
                                         <td>{{ $birthCertificate->registration_date ?? 'N/A' }}</td>
                                         <td >
-                                                <a href="{{ route('panchayat.birthCertificate.officer.view', $birthCertificate->id) }}" class="btn btn-success btn-sm">
+                                                <a href="{{ route('officer.birthCertificate.view', $birthCertificate->id) }}" class="btn btn-success btn-sm">
                                                     View
                                                 </a>
 
                                         </td>
 
 
-                                            <td style="display: block !important;">
-                                                @if ($birthCertificate->approve_status == 0)
+                                        <td style="display: block !important;">
+                                            @if ($birthCertificate->approve_status == 0)
 
-                                                    <a href="{{ route('panchayat.birthCertificate.approve', $birthCertificate->id) }}" class="btn btn-success btn-sm">
-                                                        Approve
-                                                    </a>
-                                                @else
-                                                    Already Approved
-                                                @endif
-                                            </td>
+                                                <a href="{{ route('officer.birthCertificate.approve', $birthCertificate->id) }}" class="btn btn-success btn-sm">
+                                                    Approve
+                                                </a>
+                                            @else
+                                            <span class="badge bg-success">Already Approved</span>
+                                                {{-- Already Approved --}}
+                                            @endif
+                                        </td>
 
                                     </tr>
                                 @endforeach

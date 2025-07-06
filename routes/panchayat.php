@@ -12,12 +12,12 @@ use App\Http\Controllers\admin\OfficerController;
 Route::prefix('panchayat')->name('panchayat.')->group(function () {
     Route::get('login', [AuthPanchayatController::class, 'showLoginForm'])->name('login');
     Route::post('login-action', [AuthPanchayatController::class, 'login'])->name('login-action');
-    Route::middleware('admin')->group(function () {
+    Route::middleware('panchayat')->group(function () {
         Route::get('store-tax', [TaxCalculationController::class, 'taxStore']);
 
 
         Route::get('/dashboard', [AuthPanchayatController::class, 'dashboard'])->name('dashboard');
-        Route::get('/officer-dashboard', [AuthPanchayatController::class, 'officerDashboard'])->name('officer.dashboard');
+       
         Route::get('/profile', [AuthPanchayatController::class, 'profile'])->name('profile');
         Route::post('/password/update', [AuthPanchayatController::class, 'passwordUpdate'])->name('password.update');
         Route::post('/profile/update', [AuthPanchayatController::class, 'profileUpdate'])->name('profile.update');
@@ -111,41 +111,41 @@ Route::prefix('panchayat')->name('panchayat.')->group(function () {
 
         Route::get('penalty/payment-create', [TaxCalculationController::class, 'penaltyPaymentCreate'])->name('penalty.payment.create');
 
-        //Route For Namuna
-         Route::get('namuna/eight/bulk', [TaxCalculationController::class, 'namunaEightBulk'])->name('namunaEightBulk');
-        Route::post('namuna/eight/bulk-download', [TaxCalculationController::class, 'namunaEightBulkDownload'])->name('namunaEightBulkDownload');
-
+         //Route For Namuna 9
         Route::get('namuna/nine/select', [TaxCalculationController::class, 'namunaNineSelect'])->name('namuna.nine.select');
         Route::post('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details');
-
+       
         Route::get('namuna/nine/bulk', [TaxCalculationController::class, 'namunaNineBulk'])->name('namuna.nine.bulk');
         Route::post('namuna/nine/bulk-download', [TaxCalculationController::class, 'namunaNineBulkDownload'])->name('namuna.nine.bulk.download');
         
         Route::post('/store-previous-year-data', [TaxCalculationController::class, 'storePreviousYearData'])->name('storePreviousYearData');
-        Route::get('namuna/nine/details', [TaxCalculationController::class, 'namunaNineDetails'])->name('namuna.nine.details.get');
-
+        
+        //Route For Namuna 8
         Route::get('namuna/eight/select', [TaxCalculationController::class, 'namunaEightSelect'])->name('namuna.eight.select');
         Route::post('namuna/eight/details', [TaxCalculationController::class, 'namunaEightDetails'])->name('namuna.eight.details');
 
-        
+       
+        Route::get('namuna/eight/bulk', [TaxCalculationController::class, 'namunaEightBulk'])->name('namunaEightBulk');
+        Route::post('namuna/eight/bulk-download', [TaxCalculationController::class, 'namunaEightBulkDownload'])->name('namunaEightBulkDownload');
+
 
 
        
 
         // Route for certificate approval
-        Route::get('birth/certificate/approval/list', [OfficerController::class, 'birthCertificateApprovalList'])->name('birthCertificate.approval.list');
-        Route::get('birth/certificate/approve/{id}', [OfficerController::class, 'birthCertificateApprove'])->name('birthCertificate.approve');
+        // Route::get('birth/certificate/approval/list', [OfficerController::class, 'birthCertificateApprovalList'])->name('birthCertificate.approval.list');
+        // Route::get('birth/certificate/approve/{id}', [OfficerController::class, 'birthCertificateApprove'])->name('birthCertificate.approve');
 
-        Route::get('death/certificate/approval/list', [OfficerController::class, 'deathCertificateApprovalList'])->name('deathCertificate.approval.list');
-        Route::get('death/certificate/approve/{id}', [OfficerController::class, 'deathCertificateApprove'])->name('deathCertificate.approve');
+        // Route::get('death/certificate/approval/list', [OfficerController::class, 'deathCertificateApprovalList'])->name('deathCertificate.approval.list');
+        // Route::get('death/certificate/approve/{id}', [OfficerController::class, 'deathCertificateApprove'])->name('deathCertificate.approve');
 
-        Route::get('marriaage/certificate/approval/list', [OfficerController::class, 'marriageCertificateApprovalList'])->name('marriageCertificate.approval.list');
-        Route::get('marriage/certificate/approve/{id}', [OfficerController::class, 'marriageCertificateApprove'])->name('marriageCertificate.approve');
+        // Route::get('marriaage/certificate/approval/list', [OfficerController::class, 'marriageCertificateApprovalList'])->name('marriageCertificate.approval.list');
+        // Route::get('marriage/certificate/approve/{id}', [OfficerController::class, 'marriageCertificateApprove'])->name('marriageCertificate.approve');
 
-        // Route for officer certificate view
+        // // Route for officer certificate view
 
-        Route::get('birth/certificate/officer/view/{id}', [OfficerController::class, 'birthCertificateView'])->name('birthCertificate.officer.view');
-        Route::get('death/certificate/officer/view/{id}', [OfficerController::class, 'deathCertificateView'])->name('deathCertificate.officer.view');
-        Route::get('marriage/certificate/officer/view/{id}', [OfficerController::class, 'marriageCertificateView'])->name('marriageCertificate.officer.view');
+        // Route::get('birth/certificate/officer/view/{id}', [OfficerController::class, 'birthCertificateView'])->name('birthCertificate.officer.view');
+        // Route::get('death/certificate/officer/view/{id}', [OfficerController::class, 'deathCertificateView'])->name('deathCertificate.officer.view');
+        // Route::get('marriage/certificate/officer/view/{id}', [OfficerController::class, 'marriageCertificateView'])->name('marriageCertificate.officer.view');
     });
 });

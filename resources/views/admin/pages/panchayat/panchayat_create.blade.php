@@ -58,7 +58,7 @@
                                     <input type="password" name="password_confirmation"  class="form-control"  placeholder="Insert Confirm Password">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                    <button type="submit" class="btn admin-btn-decorate">Add Panchayat</button>
+                                    <button type="submit" class="btn btn-success">Add Panchayat</button>
                                 </div>
                             </form>
                         </div>

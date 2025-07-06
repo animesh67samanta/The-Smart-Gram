@@ -205,14 +205,14 @@
 </head>
 
 <?php 
-    $add = explode(',', Auth::guard('admin')->user()->address_mr);  
+    $add = explode(',', Auth::guard('panchayat')->user()->address_mr);  
 ?>
 <body>
     <section>
         <div class="bill-container">
             <div class="col-12 pt-2 pb-1">
                 <div class="demand_bill">
-                    <h5 class="text-center">ग्रामपंचायत : {{ Auth::guard('admin')->user()->name_mr }}, <span>{{ $add[0]}}, {{ $add[1]}}</span></h5>
+                    <h5 class="text-center">ग्रामपंचायत : {{ Auth::guard('panchayat')->user()->name_mr }}, <span>{{ $add[0]}}, {{ $add[1]}}</span></h5>
                     <p>पंचायतीस येणे असलेली कर / फी व इतर रकमा याबद्दल ग्रामपंचायत कायदा कलम १२९(१) अन्वये.</p>
                 </div>
             </div>

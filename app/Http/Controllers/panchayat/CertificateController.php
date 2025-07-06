@@ -51,7 +51,7 @@ class CertificateController extends Controller
 
         // Create a new certificate record using an associative array
         $birthCertificate = BirthCertificate::create([
-            'panchayat_id'           => Auth::guard('admin')->user()->id,
+            'panchayat_id'           => Auth::guard('panchayat')->user()->id,
             'childname'              => $request->childname,
             'childname_mr'           => GoogleTranslate::trans($request->childname, 'mr'),
             'dob'                    => $request->dob,
@@ -86,13 +86,13 @@ class CertificateController extends Controller
 
     public function birthCertificateList()
     {
-        $birthCertificates = BirthCertificate::orderBy('id', 'desc')->where('panchayat_id', Auth::guard('admin')->user()->id)->get();
+        $birthCertificates = BirthCertificate::orderBy('id', 'desc')->where('panchayat_id', Auth::guard('panchayat')->user()->id)->get();
         return view('panchayat.pages.certificate.birth_certificate_list', compact('birthCertificates'));
     }
     public function birthCertificateDetails($id)
     {
         $details = BirthCertificate::with('panchayat')->findOrFail($id);
-        $officer = Admin::where('panchayat_id', Auth::guard('admin')->user()->id)->where('user_type', 'officer')->first();
+        $officer = Admin::where('panchayat_id', Auth::guard('panchayat')->user()->id)->where('user_type', 'officer')->first();
         return view('panchayat.pages.certificate.birth_certificate_details', compact('details', 'officer'));
     }
     public function birthCertificateAllValues($id)
@@ -134,7 +134,7 @@ class CertificateController extends Controller
         // Find the certificate by ID and update it
         $birthCertificate = BirthCertificate::findOrFail($id);
         $birthCertificate->update([
-            'panchayat_id'           => Auth::guard('admin')->user()->id,
+            'panchayat_id'           => Auth::guard('panchayat')->user()->id,
             'childname'              => $request->childname,
             'childname_mr'           => $request->childname_mr,
             'dob'                    => $request->dob,
@@ -184,7 +184,7 @@ class CertificateController extends Controller
     
     public function deathCertificateList()
     {
-        $deathCertificates = DeathCertificate::orderBy('id', 'desc')->where('panchayat_id', Auth::guard('admin')->user()->id)->get();
+        $deathCertificates = DeathCertificate::orderBy('id', 'desc')->where('panchayat_id', Auth::guard('panchayat')->user()->id)->get();
         return view('panchayat.pages.certificate.death_certificate_list', compact('deathCertificates'));
     }
 
@@ -225,7 +225,7 @@ class CertificateController extends Controller
         $aadhar_card = $this->convertToMarathiDigits($request->adhar_card_no_deceased);
        
         $deathCertificate = DeathCertificate::create([
-            'panchayat_id'              => Auth::guard('admin')->user()->id,
+            'panchayat_id'              => Auth::guard('panchayat')->user()->id,
             'name'                      => $request->name,
             'name_mr'                   => GoogleTranslate::trans($request->name, 'mr'),
             'dob'                       => $request->dob,
@@ -264,7 +264,7 @@ class CertificateController extends Controller
     {
 
         $details = DeathCertificate::with('panchayat')->findOrFail($id);
-        $officer = Admin::where('panchayat_id', Auth::guard('admin')->user()->id)->where('user_type', 'officer')->first();
+        $officer = Admin::where('panchayat_id', Auth::guard('panchayat')->user()->id)->where('user_type', 'officer')->first();
         // dd($details);
         return view('panchayat.pages.certificate.death_certificate_details', compact('details', 'officer'));
     }
@@ -304,9 +304,9 @@ class CertificateController extends Controller
         $registration_no = $this->convertToMarathiDigits($request->registration_number);
         $aadhar_card = $this->convertToMarathiDigits($request->adhar_card_no_deceased);
         $deathCertificate = DeathCertificate::findOrFail($id);
-        // dd(Auth::guard('admin')->user()->id);
+        // dd(Auth::guard('panchayat')->user()->id);
         $deathCertificate->update([
-            'panchayat_id'              => Auth::guard('admin')->user()->id,
+            'panchayat_id'              => Auth::guard('panchayat')->user()->id,
             'name'                      => $request->name,
             'name_mr'                   => $request->name_mr,
             'dob'                       => $request->dob,
@@ -379,7 +379,7 @@ class CertificateController extends Controller
         $errorCount = 0;
         $errors = [];
         // dd(12);
-        $id = Auth::guard('admin')->user()->id;
+        $id = Auth::guard('panchayat')->user()->id;
         DB::beginTransaction();
         try {
              
@@ -482,7 +482,7 @@ class CertificateController extends Controller
     public function oldCertificateList()
     {
 
-        $oldCertificates = OldCertificate::where('panchayat_id', Auth::guard('admin')->user()->id, )->get();
+        $oldCertificates = OldCertificate::where('panchayat_id', Auth::guard('panchayat')->user()->id, )->get();
         return view('panchayat.pages.certificate.old_certificate_list', compact('oldCertificates'));
     }
 
@@ -500,7 +500,7 @@ class CertificateController extends Controller
     public function oldCertificateStore(Request $request)
     {
         //dd($request->all());
-        // dd(Auth::guard('admin')->user()->id);
+        // dd(Auth::guard('panchayat')->user()->id);
 
         // Validate the request data
         $request->validate([
@@ -518,7 +518,7 @@ class CertificateController extends Controller
 
         // Create the old certificate record
         $oldCertificate = OldCertificate::create([
-            'panchayat_id' => Auth::guard('admin')->user()->id,
+            'panchayat_id' => Auth::guard('panchayat')->user()->id,
             'user_name'    => substr($request->name, 0, 3) . $request->mobile,
             'name'         => $request->name,
             'mobile'       => $request->mobile,
@@ -531,7 +531,7 @@ class CertificateController extends Controller
     }
     public function marriageCertificateList()
     {
-        $marriageCertificates = MarriageCertificate::orderBy('id', 'desc')->where('panchayat_id', Auth::guard('admin')->user()->id)->get();
+        $marriageCertificates = MarriageCertificate::orderBy('id', 'desc')->where('panchayat_id', Auth::guard('panchayat')->user()->id)->get();
         return view('panchayat.pages.certificate.marriage_certificate_list', compact('marriageCertificates'));
     }
 
@@ -588,7 +588,7 @@ class CertificateController extends Controller
 
         // Create a new marriage certificate record using an associative array
         $marriageCertificate = MarriageCertificate::create([
-            'panchayat_id'                  => Auth::guard('admin')->user()->id,
+            'panchayat_id'                  => Auth::guard('panchayat')->user()->id,
             'groom_name'                    => $request->groom_name,
             'groom_name_mr'                 => GoogleTranslate::trans($request->groom_name, 'mr'),
             'groom_image'                   => $groomImagePath, // Save the public path of the image
@@ -636,7 +636,7 @@ class CertificateController extends Controller
 
         // $details =  marriageCertificate::with('panchayat')->latest()->first();
         $details = MarriageCertificate::with('panchayat')->findOrFail($id);
-        $officer = Admin::where('panchayat_id', Auth::guard('admin')->user()->id)->where('user_type', 'officer')->first();
+        $officer = Admin::where('panchayat_id', Auth::guard('panchayat')->user()->id)->where('user_type', 'officer')->first();
         return view('panchayat.pages.certificate.marriage_certificate_details', compact('details', 'officer'));
     }
 

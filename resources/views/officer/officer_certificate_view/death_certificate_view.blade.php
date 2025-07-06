@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('admin/assets/images/logo-icon.png') }}" type="image/png">
     <title>The smart gram death certificate</title>
 
     <!--  css -->
@@ -371,7 +372,7 @@
         </div>
     </section>
     <div class="d-flex justify-content-center py-5">
-        <a href="{{ route('panchayat.deathCertificate.approval.list') }}" class="btn btn-primary btn-sm">
+        <a href="{{ route('officer.deathCertificate.approval.list') }}" class="btn btn-primary btn-sm">
             Back to list
         </a>
     </div>

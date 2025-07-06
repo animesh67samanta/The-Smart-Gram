@@ -70,6 +70,10 @@
     display: block !important;
 
 } */
+ .page-wrapper{
+     min-height: 100vh;
+
+ }
 </style>
 
 

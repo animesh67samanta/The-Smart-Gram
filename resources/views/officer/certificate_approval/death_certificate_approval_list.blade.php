@@ -1,5 +1,5 @@
-@extends('panchayat.layouts_officer.main')
-@section('title', 'Marriage Certificate List')
+@extends('officer.layouts.main')
+@section('title', 'Death Certificate List')
 @section('content')
 
 <div class="wrapper">
@@ -7,7 +7,7 @@
         <div class="page-content">
 
             <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                <div class="breadcrumb-title pe-3">Marriage Certificate</div>
+                <div class="breadcrumb-title pe-3">Death Certificate Approval</div>
                 <div class="ps-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 p-0">
@@ -25,45 +25,45 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Groom Name</th>
-                                    <th>Bride Name Before Marriage</th>
-                                    <th>Bride Name After Marriage</th>
-                                    <th>Groom Address</th>
-                                    <th>Bride Address</th>
+                                    <th>Name</th>
+                                    <th>Date of Birth</th>
+                                    <th>Gender</th>
+                                    <th>Permanent Address</th>
                                     <th>Registration Number</th>
                                     <th>Registration Date</th>
                                     <th>Certificate View</th>
-                                    <th style="display: block !important;">Action</th>
-
-
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($marriageCertificates as $key => $marriageCertificate)
+                                @foreach ($deathCertificates as $key => $deathCertificate)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $marriageCertificate->groom_name ?? 'N/A'}}</td>
-                                        <td>{{ $marriageCertificate->bride_name_before_marriage?? 'N/A' }}</td>
-                                        <td>{{ $marriageCertificate->bride_name ?? 'N/A'}}</td>
-                                        <td>{{ $marriageCertificate->groom_address ?? 'N/A'}}</td>
-                                        <td>{{ $marriageCertificate->bride_address ?? 'N/A' }}</td>
-                                        <td>{{ $marriageCertificate->registration_number ?? 'N/A' }}</td>
-                                        <td>{{ $marriageCertificate->registration_date ?? 'N/A' }}</td>
+                                        <td>{{ $deathCertificate->name ?? 'N/A' }}</td>
+                                        <td>{{ $deathCertificate->dob ?? 'N/A' }}</td>
+                                        <td>{{ $deathCertificate->gender ?? 'N/A' }}</td>
+                                        <td>{{ $deathCertificate->permanent_address ?? 'N/A' }}</td>
+                                        <td>{{ $deathCertificate->registration_number ?? 'N/A' }}</td>
+                                        <td>{{ $deathCertificate->registration_date ?? 'N/A' }}</td>
                                         <td >
-                                            <a href="{{ route('panchayat.marriageCertificate.officer.view', $marriageCertificate->id) }}" class="btn btn-success btn-sm">
+                                            <a href="{{ route('officer.deathCertificate.view', $deathCertificate->id) }}" class="btn btn-success btn-sm">
                                                 View
                                             </a>
                                         </td>
-                                        <td style="display: block !important;">
-                                            @if ($marriageCertificate->approve_status == 0)
 
-                                                <a href="{{ route('panchayat.marriageCertificate.approve', $marriageCertificate->id) }}" class="btn btn-success btn-sm">
+
+                                        <td style="display: block !important;">
+                                            @if ($deathCertificate->approve_status == 0)
+
+                                                <a href="{{ route('officer.deathCertificate.approve', $deathCertificate->id) }}" class="btn btn-success btn-sm">
                                                     Approve
                                                 </a>
                                             @else
-                                                Already Approved
+                                                <span class="badge bg-success">Already Approved</span>
+                                                {{-- Already Approved --}}
                                             @endif
                                         </td>
+
 
 
                                     </tr>

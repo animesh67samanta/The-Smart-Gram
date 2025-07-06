@@ -76,15 +76,15 @@
 <body class="bg-theme bg-theme2">
     <!--wrapper-->
     <div class="wrapper">
-        @include('panchayat.layouts_officer.sidebar')
+        @include('officer.layouts.sidebar')
 
-        @include('panchayat.layouts_officer.header')
+        @include('officer.layouts.header')
 
         <!-- Left side column. contains the logo and sidebar -->
 
         @yield('content')
-        @include('panchayat.layouts_officer.footer')
-        @include('panchayat.layouts_officer.theme')
+        @include('officer.layouts.footer')
+        @include('officer.layouts.theme')
 
 
         <script src="{{asset('admin/assets/js/bootstrap.bundle.min.js')}}"></script>
@@ -104,7 +104,7 @@
         @stack('js')
 
 
-        @include('panchayat.layouts_officer.validation')
+        @include('officer.layouts.validation')
         <script>
             $(document).ready(function() {
                 $('#example2').DataTable({
@@ -230,131 +230,6 @@
         });
     });
 </script>
-{{-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let activeInput; // Track the currently active input field
-        let isShift = false; // Track shift state
-
-        // Initialize the keyboard
-        const keyboard = new SimpleKeyboard.default({
-            onChange: input => {
-                // Update the input field only if there is an active input
-                if (activeInput) {
-                    activeInput.value = input; // Set the input field's value
-                }
-            },
-            onKeyPress: button => {
-                if (activeInput) {
-                    if (button === "{bksp}") {
-                        // Handle backspace
-                        if (activeInput.value.length > 0) {
-                            activeInput.value = activeInput.value.slice(0, -1);
-                            keyboard.setInput(activeInput.value); // Sync keyboard with the field's current value
-                        }
-                    } else if (button === "{shift}") {
-                        // Toggle shift state
-                        isShift = !isShift;
-                        keyboard.setOptions({
-                            layoutName: isShift ? "shift" : "default"
-                        });
-                    } else if (button === "{enter}") {
-                        // Handle Enter key (e.g., form submission)
-                        document.getElementById('certificateForm').submit();
-                    } else if (button === "{space}") {
-                        // Add a space
-                        activeInput.value += " ";
-                        keyboard.setInput(activeInput.value); // Sync with input field
-                    } else {
-                        // Add the key press to the input
-                        activeInput.value += button;
-                        keyboard.setInput(activeInput.value); // Sync keyboard with the field's current value
-                    }
-                }
-            },
-            layout: {
-                default: [
-                    '१ २ ३ ४ ५ ६ ७ ८ ९ ० - {bksp}',
-                    'क ख ग घ ङ च छ ज झ ञ',
-                    'ट ठ ड ढ ण त थ द ध न',
-                    'प फ ब भ म य र ल व श',
-                    '{shift} ष स ह ळ क्ष त्र ज्ञ {enter}',
-                    '{space}'
-                ],
-                shift: [
-                    '१ २ ३ ४ ५ ६ ७ ८ ९ ० - {bksp}',
-                    'क ख ग घ ङ च छ ज झ ञ',
-                    'ट ठ ड ढ ण त थ द ध न',
-                    'प फ ब भ म य र ल व श',
-                    '{shift} ष स ह ळ क्ष त्र ज्ञ {enter}',
-                    '{space}'
-                ]
-            },
-            display: {
-                '{bksp}': '⌫',
-                '{enter}': 'Enter',
-                '{shift}': 'Shift',
-                '{space}': 'Space'
-            }
-        });
-
-        // Function to show the keyboard below the active input field
-        function showKeyboard() {
-            if (activeInput) {
-                const rect = activeInput.getBoundingClientRect();
-                const keyboardElement = document.querySelector('.simple-keyboard');
-                keyboardElement.style.position = 'absolute';
-                keyboardElement.style.top = `${rect.bottom + window.scrollY}px`;
-                keyboardElement.style.left = `${rect.left}px`;
-                keyboardElement.style.display = 'block';
-            }
-        }
-
-        // Function to handle input focus
-        function handleFocus(field) {
-            activeInput = field;
-            keyboard.setInput(field.value || '');
-            showKeyboard();
-        }
-
-        // Add focus event listener to all Marathi input fields
-        document.querySelectorAll('.marathi-input').forEach(field => {
-            field.addEventListener('focus', function() {
-                handleFocus(field);
-            });
-
-            field.addEventListener('input', function() {
-                if (activeInput) {
-                    keyboard.setInput(field.value);
-                }
-            });
-        });
-
-        // Hide keyboard on form submission
-        document.getElementById('certificateForm').addEventListener('submit', function() {
-            activeInput = null;
-            document.querySelector('.simple-keyboard').style.display = 'none';
-        });
-
-        // Hide keyboard when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.marathi-input') && !event.target.closest('.simple-keyboard')) {
-                activeInput = null;
-                document.querySelector('.simple-keyboard').style.display = 'none';
-            }
-        });
-
-        // Prevent keyboard from hiding on input field click
-        document.querySelectorAll('.marathi-input').forEach(field => {
-            field.addEventListener('click', function() {
-                if (activeInput === field) {
-                    showKeyboard();
-                } else {
-                    handleFocus(field);
-                }
-            });
-        });
-    });
-</script> --}}
 
 
 <style>

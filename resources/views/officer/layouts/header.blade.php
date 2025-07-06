@@ -59,23 +59,23 @@
                     href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {{-- <img src="assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar"> --}}
                     <div class="user-info">
-                        <p class="user-name mb-0">{{ Auth::guard('admin')->user()->name }}</p>
-                        <p class="designattion mb-0">{{ Auth::guard('admin')->user()->email }}</p>
+                        <p class="user-name mb-0">{{ Auth::guard('officer')->user()->name }}</p>
+                        <p class="designattion mb-0">{{ Auth::guard('officer')->user()->email }}</p>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item d-flex align-items-center" href="{{route('panchayat.profile')}}"><i
+                    <li><a class="dropdown-item d-flex align-items-center" href="{{route('officer.profile')}}"><i
                                 class="bx bx-user fs-5"></i><span>Profile-</span></a>
                     </li>
 
-                    <li><a class="dropdown-item d-flex align-items-center" href="{{route('panchayat.officer.dashboard')}}"><i
+                    <li><a class="dropdown-item d-flex align-items-center" href="{{route('officer.officer.dashboard')}}"><i
                                 class="bx bx-home-circle fs-5"></i><span>Dashboard</span></a>
                     </li>
 
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="{{route('panchayat.logout')}}"><i
+                    <li><a class="dropdown-item d-flex align-items-center" href="{{route('officer.logout')}}"><i
                                 class="bx bx-log-out-circle"></i><span>Logout</span></a>
                     </li>
                 </ul>

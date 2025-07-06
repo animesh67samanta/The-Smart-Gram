@@ -13,7 +13,11 @@ class AdminAuth
             return redirect()->route('admin.login');
         }
 
-       
+        // Check if the authenticated user is an admin user
+        if (Auth::guard('admin')->user()->user_type !== 'admin') {
+            return redirect()->route('admin.login')->with('error', 'Access denied. Only admin users can access this area.');
+        }
+
         return $next($request);
     }
 }

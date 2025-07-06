@@ -218,7 +218,7 @@
                             </div>
 
                             <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn admin-btn-decorate">Update Certificate</button>
+                                <button type="submit" class="btn btn-success">Update Certificate</button>
                             </div>
                         </div>
                         </form>

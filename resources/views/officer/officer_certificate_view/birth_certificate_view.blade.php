@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php 
+use Stichoza\GoogleTranslate\GoogleTranslate;
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('admin/assets/images/logo-icon.png') }}" type="image/png">
     <title>The smart gram birth certificate</title>
 
     <!--  css -->
@@ -226,104 +229,104 @@
 
 
 
-  <div class="row mt-2">
-    <div class="col-7">
+                <div class="row mt-2">
+                    <div class="col-7">
 
 
-        <div class="mt-1">
-            <div class="row">
-                <div class="col-7">
-                    <p>आईचे नांव :</p>
+                        <div class="mt-1">
+                            <div class="row">
+                                <div class="col-7">
+                                    <p>आईचे नांव :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->mother_name_mr }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-1">
+                                <div class="col-7">
+                                    <p>MOTHER'S NAME :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->mother_name}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="mt-1">
+                            <div class="row">
+                                <div class="col-7">
+                                    <p>आई / वडिलांचा कायमचा पत्ता :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->parent_address_mr }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-1">
+                                <div class="col-7">
+                                    <p>FATHERS/MOTHERS ADDRESS :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->parent_address}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="mt-1">
+                            <div class="row">
+                                <div class="col-7">
+                                    <p>आई वडिलांचे राष्ट्रीयत्व :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->parent_nationality_mr }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-1">
+                                <div class="col-7">
+                                    <p>FATHERS/MOTHERS NATIONALITY :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->parent_nationality}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="mt-1">
+                            <div class="row">
+                                <div class="col-7">
+                                    <p>शेरा :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->remarks_mr }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row mt-1">
+                                <div class="col-7">
+                                    <p>REMARK :</p>
+                                </div>
+                                <div class="col-5">
+                                    <p>{{ $details->remarks}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    {{-- <div class="col-5">
+                        {!! QrCode::size(100)->generate('https://smartgram.fusiontechlab.site/birthCertificate/'.$details->id) !!}
+                    </div> --}}
                 </div>
-                <div class="col-5">
-                    <p>{{ $details->mother_name_mr }}</p>
-                </div>
-            </div>
-
-            <div class="row mt-1">
-                <div class="col-7">
-                    <p>MOTHER'S NAME :</p>
-                </div>
-                <div class="col-5">
-                    <p>{{ $details->mother_name}}</p>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="mt-1">
-            <div class="row">
-                <div class="col-7">
-                    <p>आई / वडिलांचा कायमचा पत्ता :</p>
-                </div>
-                <div class="col-5">
-                    <p>{{ $details->parent_address_mr }}</p>
-                </div>
-            </div>
-
-            <div class="row mt-1">
-                <div class="col-7">
-                    <p>FATHERS/MOTHERS ADDRESS :</p>
-                </div>
-                <div class="col-5">
-                    <p>{{ $details->parent_address}}</p>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="mt-1">
-            <div class="row">
-                <div class="col-7">
-                    <p>आई वडिलांचे राष्ट्रीयत्व :</p>
-                </div>
-                <div class="col-5">
-                    <p>{{ $details->parent_nationality_mr }}</p>
-                </div>
-            </div>
-
-            <div class="row mt-1">
-                <div class="col-7">
-                    <p>FATHERS/MOTHERS NATIONALITY :</p>
-                </div>
-                <div class="col-5">
-                    <p>{{ $details->parent_nationality}}</p>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="mt-1">
-            <div class="row">
-                <div class="col-7">
-                    <p>शेरा :</p>
-                </div>
-                <div class="col-5">
-                    <p>{{ $details->remarks_mr }}</p>
-                </div>
-            </div>
-
-            <div class="row mt-1">
-                <div class="col-7">
-                    <p>REMARK :</p>
-                </div>
-                <div class="col-5">
-                    <p>{{ $details->remarks}}</p>
-                </div>
-            </div>
-        </div>
-
-
-
-    </div>
-
-    {{-- <div class="col-5">
-        {!! QrCode::size(100)->generate('https://smartgram.fusiontechlab.site/birthCertificate/'.$details->id) !!}
-    </div> --}}
-  </div>
 
 
                 <div class="mt-1">
@@ -363,29 +366,12 @@
         </div>
     </section>
     <div class="d-flex justify-content-center py-5">
-        <a href="{{ route('panchayat.birthCertificate.approval.list') }}" class="btn btn-primary btn-sm">
+        <a href="{{ route('officer.birthCertificate.approval.list') }}" class="btn btn-primary btn-sm">
             Back to list
         </a>
     </div>
 
-    {{-- <script>
-        document.getElementById("print").addEventListener("click", function() {
-            // Save the original content of the page
-            var originalContent = document.body.innerHTML;
-
-            // Get the content of the section to print
-            var printContent = document.getElementById("content").innerHTML;
-
-            // Replace the page content with the section content
-            document.body.innerHTML = printContent;
-
-            // Trigger the print function
-            window.print();
-
-            // Restore the original page content after printing
-            document.body.innerHTML = originalContent;
-        });
-    </script> --}}
+    
 
 </body>
 

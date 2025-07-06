@@ -59,7 +59,7 @@
 
 
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn admin-btn-decorate">
+                                    <button type="submit" class="btn btn-success">
                                         Submit
                                     </button>
                                 </div>

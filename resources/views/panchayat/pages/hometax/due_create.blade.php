@@ -211,7 +211,7 @@
 
 
 
- @extends('panchayat.layouts.main')
+@extends('panchayat.layouts.main')
 @section('title', 'Hometax Due Payment Create')
 @section('content')
 
@@ -299,18 +299,18 @@ $prevDue = $previousYearTax->calculated_home_tax - $previousYearTax->home_pay_ta
                                 </div>
 
                                  <!-- Total Pending Calculation -->
-                                @php
+                                 @php
                                     $previousPending = ($previousYearTax->calculated_home_tax ?? 0.00) - ($previousYearTax->home_pay_tax_amount ?? 0.00);
                                     $currentPending = $hometax->calculated_home_tax - ($hometax->home_pay_tax_amount ?? 0);
                                     $totalPending = $previousPending + $currentPending;
-                                    $minimumPayment = $previousPending > 0 ? max($previousPending * 0.5, 0) : max($currentPending * 0.5, 0);
+                                    $minimumPayment = $previousPending > 0 ? max($previousPending * 0.1, 0) : max($currentPending * 0.1, 0);
                                 @endphp
                                 <div class="alert alert-warning mb-3">
                                     <strong>Total Pending Amount:</strong> ₹{{ number_format($totalPending, 2) }}<br>
                                     @if($previousPending > 0)
-                                        <strong>Minimum Required Payment (50% of Previous Due):</strong> ₹{{ number_format(max($previousPending * 0.5, 0), 2) }}
+                                        <small class="text-warning">You must first pay the 10% previous year due of ₹{{ number_format(max($previousPending * 0.1, 0), 2) }}</small>
                                     @else
-                                        <strong>Minimum Required Payment (50% of Current Due):</strong> ₹{{ number_format($minimumPayment, 2) }}
+                                        <small class="text-warning">Minimum payment: 10% of current due (₹{{ number_format($minimumPayment, 2) }})</small>
                                     @endif
                                 </div>
 
@@ -323,9 +323,9 @@ $prevDue = $previousYearTax->calculated_home_tax - $previousYearTax->home_pay_ta
                                         max="{{ number_format($totalPending, 2, '.', '') }}"
                                         required>
                                     @if($previousPending > 0)
-                                        <small class="text-warning">You must first pay the 50% previous year due of ₹{{ number_format(max($previousPending * 0.5, 0), 2) }}</small>
+                                        <small class="text-warning">You must first pay the 10% previous year due of ₹{{ number_format(max($previousPending * 0.1, 0), 2) }}</small>
                                     @else
-                                        <small class="text-warning">Minimum payment: 50% of current due (₹{{ number_format($minimumPayment, 2) }})</small>
+                                        <small class="text-warning">Minimum payment: 10% of current due (₹{{ number_format($minimumPayment * 0.1, 2) }})</small>
                                     @endif
                                 </div>
 
@@ -400,22 +400,22 @@ $prevDue = $previousYearTax->calculated_home_tax - $previousYearTax->home_pay_ta
                     return;
                 }
                 
-                if (previousPending > 0 && enteredAmount < (previousPending/2)) {
-                    alert(`You must first pay the 50% previous year due of ₹${previousPending.toFixed(2)}`);
-                    e.preventDefault();
-                    return;
-                }
+                // if (previousPending > 0 && enteredAmount < (previousPending * 0.1)) {
+                //     alert(`You must first pay the 10% previous year due of ₹${(previousPending * 0.1).toFixed(2)}`);
+                //     e.preventDefault();
+                //     return;
+                // }
                 
-                if (previousPending === 0 && enteredAmount < minimumPayment) {
-                    alert(`Minimum payment must be at least 50% of current due (₹${minimumPayment.toFixed(2)})`);
-                    e.preventDefault();
-                    return;
-                }
+                // if (previousPending === 0 && enteredAmount < minimumPayment) {
+                //     alert(`Minimum payment must be at least 10% of current due (₹${minimumPayment.toFixed(2)})`);
+                //     e.preventDefault();
+                //     return;
+                // }
                 
-                if (enteredAmount > totalPending) {
-                    alert(`Payment amount cannot exceed total pending amount of ₹${totalPending.toFixed(2)}`);
-                    e.preventDefault();
-                }
+                // if (enteredAmount > totalPending) {
+                //     alert(`Payment amount cannot exceed total pending amount of ₹${totalPending.toFixed(2)}`);
+                //     e.preventDefault();
+                // }
             });
 
             function updateFinalAmount() {

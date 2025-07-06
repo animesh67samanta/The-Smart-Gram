@@ -14,20 +14,15 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Stichoza\GoogleTranslate\GoogleTranslate;
-use DB;
 
 class TaxCalculationController extends Controller
 {
 
     public function hometaxList()
     {
-        $adminId = Auth::guard('admin')->user()->id;
-        
-        
-
-
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $uniquePropertyIds = Property::has('hometax')->select('id')->where('panchayat_id', $panchayatId)
             ->distinct()->get()->toArray();
             // ->pluck('property_id');
@@ -181,7 +176,7 @@ class TaxCalculationController extends Controller
                 ($homeTaxes->water_tax_rate ?? 0) +
                 ($homeTaxes->special_tax_rate ?? 0);
             }
-            // dd($homeTaxes);
+             //dd($homeTaxes);
             $responseData = [
                 'property_no' => $homeTaxes->property->property_no,
                 'property_user_name' => $homeTaxes->property->property_user_name,
@@ -222,9 +217,9 @@ class TaxCalculationController extends Controller
                 'previous_home_due_tax_amount' => round(($previousYearTax[0]['home_due_tax_amount'] ?? 0), 2),
                 'previous_tax_discount' => round(($previousYearTax[0]['tax_discount'] ?? 0), 2),
                 'previous_tax_penalty' => round(($previousYearTax[0]['tax_penalty'] ?? 0), 2),
-                'total_paid_amount' => $previousYearTax[0]['home_pay_tax_amount'] + $homeTaxes->home_pay_tax_amount,
-                'total_due_amount' => ($previousYearTax[0]['calculated_home_tax'] + $homeTaxes->calculated_home_tax) - ($previousYearTax[0]['home_pay_tax_amount'] + $homeTaxes->home_pay_tax_amount),
-                'total_calculate_tax' => $previousYearTax[0]['calculated_home_tax'] + $homeTaxes->calculated_home_tax,
+                'total_paid_amount' => ($previousYearTax[0]['home_pay_tax_amount'] ?? 0 + $homeTaxes->home_pay_tax_amount ?? 0),
+                'total_due_amount' => ($previousYearTax[0]['calculated_home_tax'] ?? 0 + $homeTaxes->calculated_home_tax ?? 0) - ($previousYearTax[0]['home_pay_tax_amount'] ?? 0 + $homeTaxes->home_pay_tax_amount ?? 0),
+                'total_calculate_tax' => $previousYearTax[0]['calculated_home_tax'] ?? 0 + $homeTaxes->calculated_home_tax ??0,
                 
                 
             ];
@@ -232,7 +227,7 @@ class TaxCalculationController extends Controller
             // Push the current property's data into the allResponsiveData array
             $allResponsiveData[] = $responseData;
         }
-        //    dd($allResponsiveData);
+            //dd($allResponsiveData);
        
        
         return view('panchayat.pages.hometax.index', compact('allResponsiveData'));
@@ -242,7 +237,7 @@ class TaxCalculationController extends Controller
     // Create - Show form for creating a new record
     public function hometaxCreate()
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $properties  = Property::where('panchayat_id', $panchayatId)->orderBy('sequence', 'asc') ->get();
         
         return view('panchayat.pages.hometax.create', compact('properties'));
@@ -269,7 +264,7 @@ class TaxCalculationController extends Controller
         $property    = Property::findOrFail($request->property_id);
          
         $squareMeter = $property->area_in_sqmt;
-        $panchayatTaxes = DB::table('panchayat_taxes')->where('panchayat_id', Auth::guard('admin')->user()->id)->first();
+        $panchayatTaxes = DB::table('panchayat_taxes')->where('panchayat_id', Auth::guard('panchayat')->user()->id)->first();
        
         if ($property->description == "House" && $property->house_type == "RCC") {
             $open_plot_readireckoner_rate = $panchayatTaxes->rcc_open_plot_readireckoner_rate;
@@ -366,7 +361,7 @@ class TaxCalculationController extends Controller
         // Insert data into the database including the calculated home tax
         $homeTax = HomeTax::create([
 
-            'panchayat_id'                    => Auth::guard('admin')->user()->id,
+            'panchayat_id'                    => Auth::guard('panchayat')->user()->id,
             'property_id'                     => $request->property_id,
             'year'                            => $request->year,
             'calculated_home_tax'             => $TotalTax, 
@@ -507,7 +502,7 @@ class TaxCalculationController extends Controller
     // Edit - Show form for editing a specific home tax
     public function hometaxEdit(HomeTax $hometax)
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $properties  = Property::where('panchayat_id', $panchayatId)->get();
         return view('panchayat.pages.hometax.edit', compact('hometax', 'properties'));
     }
@@ -575,7 +570,7 @@ class TaxCalculationController extends Controller
         $homeTax = HomeTax::with('property')->findOrFail($id);
 
         $property_id = $homeTax->property_id;
-        $panchayat_id = Auth::guard('admin')->user()->id;
+        $panchayat_id = Auth::guard('panchayat')->user()->id;
 
         // Original tax before discount/penalty
         $originalTax = $homeTax->calculated_home_tax;
@@ -616,7 +611,7 @@ class TaxCalculationController extends Controller
     public function homeTaxPaymentDuePayment(HomeTax $hometax)
     {
 
-        $panchayatId = Auth::guard('admin')->user();
+        $panchayatId = Auth::guard('panchayat')->user();
         $properties  = Property::where('panchayat_id', $panchayatId->id)->where('id', $hometax->property_id)->get();
         $previousYearTax = HomeTax::where('property_id', $hometax->property_id)
             ->where('year', '<', $hometax->year)
@@ -635,7 +630,7 @@ class TaxCalculationController extends Controller
             'option' => 'nullable|in:discount,penalty,none',
         ]);
 
-        $adminId = Auth::guard('admin')->user()->id;
+        $adminId = Auth::guard('panchayat')->user()->id;
 
         $totalPayment = floatval($request->payment_amount ?? 0);
         $discount = floatval($request->tax_discount ?? 0);
@@ -780,7 +775,7 @@ class TaxCalculationController extends Controller
     }
     public function healthTaxPaymentCreate()
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $properties  = Property::where('panchayat_id', $panchayatId)->get();
         return view('panchayat.pages.healthtax.health_tax_payment_create', compact('properties'));
     }
@@ -797,7 +792,7 @@ class TaxCalculationController extends Controller
         ]);
 
         HealthTax::create([
-            'panchayat_id'     => Auth::guard('admin')->user()->id,
+            'panchayat_id'     => Auth::guard('panchayat')->user()->id,
             'property_id'      => $request->property_id,
             'year'             => $request->year,
             'total_health_tax' => $request->total_health_tax,
@@ -810,7 +805,7 @@ class TaxCalculationController extends Controller
 
     public function healthTaxPaymentDueCreate(HealthTax $healthtax)
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $properties  = Property::where('panchayat_id', $panchayatId)->get();
         return view('panchayat.pages.healthtax.health_tax_due_create', compact('properties', 'healthtax'));
     }
@@ -823,9 +818,9 @@ class TaxCalculationController extends Controller
             'pay_tax_amount' => 'required',
 
         ]);
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
 
-        $healthTaxDue = HealthTax::where('panchayat_id', Auth::guard('admin')->user()->id)->where('property_id', $healthtax->property_id)->where('year', $healthtax->year)->update([
+        $healthTaxDue = HealthTax::where('panchayat_id', Auth::guard('panchayat')->user()->id)->where('property_id', $healthtax->property_id)->where('year', $healthtax->year)->update([
             'pay_tax_amount' => $request->pay_tax_amount + $healthtax->pay_tax_amount,
             'due_tax_amount' => ($healthtax->total_health_tax - ($request->pay_tax_amount + $healthtax->pay_tax_amount)),
         ]);
@@ -839,7 +834,7 @@ class TaxCalculationController extends Controller
     }
     public function lampTaxPaymentCreate()
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $properties  = Property::where('panchayat_id', $panchayatId)->get();
         return view('panchayat.pages.lamptax.lamp_tax_payment_create', compact('properties'));
     }
@@ -855,11 +850,11 @@ class TaxCalculationController extends Controller
 
         ]);
 
-        $tax_payment = LampTax::where('property_id', $request->property_id)->where('panchayat_id', Auth::guard('admin')->user()->id)->where('year', $request->year)->first();
+        $tax_payment = LampTax::where('property_id', $request->property_id)->where('panchayat_id', Auth::guard('panchayat')->user()->id)->where('year', $request->year)->first();
         //    dd( $tax_payment );
 
         LampTax::create([
-            'panchayat_id'   => Auth::guard('admin')->user()->id,
+            'panchayat_id'   => Auth::guard('panchayat')->user()->id,
             'property_id'    => $request->property_id,
             'year'           => $request->year,
             'total_lamp_tax' => $request->total_lamp_tax,
@@ -872,7 +867,7 @@ class TaxCalculationController extends Controller
     }
     public function lampTaxPaymentDueCreate(LampTax $lamptax)
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $properties  = Property::where('panchayat_id', $panchayatId)->get();
         return view('panchayat.pages.lamptax.lamp_tax_due_create', compact('properties', 'lamptax'));
     }
@@ -884,8 +879,8 @@ class TaxCalculationController extends Controller
             'pay_tax_amount' => 'required',
 
         ]);
-        $panchayatId = Auth::guard('admin')->user()->id;
-        $lampTaxDue  = LampTax::where('panchayat_id', Auth::guard('admin')->user()->id)->where('property_id', $lamptax->property_id)->where('year', $lamptax->year)->update([
+        $panchayatId = Auth::guard('panchayat')->user()->id;
+        $lampTaxDue  = LampTax::where('panchayat_id', Auth::guard('panchayat')->user()->id)->where('property_id', $lamptax->property_id)->where('year', $lamptax->year)->update([
             'pay_tax_amount' => $request->pay_tax_amount + $lamptax->pay_tax_amount,
             'due_tax_amount' => ($lamptax->total_lamp_tax - ($request->pay_tax_amount + $lamptax->pay_tax_amount)),
         ]);
@@ -899,7 +894,7 @@ class TaxCalculationController extends Controller
     }
     public function penaltyPaymentCreate()
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $properties  = Property::where('panchayat_id', $panchayatId)->get();
         return view('panchayat.pages.penalty.penalty_payment_create', compact('properties'));
     }
@@ -915,7 +910,7 @@ class TaxCalculationController extends Controller
 
         ]);
         Penalty::create([
-            'panchayat_id'     => Auth::guard('admin')->user()->id,
+            'panchayat_id'     => Auth::guard('panchayat')->user()->id,
             'property_id'      => $request->property_id,
             'year'             => $request->year,
             'penalty'          => $request->penalty,
@@ -938,7 +933,7 @@ class TaxCalculationController extends Controller
 
     public function namunaNineBulk(Request $request)
     {
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
 
         $properties = Property::whereHas('hometax')
             ->where('panchayat_id', $panchayatId)
@@ -959,18 +954,6 @@ class TaxCalculationController extends Controller
         // dd($properties);
         return view('panchayat.pages.namuna_eight_nine.namuna_nine_bulk', compact('properties'));
     }
-
-    public function namunaNineSelect()
-    {
-        // $panchayatId = Auth::guard('admin')->user()->id;
-        // $properties  = Property::where('panchayat_id', $panchayatId)->orderby('id', 'desc')->get();
-        $panchayatId = Auth::guard('admin')->user()->id;
-        $properties  = Property::whereHas('hometax')->where('panchayat_id', $panchayatId)->orderBy('sequence', 'asc')->get();
-       
-        return view('panchayat.pages.namuna_eight_nine.namuna_nine', compact('properties'));
-    }
-
-
     public function namunaNineBulkDownload(Request $request)
     {
        
@@ -984,7 +967,7 @@ class TaxCalculationController extends Controller
         
         $previousYear = $request->year - 1;
         $currentYear = $request->year;
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
        
         foreach ($request->property_id as $propertyId) {
             $homeTaxes = HomeTax::with('property')
@@ -1093,7 +1076,7 @@ class TaxCalculationController extends Controller
                 });
 
             $homeTaxes = $homeTaxes->first();
-            $panchayatId = Auth::guard('admin')->user()->id;
+            $panchayatId = Auth::guard('panchayat')->user()->id;
             $previousYearTax = HomeTax::where('property_id', $propertyId)
             ->where('year', $previousYear)->where('panchayat_id', $panchayatId)->get()->toArray();
             
@@ -1169,10 +1152,17 @@ class TaxCalculationController extends Controller
         return view('panchayat.pages.namuna_eight_nine.namuna_nine_details_bulk', compact('allResponsiveData', 'specialTax'));
     }
 
-
+    public function namunaNineSelect()
+    {
+       
+        $panchayatId = Auth::guard('panchayat')->user()->id;
+        $properties  = Property::whereHas('hometax')->where('panchayat_id', $panchayatId)->orderBy('sequence', 'asc')->get();
+       
+        return view('panchayat.pages.namuna_eight_nine.namuna_nine', compact('properties'));
+    }
     public function namunaNineDetails(Request $request)
     {
-        //  dd($request->all());
+         // dd($request->all());
         $request->validate([
             'property_id' => 'required',
             'year'        => 'required',
@@ -1316,7 +1306,7 @@ class TaxCalculationController extends Controller
             });
 
         $homeTaxes = $homeTaxes->first();
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         $previousYearTax = HomeTax::where('property_id', $request->property_id)
         ->where('year', $previousYear)->where('panchayat_id', $panchayatId)->get()->toArray();
             //   dd($previousYearTax);
@@ -1402,7 +1392,6 @@ class TaxCalculationController extends Controller
         return view('panchayat.pages.namuna_eight_nine.namuna_nine_details', compact('responseData'));
     }
 
-
     public function storePreviousYearData(Request $request)
     {
             // dd($request->all());
@@ -1441,9 +1430,168 @@ class TaxCalculationController extends Controller
         ]);
     }
 
+    
+    public function namunaEightSelect()
+    {
+        $panchayatId = Auth::guard('panchayat')->user()->id;
+        $properties  = Property::whereHas('hometax')->where('panchayat_id', $panchayatId)->orderby('sequence', 'asc')->get();
+       
+        return view('panchayat.pages.namuna_eight_nine.namuna_eight', compact('properties'));
+    }
+
+    public function namunaEightDetails(Request $request)
+    {
+
+        $request->validate([
+            'property_id' => 'required',
+            // 'year'        => 'required',
+        ]);
+        //   dd($request->all());
+         $taxYearPayment = NamunaForm::first();
+        $taxYear = [
+            'start_year_before' => $this->convertToMarathiDigits($taxYearPayment->start_year_before),
+                'end_year_before' => $this->convertToMarathiDigits($taxYearPayment->end_year_before),
+                'start_year_after' => $this->convertToMarathiDigits($taxYearPayment->start_year_after),
+                'end_year_after' => $this->convertToMarathiDigits($taxYearPayment->end_year_after),
+        ];
+        $homeTaxes = HomeTax::with('property')
+        ->where('property_id', $request->property_id)
+        // ->where('year', $request->year)
+        ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
+        ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
+        ->select(
+            'home_taxes.*',
+            'admins.name as panchayat_name',
+            'admins.name_mr as panchayat_name_mr',
+            'admins.address as panchayat_address',
+            'admins.address_mr as panchayat_address_mr',
+            'panchayat_taxes.*'
+        )
+        ->orderBy('home_taxes.id', 'desc')
+        ->get()
+        ->map(function ($details) {
+            $property = $details->property;
+
+            $open_plot_readireckoner_rate = null;
+            $builtup_area_readireckoner_rate = null;
+            $depreciation = null;
+            $usage_rate = null;
+            $home_tax_rate = null;
+            $health_tax_rate = null;
+            $lamp_tax_rate = null;
+            $water_tax_rate = null;
+
+            if ($property) {
+                if ($property->description === 'House' && $property->house_type === 'RCC') {
+                    $open_plot_readireckoner_rate = $details->rcc_open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->rcc_builtup_area_readireckoner_rate;
+                    $depreciation = $details->rcc_depreciation_rate;
+                    $usage_rate = $details->rcc_usage_rate;
+                    $home_tax_rate = $details->rcc_tax_rate;
+                    $health_tax_rate = $details->rcc_health_tax;
+                    $lamp_tax_rate = $details->rcc_lamp_tax;
+                    $water_tax_rate = $details->rcc_water_tax;
+                } elseif ($property->description === 'House' && $property->house_type === 'Flat') {
+                    $open_plot_readireckoner_rate = $details->flat_open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->flat_builtup_area_readireckoner_rate;
+                    $depreciation = $details->flat_depreciation_rate;
+                    $usage_rate = $details->flat_usage_rate;
+                    $home_tax_rate = $details->flat_tax_rate;
+                    $health_tax_rate = $details->flat_health_tax;
+                    $lamp_tax_rate = $details->flat_lamp_tax;
+                    $water_tax_rate = $details->flat_water_tax;
+                } elseif ($property->description === 'House' && $property->house_type === 'Mud brick house') {
+                    $open_plot_readireckoner_rate = $details->mud_brick_open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->mud_brick_builtup_area_readireckoner_rate;
+                    $depreciation = $details->mud_brick_depreciation_rate;
+                    $usage_rate = $details->mud_brick_usage_rate;
+                    $home_tax_rate = $details->mud_brick_tax_rate;
+                    $health_tax_rate = $details->mud_brick_health_tax;
+                    $lamp_tax_rate = $details->mud_brick_lamp_tax;
+                    $water_tax_rate = $details->mud_brick_water_tax;
+                } elseif ($property->description === 'House' && $property->house_type === 'House of sticks') {
+                    $open_plot_readireckoner_rate = $details->sticks_open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->sticks_builtup_area_readireckoner_rate;
+                    $depreciation = $details->sticks_depreciation_rate;
+                    $usage_rate = $details->sticks_usage_rate;
+                    $home_tax_rate = $details->sticks_tax_rate;
+                    $health_tax_rate = $details->sticks_health_tax;
+                    $lamp_tax_rate = $details->sticks_lamp_tax;
+                    $water_tax_rate = $details->sticks_water_tax;
+                } elseif ($property->description === 'MIDC') {
+                    $open_plot_readireckoner_rate = $details->midc_open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->midc_builtup_area_readireckoner_rate;
+                    $depreciation = $details->midc_depreciation_rate;
+                    $usage_rate = $details->midc_usage_rate;
+                    $home_tax_rate = $details->midc_tax_rate;
+                    $health_tax_rate = $details->midc_health_tax;
+                    $lamp_tax_rate = $details->midc_lamp_tax;
+                    $water_tax_rate = $details->midc_water_tax;
+                } elseif ($property->description === 'Commercial') {
+                    $open_plot_readireckoner_rate = $details->commercial_open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->commercial_builtup_area_readireckoner_rate;
+                    $depreciation = $details->commercial_depreciation_rate;
+                    $usage_rate = $details->commercial_usage_rate;
+                    $home_tax_rate = $details->commercial_tax_rate;
+                    $health_tax_rate = $details->commercial_health_tax;
+                    $lamp_tax_rate = $details->commercial_lamp_tax;
+                    $water_tax_rate = $details->commercial_water_tax;
+                } elseif ($property->description == "Open plot") {
+                    $open_plot_readireckoner_rate = $details->open_plot_readireckoner_rate;
+                    $builtup_area_readireckoner_rate = $details->open_plot_builtup_area_readireckoner_rate;
+                    $depreciation = $details->open_plot_depreciation_rate;
+                    $usage_rate = $details->open_plot_usage_rate;
+                    $home_tax_rate = $details->open_plot_tax_rate;
+                }
+            }
+
+            $details->open_plot_readireckoner_rate = $open_plot_readireckoner_rate;
+            $details->builtup_area_readireckoner_rate = $builtup_area_readireckoner_rate;
+            $details->depreciation = $depreciation;
+            $details->usage_rate = $usage_rate;
+            $details->home_tax_rate = $home_tax_rate;
+            $details->health_tax_rate = $health_tax_rate;
+            $details->lamp_tax_rate = $lamp_tax_rate;
+            $details->water_tax_rate = $water_tax_rate;
+            return $details;
+        });
+
+        $homeTaxes = $homeTaxes->first();
+        $squareMeter = $homeTaxes->property->area_in_sqmt;
+        $open_plot_readireckoner_rate = $homeTaxes->open_plot_readireckoner_rate;
+        $builtup_area_readireckoner_rate = $homeTaxes->builtup_area_readireckoner_rate;
+        $depreciation = $homeTaxes->depreciation;
+        $usage_rate = $homeTaxes->usage_rate;
+        $home_tax_rate = $homeTaxes->home_tax_rate;
+
+        // // Calculate Capital Value
+         $capitalValue = ($squareMeter * $open_plot_readireckoner_rate) +
+        (($squareMeter * $builtup_area_readireckoner_rate * $depreciation) * $usage_rate);
+
+        // // // Calculate home tax
+        $homeTax = (($capitalValue / 1000) * $home_tax_rate);
+
+        // // // Get Total Tax including additional fixed taxes
+        if ($homeTaxes->property->description == "Open plot") {
+            $getTotalTax = $homeTax;
+        }else{
+            $getTotalTax = $homeTax +
+            ($homeTaxes->health_tax_rate ?? 0) +
+            ($homeTaxes->lamp_tax_rate ?? 0) +
+            ($homeTaxes->water_tax_rate ?? 0) +
+            ($homeTaxes->special_tax_rate ?? 0);
+        }
+        $homeTaxes->capital_value =  $capitalValue;
+         $homeTaxes->total_home_tax =  round($homeTax);
+        $homeTaxes->total_tax_amount = round($getTotalTax);
+        
+        return view('panchayat.pages.namuna_eight_nine.namuna_eight_details', compact('homeTaxes', 'taxYear'));
+
+    }
+
     public function namunaEightBulk(Request $request){
         // \DB::enableQueryLog();
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
          $properties = Property::whereHas('hometax')
             ->where('panchayat_id', $panchayatId)
             ->orderBy('sequence', 'asc')
@@ -1481,7 +1629,7 @@ class TaxCalculationController extends Controller
                 'start_year_after' => $this->convertToMarathiDigits($taxYearPayment->start_year_after),
                 'end_year_after' => $this->convertToMarathiDigits($taxYearPayment->end_year_after),
         ];
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         foreach ($request->property_id as $propertyId) {
 
             $homeTaxes = HomeTax::with('property')
@@ -1667,171 +1815,10 @@ class TaxCalculationController extends Controller
         return view('panchayat.pages.namuna_eight_nine.namuna_eight_bulk_details', compact('allResponsiveData', 'specialTax','taxYear'));
     }
 
-    public function namunaEightSelect()
-    {
-        $panchayatId = Auth::guard('admin')->user()->id;
-        $properties  = Property::whereHas('hometax')->where('panchayat_id', $panchayatId)->orderby('sequence', 'asc')->get();
-       
-        return view('panchayat.pages.namuna_eight_nine.namuna_eight', compact('properties'));
-    }
-
-    public function namunaEightDetails(Request $request)
-    {
-
-        $request->validate([
-            'property_id' => 'required',
-            // 'year'        => 'required',
-        ]);
-        //   dd($request->all());
-         $taxYearPayment = NamunaForm::first();
-        $taxYear = [
-            'start_year_before' => $this->convertToMarathiDigits($taxYearPayment->start_year_before),
-                'end_year_before' => $this->convertToMarathiDigits($taxYearPayment->end_year_before),
-                'start_year_after' => $this->convertToMarathiDigits($taxYearPayment->start_year_after),
-                'end_year_after' => $this->convertToMarathiDigits($taxYearPayment->end_year_after),
-        ];
-        $homeTaxes = HomeTax::with('property')
-        ->where('property_id', $request->property_id)
-        // ->where('year', $request->year)
-        ->join('admins', 'home_taxes.panchayat_id', '=', 'admins.id')
-        ->join('panchayat_taxes', 'home_taxes.panchayat_id', '=', 'panchayat_taxes.panchayat_id')
-        ->select(
-            'home_taxes.*',
-            'admins.name as panchayat_name',
-            'admins.name_mr as panchayat_name_mr',
-            'admins.address as panchayat_address',
-            'admins.address_mr as panchayat_address_mr',
-            'panchayat_taxes.*'
-        )
-        ->orderBy('home_taxes.id', 'desc')
-        ->get()
-        ->map(function ($details) {
-            $property = $details->property;
-
-            $open_plot_readireckoner_rate = null;
-            $builtup_area_readireckoner_rate = null;
-            $depreciation = null;
-            $usage_rate = null;
-            $home_tax_rate = null;
-            $health_tax_rate = null;
-            $lamp_tax_rate = null;
-            $water_tax_rate = null;
-
-            if ($property) {
-                if ($property->description === 'House' && $property->house_type === 'RCC') {
-                    $open_plot_readireckoner_rate = $details->rcc_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->rcc_builtup_area_readireckoner_rate;
-                    $depreciation = $details->rcc_depreciation_rate;
-                    $usage_rate = $details->rcc_usage_rate;
-                    $home_tax_rate = $details->rcc_tax_rate;
-                    $health_tax_rate = $details->rcc_health_tax;
-                    $lamp_tax_rate = $details->rcc_lamp_tax;
-                    $water_tax_rate = $details->rcc_water_tax;
-                } elseif ($property->description === 'House' && $property->house_type === 'Flat') {
-                    $open_plot_readireckoner_rate = $details->flat_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->flat_builtup_area_readireckoner_rate;
-                    $depreciation = $details->flat_depreciation_rate;
-                    $usage_rate = $details->flat_usage_rate;
-                    $home_tax_rate = $details->flat_tax_rate;
-                    $health_tax_rate = $details->flat_health_tax;
-                    $lamp_tax_rate = $details->flat_lamp_tax;
-                    $water_tax_rate = $details->flat_water_tax;
-                } elseif ($property->description === 'House' && $property->house_type === 'Mud brick house') {
-                    $open_plot_readireckoner_rate = $details->mud_brick_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->mud_brick_builtup_area_readireckoner_rate;
-                    $depreciation = $details->mud_brick_depreciation_rate;
-                    $usage_rate = $details->mud_brick_usage_rate;
-                    $home_tax_rate = $details->mud_brick_tax_rate;
-                    $health_tax_rate = $details->mud_brick_health_tax;
-                    $lamp_tax_rate = $details->mud_brick_lamp_tax;
-                    $water_tax_rate = $details->mud_brick_water_tax;
-                } elseif ($property->description === 'House' && $property->house_type === 'House of sticks') {
-                    $open_plot_readireckoner_rate = $details->sticks_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->sticks_builtup_area_readireckoner_rate;
-                    $depreciation = $details->sticks_depreciation_rate;
-                    $usage_rate = $details->sticks_usage_rate;
-                    $home_tax_rate = $details->sticks_tax_rate;
-                    $health_tax_rate = $details->sticks_health_tax;
-                    $lamp_tax_rate = $details->sticks_lamp_tax;
-                    $water_tax_rate = $details->sticks_water_tax;
-                } elseif ($property->description === 'MIDC') {
-                    $open_plot_readireckoner_rate = $details->midc_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->midc_builtup_area_readireckoner_rate;
-                    $depreciation = $details->midc_depreciation_rate;
-                    $usage_rate = $details->midc_usage_rate;
-                    $home_tax_rate = $details->midc_tax_rate;
-                    $health_tax_rate = $details->midc_health_tax;
-                    $lamp_tax_rate = $details->midc_lamp_tax;
-                    $water_tax_rate = $details->midc_water_tax;
-                } elseif ($property->description === 'Commercial') {
-                    $open_plot_readireckoner_rate = $details->commercial_open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->commercial_builtup_area_readireckoner_rate;
-                    $depreciation = $details->commercial_depreciation_rate;
-                    $usage_rate = $details->commercial_usage_rate;
-                    $home_tax_rate = $details->commercial_tax_rate;
-                    $health_tax_rate = $details->commercial_health_tax;
-                    $lamp_tax_rate = $details->commercial_lamp_tax;
-                    $water_tax_rate = $details->commercial_water_tax;
-                } elseif ($property->description == "Open plot") {
-                    $open_plot_readireckoner_rate = $details->open_plot_readireckoner_rate;
-                    $builtup_area_readireckoner_rate = $details->open_plot_builtup_area_readireckoner_rate;
-                    $depreciation = $details->open_plot_depreciation_rate;
-                    $usage_rate = $details->open_plot_usage_rate;
-                    $home_tax_rate = $details->open_plot_tax_rate;
-                }
-            }
-
-            $details->open_plot_readireckoner_rate = $open_plot_readireckoner_rate;
-            $details->builtup_area_readireckoner_rate = $builtup_area_readireckoner_rate;
-            $details->depreciation = $depreciation;
-            $details->usage_rate = $usage_rate;
-            $details->home_tax_rate = $home_tax_rate;
-            $details->health_tax_rate = $health_tax_rate;
-            $details->lamp_tax_rate = $lamp_tax_rate;
-            $details->water_tax_rate = $water_tax_rate;
-            return $details;
-        });
-
-        //   dd($homeTaxes->first());
-        $homeTaxes = $homeTaxes->first();
-        $squareMeter = $homeTaxes->property->area_in_sqmt;
-        $open_plot_readireckoner_rate = $homeTaxes->open_plot_readireckoner_rate;
-        $builtup_area_readireckoner_rate = $homeTaxes->builtup_area_readireckoner_rate;
-        $depreciation = $homeTaxes->depreciation;
-        $usage_rate = $homeTaxes->usage_rate;
-        $home_tax_rate = $homeTaxes->home_tax_rate;
-
-        // // Calculate Capital Value
-         $capitalValue = ($squareMeter * $open_plot_readireckoner_rate) +
-        (($squareMeter * $builtup_area_readireckoner_rate * $depreciation) * $usage_rate);
-
-        // // // Calculate home tax
-        $homeTax = (($capitalValue / 1000) * $home_tax_rate);
-
-        // // // Get Total Tax including additional fixed taxes
-        if ($homeTaxes->property->description == "Open plot") {
-            $getTotalTax = $homeTax;
-        }else{
-            $getTotalTax = $homeTax +
-            ($homeTaxes->health_tax_rate ?? 0) +
-            ($homeTaxes->lamp_tax_rate ?? 0) +
-            ($homeTaxes->water_tax_rate ?? 0) +
-            ($homeTaxes->special_tax_rate ?? 0);
-        }
-        $homeTaxes->capital_value =  $capitalValue;
-         $homeTaxes->total_home_tax =  round($homeTax);
-        $homeTaxes->total_tax_amount = round($getTotalTax);
-        
-        return view('panchayat.pages.namuna_eight_nine.namuna_eight_details', compact('homeTaxes', 'taxYear'));
-
-    }
-   
-
-
     public function homeTaxDemandBill($id){
 
         $taxDetails = HomeTax::find($id);
-        $adminId = Auth::guard('admin')->user()->id;
+        $adminId = Auth::guard('panvchayat')->user()->id;
         
         // $homeTaxes = HomeTax::with('property')
         //     ->where('property_id', $taxDetails->property_id)
@@ -1904,8 +1891,8 @@ class TaxCalculationController extends Controller
     public function homeTaxPaymentRecipt($id)
     {
         $taxDetails = HomeTax::find($id);
-        // dd($taxDetails); 
-        $adminId = Auth::guard('admin')->user()->id;
+        //  dd($taxDetails); 
+        $adminId = Auth::guard('panchayat')->user()->id;
 
         if ($taxDetails->panchayat_id != $adminId) {
             return back()->with('error', 'You are not authorized to access this record');
@@ -2082,7 +2069,7 @@ class TaxCalculationController extends Controller
             });
 
         $tax = $homeTaxes->first();
-        $panchayatId = Auth::guard('admin')->user()->id;
+        $panchayatId = Auth::guard('panchayat')->user()->id;
         
         // Get previous year tax data
         $previousYearTax = HomeTax::where('property_id', $taxDetails->property_id)

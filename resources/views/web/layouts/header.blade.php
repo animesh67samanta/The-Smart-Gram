@@ -32,7 +32,7 @@
                   Log in
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="{{route('panchayat.login')}}">Officer login</a></li>
+                  <li><a class="dropdown-item" href="{{route('officer.login')}}">Officer login</a></li>
                   <li><a class="dropdown-item" href="{{route('panchayat.login')}}">Panchayat login</a></li>
                 </ul>
               </li>

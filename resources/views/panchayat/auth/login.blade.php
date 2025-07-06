@@ -23,7 +23,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<title>The Smart Gram Panchayat</title>
 </head>
-
+<style>
+	.card-body{
+		background-color: transparent !important;
+	}
+</style>
 <body class="bg-theme bg-theme2">
 	<!--wrapper-->
 	<div class="wrapper">
@@ -35,7 +39,7 @@
 							<div class="card-body">
 								<div class="p-4">
 									<div class="mb-3 text-center">
-										<img src="{{asset('admin/assets/images/logo-icon.png')}}" width="60px" height="60px" alt="" style="background: white;" />
+										<img src="{{asset('admin/assets/images/logo-icon.png')}}" width="50%" height="110px" alt=""  />
 									</div>
 									<div class="text-center mb-4">
 										<h5 class="">The Smart Gram Panchayat</h5>
@@ -46,12 +50,12 @@
                                             @csrf
 											<div class="col-12">
 												<label for="inputEmailAddress" class="form-label">Email</label>
-												<input type="email" name="email" class="form-control" id="inputEmailAddress" placeholder="Enter Your Email">
+												<input type="email" name="email" class="form-control" id="inputEmailAddress" placeholder="Enter Your Email" required>
 											</div>
 											<div class="col-12">
 												<label for="inputChoosePassword" class="form-label">Password</label>
 												<div class="input-group" id="show_hide_password">
-													<input type="password" name="password" class="form-control border-end-0" id="inputChoosePassword"  placeholder="Enter Password"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+													<input type="password" name="password" class="form-control border-end-0" id="inputChoosePassword"  placeholder="Enter Password" required> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
 												</div>
 											</div>
 											<div class="col-md-6">

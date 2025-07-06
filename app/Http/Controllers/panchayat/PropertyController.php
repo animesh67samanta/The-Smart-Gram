@@ -16,11 +16,10 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $userId = Auth::guard('admin')->user()->id;
-        $properties = Property::where('panchayat_id', $userId) ->orderBy('sequence', 'asc')->get();
+        $userId = Auth::guard('panchayat')->user()->id;
         $panchayats = Admin::where('user_type','panchayat')->orderby('id','asc')->find($userId);
-        // dd($panchayats);
-        return view('panchayat.pages.properties.property_list',compact('properties','panchayats'));
+        $properties = Property::where('panchayat_id', $userId)->get();
+        return view('panchayat.pages.properties.property_list', compact('properties', 'panchayats'));
     }
 
     /**
@@ -53,7 +52,7 @@ class PropertyController extends Controller
 
         // Create the property
         $property = Property::create([
-            'panchayat_id' => Auth::guard('admin')->user()->id,
+            'panchayat_id' => Auth::guard('panchayat')->user()->id,
             'street_name' => $request->street_name,
             'street_name_mr' => GoogleTranslate::trans($request->street_name, 'mr'),
             'ct_survey_no' => $request->ct_survey_no,
@@ -86,7 +85,7 @@ class PropertyController extends Controller
             'csv_file' => 'required|file',
         ]);
 
-        $panchayatId = optional(Auth::guard('admin')->user())->id;
+        $panchayatId = optional(Auth::guard('panchayat')->user())->id;
         if (!$panchayatId) {
             abort(403, 'Unauthorized');
         }

@@ -7,23 +7,29 @@ File: app.css
 */
 
 /*
-  - Google Font
-  - General
-  - Sidebar
-  - Header
-  - Metismenu
-  - Extra CSS
-  - Invoice Page
-  - Chat box
-  - Email box
-  - Compose Mail
-  - Navs and Tabs
-  - Background Colors
-  - Authentication
-  - Buttons
-  - Pricing Table
-  - Forms
-  - Responsive
+  /* 
+    - Google Font
+    - General
+    - Sidebar
+    - Header
+      - Header menu styles
+      - Ensure header menu is aligned and responsive
+      - Add spacing and hover effect for header menu items
+      - Style user dropdown for header
+    - Metismenu
+    - Extra CSS
+    - Invoice Page
+    - Chat box
+    - Email box
+    - Compose Mail
+    - Navs and Tabs
+    - Background Colors
+    - Authentication
+    - Buttons
+    - Pricing Table
+    - Forms
+    - Responsive
+  */
 */
 
 
@@ -105,7 +111,7 @@ a {
 
 	z-index: 5;
 
-	background: rgb(255 255 255 / 12%);
+	background: #fff;
 
     border-bottom: 1px solid rgb(255 255 255 / 12%);
 
@@ -113,9 +119,16 @@ a {
 
 }
 
+/* .logo-icon {
+    width: 50%; */
+    /* margin-left: 42px; */
 .logo-icon {
-    width: 90px;
-    margin-left: 42px;
+    width: 100%;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .logo-text {
@@ -138,7 +151,7 @@ a {
 
 	cursor: pointer;
 
-	color: #ffffff
+	color: #1633f0
 
 }
 
@@ -516,7 +529,7 @@ input{
 
 	.wrapper.toggled.sidebar-hovered .sidebar-header {
 
-		background-color: #171717;
+		background-color: #fff;
 
 		border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 
@@ -671,7 +684,10 @@ input{
 	}
 
 }
-
+.user-info{
+    right: 53px;		
+    position: relative;
+}
 .back-to-top {
 
 	display: none;
@@ -3251,9 +3267,9 @@ input::placeholder {
 
 	justify-content: center;
 
-	width: 42px;
+	width: 60px;
 
-	height: 42px;
+	height: 60px;
 
 	transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 
@@ -3265,9 +3281,11 @@ input::placeholder {
 
 .topbar .navbar .navbar-nav .nav-link:focus {
 
-	background-color: rgba(255, 255, 255, 0.15);
+	/* background-color: rgba(255, 255, 255, 0.15); */
+	background-color: transparent;
 
-    color: #ffffff;
+
+    color: transparent;
 
 }
 
@@ -4318,7 +4336,7 @@ body.bg-theme15 {
 
 	.sidebar-header {
 
-		background: #171717;
+		background: #fff;
 
 	}
 

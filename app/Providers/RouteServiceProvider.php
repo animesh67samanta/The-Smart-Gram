@@ -31,6 +31,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapPanchayatRoutes();
 
+        $this->mapOfficerRoutes();
+
 
 
 
@@ -86,6 +88,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
         ->group(base_path('routes/panchayat.php'));
+    }
+
+    public function mapOfficerRoutes()
+    {
+        Route::middleware('web')
+        ->group(base_path('routes/officer.php'));
     }
 
 

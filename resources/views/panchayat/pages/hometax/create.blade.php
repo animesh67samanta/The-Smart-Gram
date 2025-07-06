@@ -58,7 +58,7 @@
                                 </div>
                                 
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn admin-btn-decorate">
+                                    <button type="submit" class="btn btn-success">
                                         Bill Create
                                     </button>
                                 </div>

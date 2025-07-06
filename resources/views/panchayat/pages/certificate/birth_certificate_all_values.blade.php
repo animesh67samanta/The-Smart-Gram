@@ -26,7 +26,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-3 col-form-label">Panchayat Name:</label>
                     <div class="col-sm-9">
-                        <p class="form-control-plaintext text-white">{{  Auth::guard('admin')->user()->name  }}</p>
+                        <p class="form-control-plaintext text-white">{{  Auth::guard('panchayat')->user()->name  }}</p>
                     </div>
                 </div>
                 <div class="row mb-3">

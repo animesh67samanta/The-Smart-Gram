@@ -419,7 +419,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn admin-btn-decorate">Add Panchayat Tax</button>
+                                    <button type="submit" class="btn btn-success">Add Panchayat Tax</button>
                                 </div>
                             </form>
                         </div>

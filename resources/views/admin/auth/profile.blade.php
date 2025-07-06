@@ -8,7 +8,7 @@
                 <div class="breadcrumb-title pe-3">Admin</div>
                 <div>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0 p-0">
+                        <ol class="breadcrumb mb-0 p-2">
                             <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">Profile</li>
@@ -38,7 +38,7 @@
                         </div> --}}
                         <div class="col-lg-12">
                             <div class="card">
-                                <form action="{{ route('admin.profile.update') }}" method="post"
+                                <form
                                     class="jQueryValidationForm profile_update">
                                     @csrf
                                     <div class="card-body">
@@ -82,7 +82,7 @@
                                         <div class="row">
                                             <div class="col-sm-3"></div>
                                             <div class="col-sm-9">
-                                                <input type="submit" class="btn btn-light px-4" value="Save Changes" />
+                                                <input type="submit" class="btn btn-success px-4" value="Save Changes" />
                                             </div>
                                         </div>
                                     </div>
@@ -93,8 +93,8 @@
                         {{-- <div class="col-lg-4"></div> --}}
                         <div class="col-lg-12">
                             <div class="card">
-                                <form action="{{ route('admin.password.update') }}"
-                                    class="jQueryValidationForm change-password-form" method="post">
+                                <form 
+                                    class="jQueryValidationForm change-password-form">
                                     @csrf
                                     <div class="card-body profile-input">
                                         <div class="row mb-3">
@@ -129,7 +129,7 @@
                                         <div class="row">
                                             <div class="col-sm-3"></div>
                                             <div class="col-sm-9">
-                                                <input type="submit" class="btn btn-light px-4" value="Save Changes" />
+                                                <input type="submit" class="btn btn-success px-4" value="Save Changes" />
                                             </div>
                                         </div>
                                     </div>
@@ -160,9 +160,9 @@
                         data: formData,
                         success: function(response) {
                             if (response.success) {
-                                toastr.success('Password updated successfully!');
+                                toastr.success('Profile updated successfully!');
                             } else {
-                                toastr.error(response.message || 'Failed to update password.');
+                                toastr.error(response.message || 'Failed to update profile.');
                             }
                         },
                         error: function(response) {

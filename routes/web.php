@@ -14,4 +14,4 @@ Route::get('marriageCertificate/{id}', [CertificateScanController::class, 'marri
 Route::get('/', [WebviewController::class, 'index'])->name('webview.index');
 Route::get('/about-us', [WebviewController::class, 'aboutUs'])->name('webview.aboutus');
 Route::get('/contact-us', [WebviewController::class, 'contactUs'])->name('webview.contactus');
-
+Route::post('/contact-us-submit', [WebviewController::class, 'contactUsSubmit'])->name('contactUs.submit');

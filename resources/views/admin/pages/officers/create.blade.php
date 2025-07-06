@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                    <button type="submit" class="btn admin-btn-decorate">Officer Add</button>
+                                    <button type="submit" class="btn btn-success">Officer Add</button>
                                 </div>
                             </form>
                         </div>

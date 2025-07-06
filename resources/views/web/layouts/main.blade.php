@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Gram Panchayat</title>
+  <link rel="icon" href="{{asset('admin/assets/images/logo-icon.png')}}" type="image/png" />
+  <title>The Smart Gram Panchayat</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -53,7 +54,11 @@
     margin: 10,
     nav: true, // Enables navigation arrows
     dots: false,
-    navText: ["<", ">"], // Adds text or icons to the buttons
+    navText: [
+            '<i class="fas fa-chevron-left"></i>', 
+            '<i class="fas fa-chevron-right"></i>'
+        ],                 // Using Font Awesome icons
+    // navText: ["<", ">"], // Adds text or icons to the buttons
     autoplay: true, // Enables autoplay
     autoplayTimeout: 3000, // Sets autoplay interval to 3 seconds (3000ms)
     responsive: {
@@ -63,6 +68,8 @@
     }
     });
     });
+
+    
 
 </script>
     
@@ -82,10 +89,15 @@
     600: {items: 2 },
     1000: {items: 4}
     },
-    navText: ["<", ">"] // Custom navigation text
+    navText: [
+            '<i class="fas fa-chevron-left"></i>', 
+            '<i class="fas fa-chevron-right"></i>'
+        ] // Using Font Awesome icons
+    // navText: ["<", ">"] // Custom navigation text
     });
     });
     
+
 </script>
 
 

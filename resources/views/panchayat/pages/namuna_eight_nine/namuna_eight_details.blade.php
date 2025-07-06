@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('admin/assets/images/logo-icon.png') }}" type="image/png">
+
     <title>Namuna No. 8 Form </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/fontawesome.min.css" />
@@ -128,7 +130,7 @@
 </head>
 <body>
     <?php
-        $add = explode(',', Auth::guard('admin')->user()->address_mr); 
+        $add = explode(',', Auth::guard('panchayat')->user()->address_mr); 
     ?>
     <div class="container-fluid">
         
@@ -138,9 +140,9 @@
             
         </div>
         <div class="row mt-3 mb-2">  
-            <div class="col-4" style="text-align: left;">ग्रामपंचायत : {{ Auth::guard('admin')->user()->name_mr }}</div>
-            <div class="col-4">तालुका : {{ $add[0]}}</div>
-            <div class="col-4" style="text-align: right;">जिल्हा : {{ $add[1] }}</div>
+            <div class="col-4" style="text-align: left;">ग्रामपंचायत : {{ Auth::guard('panchayat')->user()->name_mr }}</div>
+            <div class="col-4"> {{ $add[0]}}</div>
+            <div class="col-4" style="text-align: right;">{{ $add[1] }}</div>
         </div>
         <table>
             <thead>
